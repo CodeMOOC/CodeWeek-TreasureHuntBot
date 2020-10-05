@@ -23,13 +23,13 @@ services:
     - treasurehunt-backend
     env_file: config.env
 
-#  db-client:
-#    build: ./src/MysqlClient
-#    depends_on:
-#    - db
-#    networks:
-#    - treasurehunt-backend
-#    env_file: config.env
+  db-client:
+    build: ./mysql-client
+    depends_on:
+    - db
+    networks:
+    - treasurehunt-backend
+    env_file: config.env
 
   database-manager:
     image: phpmyadmin/phpmyadmin:latest
