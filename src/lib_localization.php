@@ -16,34 +16,34 @@ require_once(dirname(__FILE__) . '/lib_log.php');
 // using the first two characters.
 const LANGUAGE_LOCALE_MAP = array(
     //'de' => 'de_DE.utf8',
-    'el' => 'el_GR.utf8',
+    //'el' => 'el_GR.utf8',
     'en-US' => 'en_US.utf8',
-    'es' => 'es_ES.utf8',
-    'en' => 'en_US.utf8',
+    //'es' => 'es_ES.utf8',
+    //'en' => 'en_US.utf8',
     //'fr' => 'fr_FR.utf8',
     //'hr' => 'hr_HR.utf8',
-    'hu' => 'hu_HU.utf8',
-    'it' => 'it_IT.utf8',
+    //'hu' => 'hu_HU.utf8',
+    //'it' => 'it_IT.utf8',
     //'nl' => 'nl_NL.utf8'
     //'ru' => 'ru_RU.utf8',
     //'sk' => 'sk_SK.utf8',
-    'sl' => 'sl_SI.utf8',
-    'sv' => 'sv_SE.utf8'
+    //'sl' => 'sl_SI.utf8',
+    //'sv' => 'sv_SE.utf8'
 );
 
 // This array maps ISO language codes to user-readable representations of the
 // language, localized to the target language.
 const LANGUAGE_NAME_MAP = array(
-    'el' => 'Greek 🇬🇷',
+    //'el' => 'Greek 🇬🇷',
     'en-US' => 'English 🇺🇸',
-    'es' => 'Español 🇪🇸',
+    //'es' => 'Español 🇪🇸',
     //'hr' => 'Hrvatski 🇭🇷',
-    'hu' => 'Magyar 🇭🇺',
-    'it' => 'Italiano 🇮🇹',
+    //'hu' => 'Magyar 🇭🇺',
+    //'it' => 'Italiano 🇮🇹',
     //'ru' => 'Русский 🇷🇺',
     //'sk' => 'Slovenčina 🇸🇰',
-    'sl' => 'Slovenščina 🇸🇮',
-    'sv' => 'Svenska 🇸🇪'
+    //'sl' => 'Slovenščina 🇸🇮',
+    //'sv' => 'Svenska 🇸🇪'
 );
 
 function localization_get_locale_for_iso($iso_code) {
