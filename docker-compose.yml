@@ -1,0 +1,47 @@
+version: '3'
+networks:
+  web:
+    external: true
+  treasurehunt-backend:
+
+services:
+  webhook:
+    build: ./src
+    depends_on:
+    - db
+    networks:
+    - web
+    - treasurehunt-backend
+    env_file:
+    - config.env
+    expose:
+    - 80
+
+  db:
+    image: mysql:5.7.31
+    networks:
+    - treasurehunt-backend
+    env_file: config.env
+
+#  db-client:
+#    build: ./src/MysqlClient
+#    depends_on:
+#    - db
+#    networks:
+#    - treasurehunt-backend
+#    env_file: config.env
+
+  database-manager:
+    image: phpmyadmin/phpmyadmin:latest
+    depends_on:
+    - db
+    networks:
+    - web
+    - treasurehunt-backend
+    env_file: config.env
+    environment:
+    - "PMA_HOST=db"
+    expose:
+    - "80"
+    stdin_open: true
+    tty: true

@@ -2,7 +2,6 @@
 .vscode/*
 */php_errors.log
 */pull-last-update.txt
-*/config.php
 images/*
 !images/default.jpg
 !images/final_riddle_placeholder.jpg
@@ -24,3 +23,5 @@ data/selfies/*
 translation/**/*.mo
 html2pdf/vendor/
 html2pdf/images/signature_ab\.png
+docker-compose.custom.yml
+config.env
