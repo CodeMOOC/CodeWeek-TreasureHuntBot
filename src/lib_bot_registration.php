@@ -71,13 +71,20 @@ function bot_register($context, $game_id) {
 
     $quick_start = (bool)$game_info[4];
 
+    // Pre-generate final destination (TODO: this must be extracted/made optional)
+    $final_location_id = db_scalar_query(sprintf(
+        'SELECT `location_id` FROM `locations` WHERE `game_id` = %d ORDER BY RAND() LIMIT 1',
+        $game_id
+    ));
+
     // Perform group registration
     if(db_perform_action(sprintf(
-        "INSERT INTO `groups` (`game_id`, `group_id`, `state`, `registered_on`, `last_state_change`, `timeout_absolute`) VALUES(%d, %d, %d, NOW(), NOW(), %s)",
+        "INSERT INTO `groups` (`game_id`, `group_id`, `state`, `registered_on`, `last_state_change`, `timeout_absolute`, `final_location_id`) VALUES(%d, %d, %d, NOW(), NOW(), %s, %d)",
         $game_id,
         $context->get_internal_id(),
         ($quick_start) ? STATE_REG_READY : STATE_NEW,
-        $game_timeout
+        $game_timeout,
+        $final_location_id
     )) === false) {
         Logger::error("Failed to register group status", __FILE__, $context);
         return false;

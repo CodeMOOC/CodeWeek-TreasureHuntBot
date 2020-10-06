@@ -35,6 +35,7 @@ class Game {
     public  $group_name = '';
     public  $group_state = STATE_INVALID;
     public  $group_participants = 1;
+    public  $group_final_destination_id = NULL;
 
     function __construct($game_id, $is_admin, $owning_context) {
         $this->owning_context = $owning_context;
@@ -127,7 +128,7 @@ class Game {
 
         // Load group data, this SHOULD be non-null
         $group_data = db_row_query(sprintf(
-            "SELECT `name`, `state`, IF(`timeout_absolute` IS NULL, 0, TIMEDIFF(NOW(), `timeout_absolute`) > 0) AS `timed_out`, `participants_count` FROM `groups` WHERE `group_id` = %d AND `game_id` = %d",
+            "SELECT `name`, `state`, IF(`timeout_absolute` IS NULL, 0, TIMEDIFF(NOW(), `timeout_absolute`) > 0) AS `timed_out`, `participants_count`, `final_location_id` FROM `groups` WHERE `group_id` = %d AND `game_id` = %d",
             $this->owning_context->get_internal_id(),
             $this->game_id
         ));
@@ -137,6 +138,9 @@ class Game {
             $this->group_state = (int)$group_data[1];
             $this->group_participants = intval($group_data[3]);
             $this->game_timed_out = (boolean)$group_data[2];
+            if($group_data[4]) {
+                $this->group_final_destination_id = intval($group_data[4]);
+            }
 
             Logger::debug(sprintf(
                 "User in registered group '%s', state %s (%d), timed out %s",

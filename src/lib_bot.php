@@ -74,6 +74,11 @@ function bot_get_first_location_id($context) {
  * Get ID of the last location of the game.
  */
 function bot_get_last_location_id($context) {
+    // If destination is set for group, return that one
+    if($context->game->group_final_destination_id) {
+        return $context->game->group_final_destination_id;
+    }
+
     return db_scalar_query(sprintf(
         "SELECT `location_id` FROM `locations` WHERE `game_id` = %d AND `is_end` = 1 LIMIT 1",
         $context->game->game_id
@@ -182,10 +187,11 @@ function bot_advance_track_location($context, $group_id = null) {
     }
     else {
         $next_location_id = db_scalar_query(sprintf(
-            'SELECT `location_id` FROM `locations` WHERE `game_id` = %1$d AND `cluster_id` = %2$d AND `is_start` = 0 AND `is_end` = 0 AND `location_id` NOT IN (SELECT `location_id` FROM `assigned_locations` WHERE `game_id` = %1$d AND `group_id` = %3$d) ORDER BY RAND() LIMIT 1',
+            'SELECT `location_id` FROM `locations` WHERE `game_id` = %1$d AND `cluster_id` = %2$d AND `is_start` = 0 AND `is_end` = 0 AND `location_id` != %4$d AND `location_id` NOT IN (SELECT `location_id` FROM `assigned_locations` WHERE `game_id` = %1$d AND `group_id` = %3$d) ORDER BY RAND() LIMIT 1',
             $context->game->game_id,
             $next_cluster_id,
-            $group_id
+            $group_id,
+            $context->game->group_final_destination_id
         ));
 
         if(!$next_location_id) {

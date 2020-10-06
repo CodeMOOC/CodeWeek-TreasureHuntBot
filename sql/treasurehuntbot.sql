@@ -238,7 +238,8 @@ CREATE TABLE `groups` (
   `photo_path` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'Path to the group''s photo',
   `registered_on` datetime NOT NULL COMMENT 'Original generation timestamp',
   `last_state_change` datetime NOT NULL COMMENT 'Timestamp of last state change',
-  `timeout_absolute` datetime DEFAULT NULL COMMENT 'Absolute timeout when game ends for this group'
+  `timeout_absolute` datetime DEFAULT NULL COMMENT 'Absolute timeout when game ends for this group',
+  `final_location_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
