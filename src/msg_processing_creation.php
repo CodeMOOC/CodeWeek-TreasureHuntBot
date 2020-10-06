@@ -213,7 +213,7 @@ $msg_processing_creation_handlers = array(
                 $file_info = telegram_get_file_info($context->message->get_photo_max_id());
                 $file_path = $file_info['file_path'];
                 $local_path = "{$context->game->game_id}-final.jpg";
-                telegram_download_file($file_path, "../data/locations/{$local_path}");
+                telegram_download_file($file_path, "/data/locations/{$local_path}");
 
                 Logger::info("Stored location picture from {$file_path} to {$local_path}", __FILE__, $context);
 
@@ -294,7 +294,7 @@ $msg_processing_creation_handlers = array(
                 $file_info = telegram_get_file_info($context->message->get_photo_max_id());
                 $file_path = $file_info['file_path'];
                 $local_path = "{$context->game->game_id}-" . ($count + 1) . '.jpg';
-                telegram_download_file($file_path, "../data/locations/{$local_path}");
+                telegram_download_file($file_path, "/data/locations/{$local_path}");
 
                 Logger::info("Stored location picture from {$file_path} to {$local_path}", __FILE__, $context);
 

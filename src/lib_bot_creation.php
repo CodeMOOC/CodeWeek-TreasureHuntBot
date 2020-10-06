@@ -427,7 +427,7 @@ function bot_creation_generate_code_pdf($context, $template_name, $location_id, 
         'php %s "%s" "%s"',
         $rootdir . '/html2pdf/qrcode-gen.php',
         BOT_DEEPLINK_START_ROOT . urlencode($code),
-        $rootdir . '/data/qrcodes/tmp/game-' . $context->game->game_id . "-{$filename_part}.png"
+        '/data/qrcodes/tmp/game-' . $context->game->game_id . "-{$filename_part}.png"
     ));
 
     // Generating PDF
@@ -435,8 +435,8 @@ function bot_creation_generate_code_pdf($context, $template_name, $location_id, 
         'php %s "%s" "%s" "%s" "%F" "%F" "%s" "%d" "%s"',
         $rootdir . '/html2pdf/pdf-gen.php',
         $rootdir . '/html2pdf/' . $template_name,
-        $rootdir . '/data/qrcodes/tmp/game-' . $context->game->game_id . "-{$filename_part}.pdf",
-        $rootdir . '/data/qrcodes/tmp/game-' . $context->game->game_id . "-{$filename_part}.png",
+        '/data/qrcodes/tmp/game-' . $context->game->game_id . "-{$filename_part}.pdf",
+        '/data/qrcodes/tmp/game-' . $context->game->game_id . "-{$filename_part}.png",
         $lat,
         $lng,
         $name,
@@ -453,8 +453,7 @@ function bot_creation_generate_code_pdf($context, $template_name, $location_id, 
 function bot_creation_generate_codes($context) {
     Logger::info("Generating QR Codes for game {$context->game->game_id}", __FILE__, $context);
 
-    $rootdir = realpath(dirname(__FILE__) . '/..');
-    $final_file = $rootdir . "/data/qrcodes/game-{$context->game->game_id}.zip";
+    $final_file = "/data/qrcodes/game-{$context->game->game_id}.zip";
 
     // Registration code
     $registration_code = db_scalar_query(sprintf(
@@ -490,13 +489,13 @@ function bot_creation_generate_codes($context) {
     exec(sprintf(
         'zip -Djq "%s" %s',
         $final_file . '.tmp',
-        $rootdir . "/data/qrcodes/tmp/game-{$context->game->game_id}-*.pdf"
+        "/data/qrcodes/tmp/game-{$context->game->game_id}-*.pdf"
     ));
 
     // Clean up temp files
     exec(sprintf(
         'rm %s',
-        $rootdir . "/data/qrcodes/tmp/game-{$context->game->game_id}*"
+        "/data/qrcodes/tmp/game-{$context->game->game_id}*"
     ));
 
     // Switch trick to signal file as ready
@@ -516,8 +515,7 @@ function bot_creation_generate_codes($context) {
  * @return Path to the file or false if not ready.
  */
 function bot_creation_check_codes($context) {
-    $rootdir = realpath(dirname(__FILE__) . '/..');
-    $final_file = $rootdir . "/data/qrcodes/game-{$context->game->game_id}.zip";
+    $final_file = "/data/qrcodes/game-{$context->game->game_id}.zip";
 
     return (file_exists($final_file)) ? $final_file : false;
 }

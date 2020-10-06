@@ -254,7 +254,7 @@ function msg_processing_handle_group_response($context) {
                 $file_info = telegram_get_file_info($context->message->get_photo_max_id());
                 $file_path = $file_info['file_path'];
                 $local_path = "{$context->game->game_id}-{$context->get_internal_id()}.jpg";
-                telegram_download_file($file_path, "../data/avatars/$local_path");
+                telegram_download_file($file_path, "/data/avatars/$local_path");
 
                 bot_set_group_photo($context, $local_path);
                 bot_set_group_state($context, STATE_REG_READY);
@@ -347,14 +347,13 @@ function msg_processing_handle_group_response($context) {
                 $file_info = telegram_get_file_info($context->message->get_photo_max_id());
                 $file_path = $file_info['file_path'];
                 $local_path = "{$context->game->game_id}-{$context->get_internal_id()}-{$reached_locations_count}";
-                telegram_download_file($file_path, "../data/selfies/{$local_path}.jpg");
+                telegram_download_file($file_path, "/data/selfies/{$local_path}.jpg");
 
                 // Process selfie and optional badge
                 if($context->game->badge_overlay_image) {
-                    $rootdir = realpath(dirname(__FILE__) . '/..');
-                    exec("convert {$rootdir}/data/selfies/{$local_path}.jpg -resize 1600x1600^ -gravity center -crop 1600x1600+0+0 +repage {$rootdir}/{$context->game->badge_overlay_image} -composite {$rootdir}/data/badges/{$local_path}.jpg");
+                    exec("convert /data/selfies/{$local_path}.jpg -resize 1600x1600^ -gravity center -crop 1600x1600+0+0 +repage {$context->game->badge_overlay_image} -composite /data/badges/{$local_path}.jpg");
 
-                    $context->comm->picture("../data/badges/{$local_path}.jpg", __('game_selfie_response_badge'));
+                    $context->comm->picture("/data/badges/{$local_path}.jpg", __('game_selfie_response_badge'));
                 }
                 else {
                     $context->comm->reply(__('game_selfie_response_ok'));
@@ -441,7 +440,7 @@ function msg_processing_handle_group_response($context) {
                         $caption_text = ($location_info[2]) ? $location_info[2] : null;
 
                         $context->comm->picture(
-                            '../data/locations/' . $location_info[3], $caption_text, null, $hint_keyboard
+                            '/data/locations/' . $location_info[3], $caption_text, null, $hint_keyboard
                         );
                     }
                     else if($location_info[2]) {
@@ -473,7 +472,7 @@ function msg_processing_handle_group_response($context) {
                 $file_info = telegram_get_file_info($context->message->get_photo_max_id());
                 $file_path = $file_info['file_path'];
                 $local_path = "{$context->game->game_id}-{$context->get_internal_id()}-final";
-                telegram_download_file($file_path, "../data/selfies/{$local_path}.jpg");
+                telegram_download_file($file_path, "/data/selfies/{$local_path}.jpg");
 
                 $context->comm->reply(__('game_last_selfie_response_ok'));
 
@@ -660,10 +659,10 @@ function msg_processing_handle_group_response($context) {
 
                     Logger::debug("Generating montage with identifier {$identifier}", __FILE__, $context);
 
-                    exec("montage {$rootdir}/data/selfies/{$identifier}-*.jpg -background \"#0000\" -auto-orient -geometry 150x150 +polaroid -tile {$total_locations_count}x1 {$rootdir}/data/certificates/{$identifier}-montage.png");
+                    exec("montage /data/selfies/{$identifier}-*.jpg -background \"#0000\" -auto-orient -geometry 150x150 +polaroid -tile {$total_locations_count}x1 /data/certificates/{$identifier}-montage.png");
 
                     Logger::debug("Generating certificate", __FILE__, $context);
-                    $certificate_path = "{$rootdir}/data/certificates/{$identifier}-certificate.pdf";
+                    $certificate_path = "/data/certificates/{$identifier}-certificate.pdf";
 
                     exec("php {$rootdir}/html2pdf/cert-gen.php \"{$certificate_path}\" {$context->game->group_participants} \"" . addslashes($context->game->group_name) . "\" \"completed\" \"{$context->game->game_name}\" \"{$identifier}\"");
 

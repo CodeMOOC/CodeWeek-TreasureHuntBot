@@ -42,9 +42,9 @@ foreach($groups as $group_info) {
 
     printf("Generating montage...\n");
 
-    exec("montage {$rootdir}/data/selfies/{$identifier}-*.jpg -background \"#0000\" -auto-orient -geometry 150x150 +polaroid -tile {$total_locations_count}x1 {$rootdir}/data/certificates/individual/{$identifier}-montage.png");
+    exec("montage /data/selfies/{$identifier}-*.jpg -background \"#0000\" -auto-orient -geometry 150x150 +polaroid -tile {$total_locations_count}x1 /data/certificates/individual/{$identifier}-montage.png");
 
     printf("Generating certificate...\n");
 
-    exec("php {$rootdir}/html2pdf/ind-cert-gen.php \"{$rootdir}/data/certificates/individual/{$identifier}-certificate.pdf\" 0 \"{$group_info[1]}\" \"completed\" \"{$group_info[3]}\" \"{$identifier}\"");
+    exec("php {$rootdir}/html2pdf/ind-cert-gen.php \"/data/certificates/individual/{$identifier}-certificate.pdf\" 0 \"{$group_info[1]}\" \"completed\" \"{$group_info[3]}\" \"{$identifier}\"");
 }

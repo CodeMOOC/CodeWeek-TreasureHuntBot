@@ -12,6 +12,8 @@ services:
     networks:
     - web
     - treasurehunt-backend
+    volumes:
+    - ./data:/data:rw
     env_file:
     - config.env
     expose:
