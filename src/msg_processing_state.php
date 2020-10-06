@@ -46,12 +46,14 @@ function msg_processing_handle_group_state($context) {
             return true;
 
         case STATE_REG_READY:
-            if($context->game->game_channel_name) {
-                $context->comm->reply(__('registration_ready_state_with_channel'));
+            $context->comm->reply("Let’s start right away! Here is your first coding quiz. 💡");
+
+            // Go straight to riddle and next location!
+            $riddle_id = bot_assign_random_riddle($context);
+            if($riddle_id === false || $riddle_id === null) {
+                $context->comm->reply(__('failure_general'));
             }
-            else {
-                $context->comm->reply(__('registration_ready_state_without_channel'));
-            }
+
             return true;
 
         /* GAME */
@@ -275,13 +277,7 @@ function msg_processing_handle_group_response($context) {
             return true;
 
         case STATE_REG_READY:
-            // Go straight to riddle and next location!
-            $riddle_id = bot_assign_random_riddle($context);
-            if($riddle_id === false || $riddle_id === null) {
-                $context->comm->reply(__('failure_general'));
-                return true;
-            }
-
+            // Nop
             return true;
 
         /* GAME */
