@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: treasure-hunt-bot\n"
 "PO-Revision-Date: 2018-05-03 18:25-0400\n"
 "Last-Translator: LorenzCK <lck@klopfenstein.net>\n"
-"Language-Team: Spanish\n"
+"Language-Team: Hungarian\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -11,54 +11,53 @@ msgstr ""
 "X-Generator: crowdin.com\n"
 "POT-Creation-Date: 2017-09-15 10:27+0200\n"
 "X-Crowdin-Project: treasure-hunt-bot\n"
-"X-Crowdin-Language: es-ES\n"
+"X-Crowdin-Language: hu\n"
 "X-Crowdin-File: text.pot\n"
-"Language: es_ES\n"
+"Language: hu_HU\n"
 
 # Name of any group before having a name assigned
 msgid "unnamed_group"
-msgstr "grupo sin nombre"
+msgstr "Névtelen"
 
 # General failure message
 msgid "failure_general"
-msgstr "Algo no ha funcionado correctamente. Volved a provar más tarde"
+msgstr "Upsz, ez kellemetlen... valami nem működött. Kérlek, próbáld meg később!"
 
 # Failure: user is not registered to the game with a group
 msgid "failure_group_not_found"
-msgstr "No estáis registrados en el juego. 🤔"
+msgstr "Úgy tűnik, hogy nem regisztráltál a játékra."
 
 # Failure: user team is already registered and ready
 msgid "failure_group_already_active"
-msgstr "Estáis listos para jugar"
+msgstr "Készen álltok a játékra."
 
 # Failure: user team is not ready to play and attempted to play
 msgid "failure_group_invalid_state"
-msgstr "Parece que vuestro equipo no está listo para jugar. Seguid las instrucciones que habéis recibido"
+msgstr "Úgy tűnik, hogy a csapatod nem áll készen a játékra 🙁 Kérlek, kövesd a kapott útmutatót."
 
 # Failure: internal error of a DB query
 msgid "failure_query"
-msgstr "Error en el acceso a la base de datos"
+msgstr "Adatbázis-elérési hiba."
 
 # Failure: current event of the game is not ready (i.e., cannot be played yet)
 msgid "failure_event_not_ready"
-msgstr "El evento “%EVENT_NAME%” todavía no ha empezado"
+msgstr ""
 
 # Failure: current event of the game is over
 msgid "failure_event_over"
-msgstr "El evento “%EVENT_NAME%” ha finalizado. Gracias por jugar. 🙂"
+msgstr ""
 
 # Failure: current game has not yet been activated by administrator
 msgid "failure_game_not_ready"
-msgstr "El juego “%GAME_NAME%” todavía no está activo. Seguid las instrucciones de la organización"
+msgstr ""
 
 # Failure: current game has been closed and is over
 msgid "failure_game_dead"
-msgstr "El juego ha acabado. 🏁\n"
-"Nos vemos en el próximo evento <i>Code Hunting Games</i>!"
+msgstr ""
 
 # Response to /help command
 msgid "cmd_help"
-msgstr "Ayuda"
+msgstr "Segítség"
 
 # Response to test QR Code
 msgid "cmd_test"
@@ -66,239 +65,240 @@ msgstr ""
 
 # Response to naked /start command: greeting and general instructions
 msgid "cmd_start_new"
-msgstr "Hola, %FULL_NAME%! Bienvenidos al bot <b>Code Hunting Games</b>. Para participar debéis registraos en el juego: seguid las instrucciones de los organizadores"
+msgstr "Kedves %FULL_NAME%! Üdvözöl a <b>Code Hunting Games</b> játék bot. A játékban való részvételhez regisztrálnod kell egy játékra: kövesd a szervezők által adott útmutatást!"
 
 # Response to naked /start command: user is already registered for a game
 msgid "cmd_start_registered"
-msgstr "Bienvenidos de nevo, %FULL_NAME%! Este es el bot <b>Code Hunting Games</b>"
+msgstr "Üdv újra %FULL_NAME%! Ez a<b>Code Hunting Games</b> játék botja."
 
 # Response to victory code in invalid state
 msgid "cmd_start_prize_invalid"
-msgstr "Hmmm, parece que habéis encontrado el premio, pero <i>demasiado</i> pronto! 🤔"
+msgstr "Hmmm, úgy tűnik, megtaláltad a nyereményt, de sajnos <i>túl</i> korán! 🤔"
 
 # Response to victory code (first of game)
 msgid "cmd_start_prize_first"
-msgstr "🎉 <b>Felicidades!</b> 🎉\n"
-"Habéis resuelto el último reto correctamente y sois el primer equipo en completar el juego! 🏁"
+msgstr "🎉 <b>Gratulálunk!</b> 🎉\n"
+"Helyesen megoldottátok az utolsó feladványt és a ti csapatotok teljesítette elsőként a küldetést! 🏁"
 
 # Response to victory code (not first of game, %WINNING_GROUP% first group, %INDEX% arrival position)
 msgid "cmd_start_prize_not_first"
-msgstr "🎉 <b>Felicidades!</b> 🎉\n"
-"Sois el equipo número %INDEX% en solucionar correctamente el último reto i completar el juego! 🏁"
+msgstr "🎉 <b>Gratulálunk!</b> 🎉\n"
+"A csapatotok %INDEX%. a sorban, akik helyesen oldották meg az utolsó feladványt is és teljesítették a küldetést! 🏁"
 
 # Response to first victory code on public channel (%GROUP_NAME% name)
 msgid "cmd_start_prize_channel_first"
-msgstr "🏁 <b>El equipo “%GROUP_NAME%” es el primero en completar el juego! Felicidades!</b>"
+msgstr "🏁 <b>A “%GROUP_NAME%” csapat teljesítette elsőként a küldetést és fejezte be a játékot! Gratulálunk!</b>"
 
 # Response to victory code on public channel (%GROUP_NAME% name, %INDEX%, arrival position)
 msgid "cmd_start_prize_channel_not_first"
-msgstr "🏁 <b>El equipo “%GROUP_NAME%” es el númbero %INDEX% en acabar el juego!</b>"
+msgstr "🏁 <b>A “%GROUP_NAME%” csapat helyezése: %INDEX%.</b>"
 
 # Response to start location reached
 msgid "cmd_start_location_reached_first"
-msgstr "Empecemos! 🎉"
+msgstr "Kezdjük a játékot! 🎉"
 
 # Response to any successive location reached
 msgid "cmd_start_location_reached"
-msgstr "Bien hecho, habéis encontrado el lugar correcto!"
+msgstr "Ügyes! Megtaláltátok a megfelelő helyet!"
 
 # Response to last location reached
 msgid "cmd_start_location_reached_last"
-msgstr "Genial, habéis llegado a la <b>última posición</b>!"
+msgstr "Nagyszerű, elértétek az <b>utolsó helyszínt</b>!"
 
 # Unexpcted location code (not requested)
 msgid "cmd_start_location_unexpected"
-msgstr "No necesito saber donde estáis en este momento! Seguid las instrucciones"
+msgstr "Nem kell tudnunk, hogy hol vagy most! Kövesd az útmutatást!"
 
 # Response to wrong location reached (different location than intended)
 msgid "cmd_start_location_wrong"
-msgstr "Parece que habéis escaneado el código erróneo! Habéis finalizado en un lugar incorrecto? 😒"
+msgstr "Úgy tűnik, hogy egy hibás kódot olvastál be. Lehet, hogy rossz helyen vagytok? 😒"
 
 # Unknown payload (invalid QR Code, other game, etc.)
 msgid "cmd_start_wrong_payload"
-msgstr "No entiendo el comando. Habéis escaneado el código correcto?"
+msgstr "Sajnálom, de nem tudom értelmezni. Lehet, hogy rossz kódot olvastatok be?"
 
 # First response after registration code, welcome to game
 msgid "cmd_register_confirm"
-msgstr "Bienvenidos al <b>%GAME_NAME%</b>! 🎉 Empezad registrando vuestro equipo"
+msgstr "Üdvözöllek <b>%GAME_NAME%</b>! 🎉 Kezdjük a csapat regisztrációját!"
 
 # Successive responses to registration of same game
 msgid "cmd_register_registered"
-msgstr "Vuestra petición de registro ha sido recibida. 👍"
+msgstr "A regisztrációs kérést megkaptuk. 👍"
 
 # Error response for registration to a terminated game
 msgid "cmd_register_game_unallowed"
-msgstr "Disculpad, no os podéis registrar a este juego ahora"
+msgstr ""
 
 # Error response for registration to a non-activated game
 msgid "cmd_register_game_unallowed_not_ready"
-msgstr "El juego “%GAME_NAME%” todavía no está activo. Seguid las instrucciones de la organización"
+msgstr ""
 
 # Error response for registration to a game in a terminated event
 msgid "cmd_register_game_unallowed_event"
-msgstr "El evento “%EVENT_NAME%” ha finalizado"
+msgstr ""
 
 # Error response for registration to a game in a non-activated event
 msgid "cmd_register_game_unallowed_event_not_ready"
-msgstr "El evento “%EVENT_NAME%” todavía no ha empezado"
+msgstr ""
 
 # Registration: captcha quiz for verification
 msgid "registration_new_state"
-msgstr "Listos para jugar? Para estar seguros os haré una pregunta simple sobre programación. (Las reglas están basadas en el juego <a href=\"http://codemooc.org/codyroby/\">CodyRoby</a>)"
+msgstr "Készen álltok a játékra? A biztonság kedvéért felteszek egy egyszerű kódolásos kérdést. (A szabályok megegyeznek a <a href=\"http://codemooc.org/codyroby/\">CodyRoby</a> játék szabályaival.)"
 
 # Registration: captcha quiz caption with instructions
 msgid "registration_new_state_caption"
-msgstr "Donde llega Roby siguiendo las instrucciones de las cartas? (A, B, or C)"
+msgstr "Hova jut el Roby, ha a kártyákon levő utasításokat követi? (A, B vagy C)"
 
 # Registration: captcha quiz correct
 msgid "registration_new_response_correct"
-msgstr "<i>Correcto!</i>\n"
-"Parecéis unos seres humanos muy sensibles. (o unos robots muy bien construidos, quien sabe 🤖)"
+msgstr "<i>Helyes!</i>\n"
+"Úgy tűnik, hogy egy érző humanoid vagy. (Esetleg egy nagyon fejlett robot, ki tudja. 🤖)"
 
 # Registration: captcha quiz wrong
 msgid "registration_new_response_wrong"
-msgstr "Verificad i provad de nuevo"
+msgstr "<i>Hibás!</i>\n"
+"Ellenőrizzétek és próbáljátok újra!"
 
 # Registration: name choice prompt
 msgid "registration_verified_state"
-msgstr "Elegid un nombre para vuestro equipo. Quizá alguna cosa que infunda terror a vuestros adversarios. Qué nombre elegís?"
+msgstr "Kérlek válasszatok csapatnevet! Talán egy tekintélyt parancsoló név lesz az. Milyen nevet választottatok?"
 
 # Registration: name choice confirmation (%GROUP_NAME% name, %GROUP_COUNT% prog. count)
 msgid "registration_verified_response_ok"
-msgstr "Ok, “%GROUP_NAME%” sueba bien! Sois el equipo número %GROUP_COUNT%"
+msgstr "Ok, “%GROUP_NAME%” jól hangzik! A helyezésetek %GROUP_COUNT%."
 
 # Registration: name choice not valid
 msgid "registration_verified_response_invalid"
-msgstr "Este no parece un nombre válido. Qué nombre elegís para vuestro equipo?"
+msgstr "Úgy tűnik, ez nem egy érvényes név. Milyen nevet választotok a csapatnak?"
 
 # Registration: number of participants prompt
 msgid "registration_name_state"
-msgstr "Cuántos sois en tu equipo (incluído tú)?"
+msgstr "Hány főből áll a csapatod (magadat is beleértve)?"
 
 # Registration: number of participants not valid
 msgid "registration_name_response_invalid"
-msgstr "El número de participantes debe ser un valor numérico"
+msgstr "Csak egy számot küldj, kérlek."
 
 # Registration: number of participants too few
 msgid "registration_name_response_toofew"
-msgstr "Un equipo debe estar formado por un mínimo de <b>2</b> personas!"
+msgstr "Egy csapat legalább <b>1</b> tagból kell, hogy álljon!"
 
 # Registration: number of participants too many
 msgid "registration_name_response_toomany"
-msgstr "El máximo número de personas por equipo es <b>20</b>!"
+msgstr "A csapat maximális létszáma <b>50</b> fő!"
 
 # Registration: number of participants confirmation
 msgid "registration_name_response_ok"
-msgstr "Vuestro equipo de %NUMBER% jugadores está confirmado!"
+msgstr "A te %NUMBER% tagú csapatodat elfogadtuk."
 
 # Registration: avatar prompt
 msgid "registration_number_state"
-msgstr "Por favor, enviad un avatar o una imagen de vuestro equipo"
+msgstr "Kérlek, küldj egy ikont vagy egy csapatképet!"
 
 # Registration: avatar confirmation
 msgid "registration_number_response_ok"
-msgstr "Genial! El equipo “%GROUP_NAME%” está registrado. 👍"
+msgstr "Jónak tűnik! A “%GROUP_NAME%” nevű csapatot regisztráltuk. 👍"
 
 # Registration: avatar not valid
 msgid "registration_number_response_invalid"
-msgstr "Alguna cosa no ha ido bien. Por favor, enviad una imagen de vuestro equipo."
+msgstr "Hoppá, valami gond van. Kérlek, küldjetek egy fotót a csapatról!"
 
 # Registration: final confirmation and instructions (%GAME_CHANNEL% Telegram channel)
 msgid "registration_ready_state_with_channel"
-msgstr "Todo ha ido bien! Verificad vuestro registro al canal %GAME_CHANNEL% y seguid las instrucciones"
+msgstr "Minden OK! Kérlek, regisztráljatok a(z) %GAME_CHANNEL% játék csatornára és kövessétek az utasításokat."
 
 # Registration: final confirmation and instructions
 msgid "registration_ready_state_without_channel"
-msgstr "Todo ok! Seguid las instrucciones que os han enviado la organización"
+msgstr "Minden rendben! Kövessétek a szervezők által adott utasításokat!"
 
 # Game state: reach assigned location and look for QR Code
 msgid "game_location_state"
-msgstr "Id al lugar que tenéis asignado y buscad un código QR!"
+msgstr "Keressétek meg a megadott helyet és ott keressétek meg a QR-kódot!"
 
 # Game state: snap selfie
 msgid "game_selfie_state"
-msgstr "Enviad un bonito <i>selfie</i> de vuestro equipo (Aseguraos que todos cabéis en el centro de la foto)"
+msgstr "Küldjetek egy szép <i>szelfit</i> a csapatról! (A grimaszolás megengedett :-) Figyeljetek arra, hogy mindenki legyen rajta a képen.)"
 
 # Game state: selfie confirmation with badge
 msgid "game_selfie_response_badge"
-msgstr "Bonita foto! Aquí tenéis vuestro badge de esta localización"
+msgstr "Szép kép! Itt a kitűzőtök a megtalált helyszínért."
 
 # Game state: selfie confirmation
 msgid "game_selfie_response_ok"
-msgstr "Bonita foto!"
+msgstr "Szép fotó!"
 
 # Game state: selfie forwarding caption for public channel (%GROUP_NAME% name, %INDEX% location number)
 msgid "game_selfie_forward_caption"
-msgstr "El equipo “%GROUP_NAME%” ha alcanzado la localización número %INDEX%!"
+msgstr "A “%GROUP_NAME%” csapat elérte a(z) %INDEX%. helyszínt."
 
 # Game state: solve puzzle
 msgid "game_puzzle_state"
-msgstr "Escribid la respuesta al reto aquí"
+msgstr "Írd be ide a megoldást!"
 
 # Game state: too quick puzzle response, wait %SECONDS% more for next answer
 msgid "game_puzzle_response_wait"
-msgstr "Por favor, esperad %SECONDS% segundos más antes de escribir nuevamente la respuesta"
+msgstr "Kérlek, várjatok még %SECONDS% másodpercig mielőtt újra elkülditek a választ!"
 
 # Game state: puzzle solution wrong, wait 60 seconds
 msgid "game_puzzle_response_wrong"
-msgstr "No exactamente…! 😩 Me sabe mal, pero vuestra respuesta no es correcta. Esperad un minuto antes de provar de nuevo… y seguid pensando durante este rato! 😉"
+msgstr "Hm… nem igazán! 😩 Attól tartok, a válasz nem helyes. Kérlek, várjatok egy percig, mielőtt újra megpróbáljátok a válaszadást… addig gondoljátok át a megoldást! 😉"
 
 # Game state: puzzle solution correct, congratulations
 msgid "game_puzzle_response_correct"
-msgstr "Correcto!"
+msgstr "Helyes! Gratulálok!"
 
 # Game state: reach last location
 msgid "game_last_location_state"
-msgstr "Ya casi estáis… Rápido, id hacia el <i>último</i> punto!"
+msgstr "Majdnem megvan… Gyorsan igyekezzetek az <i>utolsó</i> helyszínre!"
 
 # Game state: please snap last selfie
 msgid "game_last_selfie_state"
-msgstr "Ya casi estáis: enviad una última <i>selfie</i> para celebrar vuestra inminente victoria!"
+msgstr "Majdnem kész: küldjetek el egy utolsó <i>szelfit</i>, hogy megünnepeljétek a győzelmet!"
 
 # Last selfie received
 msgid "game_last_selfie_response_ok"
-msgstr "Gran foto!"
+msgstr "Szép fotó!"
 
 # Last selfie caption for public channel
 msgid "game_last_selfie_forward_caption"
-msgstr "El quipo “%GROUP_NAME%” ha alcanzado la última localización!"
+msgstr "A(z) “%GROUP_NAME%” csapat utolsó helyezett lett!"
 
 # Game state: solve last puzzle prompt
 msgid "game_last_puzzle_state"
-msgstr "Resolved el último reto y escribid la respuesta aquí"
+msgstr "Oldjátok meg az utolsó feladványt és írjátok be a választ."
 
 # Instructions for solving last puzzle, sent first time together with puzzle image
 msgid "game_last_puzzle_instructions"
-msgstr "Durante la resolución de los retos precedentes habéis recogido preciosas pistas que ahora necesitaréis para resolver el último reto del juego y ganar. Buena suerte! 😉"
+msgstr "Az előző feladványok megoldásával értékes segítségeket gyűjtöttetek, amelyekre szükség lesz az utolsó feladvány megoldásához és a győzelemhez. Sok sikert! 😉"
 
 # Last puzzle solution given is wrong
 msgid "game_last_puzzle_wrong"
-msgstr "<i>Error!</i>"
+msgstr "<i>Hibás!</i>"
 
 # Game state: the game is over, thank you very much
 msgid "game_won_state"
-msgstr "Habéis completado el juego '%GAME_NAME%'!"
+msgstr "Befejezted a '%GAME_NAME%' játékot!"
 
 # Default response for any other message
 msgid "fallback_response"
-msgstr "Perdón, no he entendido tu petición"
+msgstr "Sajnálom, nem értettem a kérést."
 
 # Photo was unexpected
 msgid "unrequested_photo"
-msgstr "Gracias por la imagen! Por favor, enviad fotografías solo cuando se os pidan 😉"
+msgstr "Köszönjük a fotót! Kérlek, akkor küldjetek fotót, amikor kérem. 😉"
 
 # Unsupported kind of message (location, audio, etc.)
 msgid "unsupported_other"
-msgstr "Esperad, esperad! Todavía no soy <i>tan</i> inteligente, y no puedo gestionar todos estos mensajes. Por favor, enviad solo texto y fotos"
+msgstr "Várjatok! Még nem vagyok <i>ennyire</i> okos, nem értem ezeket az üzeneteket. Kérlek, csak szöveget és fotót küldjetek!"
 
 # Bot is currently deactivated
 msgid "deactivated"
-msgstr "No hay ningún <i>Code Hunting Game</i> funcionando ahora mismo. Volveremos muy pronto, durante este rato podéis  <a href=\"http://informatica.uniurb.it/en/treasurehuntbot/\">leer la historia de este bot</a>.\n"
-"<i>Manteneos conectados!</i>"
+msgstr "Nem, a <i>Code Hunting Game</i> jelenleg fut. Hamarosan visszatérünk, addig <a href=\"http://informatica.uniurb.it/en/treasurehuntbot/\">elolvashatod ennek a botnak a történetét</a>.\n"
+"<i>Álljatok készen!</i>"
 
 # After victory, bot asks for questionnaire and certificate generation
 msgid "questionnaire_init_question"
-msgstr ""
+msgstr "köszönjük, hogy játszottál! Szeretnénk egy pár egyszerű kérdést feltenni a játékról. Amennyiben minden kérdésre válaszolsz, megjutalmazunk egy oklevéllel. 🏅"
 
 # Affirmative answer to questionnaire question
 msgid "questionnaire_init_question_response"
@@ -366,5 +366,5 @@ msgstr ""
 
 # Final thank you
 msgid "questionnaire_finish_thankyou"
-msgstr ""
+msgstr "Köszönjük, hogy játszottál! 🙂"
 

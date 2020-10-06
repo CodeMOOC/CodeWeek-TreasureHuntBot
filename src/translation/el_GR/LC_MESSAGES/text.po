@@ -184,11 +184,11 @@ msgstr "Στείλτε μόνο τον αριθμό, παρακαλώ."
 
 # Registration: number of participants too few
 msgid "registration_name_response_toofew"
-msgstr "Μια ομάδα πρέπει να έχει τουλάχιστον <b>2</b> μέλη!"
+msgstr "Μια ομάδα πρέπει να έχει τουλάχιστον <b>1</b> μέλη!"
 
 # Registration: number of participants too many
 msgid "registration_name_response_toomany"
-msgstr "Μια ομάδα μπορεί να έχει μέχρι <b>20</b> μέλη, το πολύ!"
+msgstr "Μια ομάδα μπορεί να έχει μέχρι <b>50</b> μέλη, το πολύ!"
 
 # Registration: number of participants confirmation
 msgid "registration_name_response_ok"

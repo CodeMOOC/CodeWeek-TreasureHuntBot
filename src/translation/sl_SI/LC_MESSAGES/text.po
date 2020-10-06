@@ -183,11 +183,11 @@ msgstr "Zapišite s števkami, prosim."
 
 # Registration: number of participants too few
 msgid "registration_name_response_toofew"
-msgstr "V ekipi morata biti vsaj <b>2</b> člana - hitro poiščite partnerja! 👫 👭 👬"
+msgstr "V ekipi morata biti vsaj <b>1</b> člana - hitro poiščite partnerja! 👫 👭 👬"
 
 # Registration: number of participants too many
 msgid "registration_name_response_toomany"
-msgstr "Ekipa lahko šteje največ <b>20</b> članov."
+msgstr "Ekipa lahko šteje največ <b>50</b> članov."
 
 # Registration: number of participants confirmation
 msgid "registration_name_response_ok"

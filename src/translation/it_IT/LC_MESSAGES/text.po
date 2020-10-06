@@ -184,11 +184,11 @@ msgstr "Il numero di partecipanti va specificato in cifre, per favore."
 
 # Registration: number of participants too few
 msgid "registration_name_response_toofew"
-msgstr "Il numero minimo di partecipanti per squadra è <b>2</b>!"
+msgstr "Il numero minimo di partecipanti per squadra è <b>1</b>!"
 
 # Registration: number of participants too many
 msgid "registration_name_response_toomany"
-msgstr "Il numero massimo di partecipanti per squadra è <b>20</b>!"
+msgstr "Il numero massimo di partecipanti per squadra è <b>50</b>!"
 
 # Registration: number of participants confirmation
 msgid "registration_name_response_ok"
