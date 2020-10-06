@@ -89,7 +89,7 @@ function prepare_curl_download_request($url, $output_path) {
         Logger::error('URL must be a string', __FILE__);
         return false;
     }
-    $file_handle = fopen(dirname(__FILE__) . '/' . $output_path, 'wb');
+    $file_handle = fopen($output_path, 'wb');
     if($file_handle === false) {
         Logger::error("Cannot write to path {$output_path}", __FILE__);
         return false;
