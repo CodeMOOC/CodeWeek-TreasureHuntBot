@@ -1,0 +1,45 @@
+[
+    {
+        "name": "lvht/geohash",
+        "version": "v1.1.0",
+        "version_normalized": "1.1.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/lvht/geohash.git",
+            "reference": "bbba3e1b487f0ec2e5e666c1bc9d1d4277990a29"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/lvht/geohash/zipball/bbba3e1b487f0ec2e5e666c1bc9d1d4277990a29",
+            "reference": "bbba3e1b487f0ec2e5e666c1bc9d1d4277990a29",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.4.0"
+        },
+        "time": "2017-08-24T11:05:30+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Lvht\\": "src"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "吕海涛",
+                "email": "git@lvht.net",
+                "homepage": "https://github.com/lvht"
+            }
+        ],
+        "description": "geohash like python-geohash",
+        "homepage": "http://github.com/lvht/geohash",
+        "keywords": [
+            "geohash"
+        ]
+    }
+]

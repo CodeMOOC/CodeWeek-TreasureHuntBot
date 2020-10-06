@@ -7,6 +7,8 @@
  * Support library. Don't change a thing here.
  */
 
+require_once(__DIR__ . '/vendor/autoload.php');
+
 require_once(dirname(__FILE__) . '/config.php');
 require_once(dirname(__FILE__) . '/lib_utility.php');
 require_once(dirname(__FILE__) . '/lib_log.php');
