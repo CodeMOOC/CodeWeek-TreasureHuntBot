@@ -11,6 +11,8 @@
  * Processes a victory by the user, for a given game or event.
  */
 function msg_process_victory($context, $event_id = null, $game_id = null) {
+    Logger::debug("Message processing for victory in event {$event_id} and game {$game_id}", __FILE__, $context);
+
     if($event_id === null && $game_id === null) {
         $game_id = $context->game->game_id;
     }

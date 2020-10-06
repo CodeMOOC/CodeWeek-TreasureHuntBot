@@ -59,12 +59,6 @@ function msg_processing_handle_group_state($context) {
         /* GAME */
 
         case STATE_GAME_LOCATION:
-            if($context->game->game_id === 660) {
-                $context->comm->reply(__('game_location_state') . "\nSee here: https://dev.codeweek.eu/code-hunting-game");
-            }
-            else {
-                $context->comm->reply(__('game_location_state'));
-            }
             return true;
 
         case STATE_GAME_SELFIE:
@@ -76,7 +70,6 @@ function msg_processing_handle_group_state($context) {
             return true;
 
         case STATE_GAME_LAST_LOC:
-            $context->comm->reply(__('game_last_location_state'));
             return true;
 
         case STATE_GAME_LAST_SELF:

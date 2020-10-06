@@ -157,17 +157,13 @@ function msg_processing_commands($context) {
                         else if($result === 'unallowed_game_over') {
                             $context->comm->reply(__('failure_game_dead'));
                         }
+                        else if($result === 'first') {
+                            $context->comm->reply(__('cmd_start_location_reached_first'));
+                        }
+                        else if($result === 'last') {
+                            msg_process_victory($context);
+                        }
                         else {
-                            if($result === 'first') {
-                                $context->comm->reply(__('cmd_start_location_reached_first'));
-                            }
-                            else if($result === 'last') {
-                                $context->comm->reply(__('cmd_start_location_reached_last'));
-                            }
-                            else {
-                                $context->comm->reply(__('cmd_start_location_reached'));
-                            }
-
                             msg_processing_handle_group_state($context);
                         }
                         break;

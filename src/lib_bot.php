@@ -246,6 +246,10 @@ function bot_get_expected_location_id($context) {
     }
     else if($state === STATE_GAME_LAST_LOC) {
         // Directed to last location
+        if($context->game->group_final_destination_id) {
+            return $context->game->group_final_destination_id;
+        }
+
         return db_scalar_query(sprintf(
             "SELECT `location_id` FROM `locations` WHERE `game_id` = %d AND `is_end` = 1 LIMIT 1",
             $context->game->game_id
@@ -305,6 +309,8 @@ function bot_reach_location($context, $location_id, $game_id) {
     if($state === STATE_GAME_LOCATION) {
         Logger::info("Group reached its next location", __FILE__, $context);
 
+        $context->comm->reply(__('cmd_start_location_reached'));
+
         $reached_rows = db_perform_action(sprintf(
             "UPDATE `assigned_locations` SET `reached_on` = NOW() WHERE `game_id` = %d AND `group_id` = %d AND `reached_on` IS NULL",
             $context->game->game_id,
@@ -335,9 +341,7 @@ function bot_reach_location($context, $location_id, $game_id) {
     else if($state === STATE_GAME_LAST_LOC) {
         Logger::info("Group reached the final location", __FILE__, $context);
 
-        if(!bot_set_group_state($context, STATE_GAME_LAST_SELF)) {
-            return false;
-        }
+        $context->comm->reply(__('cmd_start_location_reached_last'));
 
         return 'last';
     }
@@ -397,6 +401,12 @@ function bot_give_solution($context, $solution) {
  * Gets the current hint for the last solved riddle, if any.
  */
 function bot_get_current_hint($context) {
+    if(!$context->game->group_final_destination_id) {
+        // No hint if no final destination is given
+        Logger::error('No final destination given', __FILE__, $context);
+        return null;
+    }
+
     // Hints are assigned for solved riddles, check count of currently solved riddles
     $solved = db_scalar_query(sprintf(
         'SELECT count(*) FROM `assigned_riddles` WHERE `solved_on` IS NOT NULL AND `event_id` = %d AND `game_id` = %d AND `group_id` = %d',
@@ -409,14 +419,24 @@ function bot_get_current_hint($context) {
     }
 
     if($solved === 0) {
+        // No hint for initial riddle
         return null;
     }
 
-    return db_scalar_query(sprintf(
-        'SELECT `content` FROM `hints` WHERE `event_id` = %d AND `riddles_solved_count` = %d',
-        $context->game->event_id,
-        $solved
+    $geohash = db_scalar_query(sprintf(
+        'SELECT `geohash` FROM `locations` WHERE `game_id` = %d AND `location_id` = %d',
+        $context->game->game_id,
+        $context->game->group_final_destination_id
     ));
+    if(!$geohash) {
+        return null;
+    }
+    if($solved > mb_strlen($geohash)) {
+        // Given out all hints
+        return null;
+    }
+
+    return $geohash[$solved - 1];
 }
 
 /**
