@@ -1,12 +1,6 @@
 .idea/*
 .vscode/*
-*/php_errors.log
-*/pull-last-update.txt
-images/*
-!images/default.jpg
-!images/final_riddle_placeholder.jpg
-locations/*
-!locations/test.png
+
 data/avatars/*
 !data/avatars/placeholder
 data/badges/*
@@ -20,8 +14,11 @@ data/qrcodes/*
 !data/qrcodes/tmp/placeholder
 data/selfies/*
 !data/selfies/placeholder
-translation/**/*.mo
+
+src/translation/**/*.mo
+
 html2pdf/vendor/
 html2pdf/images/signature_ab\.png
+
 docker-compose.custom.yml
 config.env
