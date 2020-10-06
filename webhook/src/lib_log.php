@@ -69,7 +69,7 @@ class Logger {
             fwrite(STDERR, self::severity_to_char($level) . '/' . $message . PHP_EOL);
         }
         else if(!self::$is_suspended) {
-            if($level >= self::SEVERITY_WARNING) {
+            if(DEBUG || $level >= self::SEVERITY_WARNING) {
                 // Write warning and errors to the system log
                 error_log(self::severity_to_char($level) . ':' . $base_tag . ':' . $message);
             }

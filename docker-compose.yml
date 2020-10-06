@@ -6,7 +6,7 @@ networks:
 
 services:
   webhook:
-    build: ./src
+    build: ./webhook
     depends_on:
     - db
     networks:

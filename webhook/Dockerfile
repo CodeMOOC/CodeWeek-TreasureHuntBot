@@ -15,7 +15,7 @@ RUN locale-gen && \
 ENV LANG en_US.UTF-8
 ENV LC_ALL en_US.UTF-8
 
-COPY ./ /var/www/html/
+COPY ./src/ /var/www/html/
 
 RUN chmod +x /var/www/html/translation/compile.sh
 RUN /var/www/html/translation/compile.sh

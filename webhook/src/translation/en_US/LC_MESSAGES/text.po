@@ -325,7 +325,7 @@ msgstr "I’m ready!"
 
 # Instructions about the questionnaire that will be delivered
 msgid "questionnaire_init_instructions"
-msgstr "We will ask you 3 questions to which you can answer on a scale from 1 to 5. The fourth and last one if a free text question: if you prefer not to answer, please write “no”."
+msgstr "We will ask you 3 questions to which you can answer on a scale from 1 to 5. The fourth and last one is a free text question: if you prefer not to answer, please write “no”."
 
 # Let's begin
 msgid "questionnaire_init_begin"
