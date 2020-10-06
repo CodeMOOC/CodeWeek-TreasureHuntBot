@@ -216,7 +216,7 @@ msgstr "Everything OK! Follow the instructions you will be given by the organize
 
 # Game state: reach assigned location and look for QR Code
 msgid "game_location_state"
-msgstr "Find the assigned location and look for a QR Code!"
+msgstr "Go look on the map at https://dev.codeweek.eu/code-hunting-game and look for the right QR Code!"
 
 # Location sent, wrong response given, do you want hint?
 msgid "game_location_hint_nudge"
