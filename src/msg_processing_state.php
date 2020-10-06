@@ -415,29 +415,30 @@ function msg_processing_handle_group_response($context) {
                         $send_location = true;
                     }
 
-                    // Send out target location information
+                    // Send out exact location first, if needed
                     if($send_location) {
-                        // Exact location
                         telegram_send_location(
                             $context->get_telegram_chat_id(),
                             $location_info[0],
                             $location_info[1]
                         );
                     }
+
+                    // Send out riddles, if set
+                    $hint_keyboard = null;
+                    if($context->game->location_hints_enabled && !$advance_result['end_of_track']) {
+                        $hint_keyboard = array("reply_markup" => array(
+                            "inline_keyboard" => array(
+                                array(
+                                    array("text" => __('game_location_hint_button'), "callback_data" => 'hint')
+                                )
+                            )
+                        ));
+                    }
+
                     if($location_info[3]) {
                         // Image with optional caption
                         $caption_text = ($location_info[2]) ? $location_info[2] : null;
-
-                        $hint_keyboard = null;
-                        if($context->game->location_hints_enabled && !$advance_result['end_of_track']) {
-                            $hint_keyboard = array("reply_markup" => array(
-                                "inline_keyboard" => array(
-                                    array(
-                                        array("text" => __('game_location_hint_button'), "callback_data" => 'hint')
-                                    )
-                                )
-                            ));
-                        }
 
                         $context->comm->picture(
                             '../data/locations/' . $location_info[3], $caption_text, null, $hint_keyboard
@@ -445,7 +446,7 @@ function msg_processing_handle_group_response($context) {
                     }
                     else if($location_info[2]) {
                         // Textual riddle
-                        $context->comm->reply($location_info[2]);
+                        $context->comm->reply($location_info[2], null, $hint_keyboard);
                     }
 
                     msg_processing_handle_group_state($context);
