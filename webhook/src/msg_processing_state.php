@@ -643,7 +643,6 @@ function msg_processing_handle_group_response($context) {
                     ));
                     $total_locations_count = $intermediate_locations_count + 2; // start and end
 
-                    $rootdir = realpath(dirname(__FILE__) . '/..');
                     $identifier = "{$context->game->game_id}-{$context->get_internal_id()}";
 
                     Logger::debug("Generating montage with identifier {$identifier}", __FILE__, $context);
@@ -653,7 +652,7 @@ function msg_processing_handle_group_response($context) {
                     Logger::debug("Generating certificate", __FILE__, $context);
                     $certificate_path = "/data/certificates/{$identifier}-certificate.pdf";
 
-                    exec("php {$rootdir}/html2pdf/cert-gen.php \"{$certificate_path}\" {$context->game->group_participants} \"" . addslashes($context->game->group_name) . "\" \"completed\" \"{$context->game->game_name}\" \"{$identifier}\"");
+                    exec("php /html2pdf/cert-gen.php \"{$certificate_path}\" {$context->game->group_participants} \"" . addslashes($context->game->group_name) . "\" \"completed\" \"{$context->game->game_name}\" \"{$identifier}\"");
 
                     Logger::info("Delivering certificate from {$certificate_path}", __FILE__, $context);
                     $context->comm->document($certificate_path, __('questionnaire_attachment_caption'));

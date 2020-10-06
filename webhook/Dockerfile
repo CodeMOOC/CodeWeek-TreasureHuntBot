@@ -15,7 +15,10 @@ RUN locale-gen && \
 ENV LANG en_US.UTF-8
 ENV LC_ALL en_US.UTF-8
 
+# Copy all the stuff
 COPY ./src/ /var/www/html/
+COPY ./html2pdf/ /html2pdf/
 
+# Compile translations
 RUN chmod +x /var/www/html/translation/compile.sh
 RUN /var/www/html/translation/compile.sh
