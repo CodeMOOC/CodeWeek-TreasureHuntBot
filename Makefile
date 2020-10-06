@@ -42,7 +42,7 @@ import-db: confirmation
 
 .PHONY: up
 up:
-	${DC} up -d
+	${DC} up -d webhook
 	${DC} ps
 	@echo
 	@echo 'Service is now up'
