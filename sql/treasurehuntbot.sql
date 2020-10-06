@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.7
+-- version 4.9.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Sep 08, 2020 at 07:31 PM
--- Server version: 10.1.45-MariaDB-0+deb9u1
--- PHP Version: 7.0.33-0+deb9u8
+-- Host: db
+-- Generation Time: Oct 05, 2020 at 09:25 PM
+-- Server version: 5.7.31
+-- PHP Version: 7.2.22
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -92,6 +92,13 @@ CREATE TABLE `events` (
   `telegram_channel` varchar(80) COLLATE utf8_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Dumping data for table `events`
+--
+
+INSERT INTO `events` (`event_id`, `name`, `state`, `logo_path`, `registered_on`, `min_num_locations`, `max_num_locations`, `organizer_id`, `min_avg_distance`, `telegram_channel`) VALUES
+(1, 'Code Week 2020', 224, NULL, '2020-10-05 21:18:26', 6, 12, 1, NULL, NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -118,6 +125,13 @@ CREATE TABLE `games` (
   `timeout_interval` smallint(6) DEFAULT NULL COMMENT 'Relative timeout in minutes from start',
   `registered_on` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `games`
+--
+
+INSERT INTO `games` (`game_id`, `event_id`, `state`, `name`, `location_name`, `location_lat`, `location_lng`, `language`, `organizer_id`, `organizer_email`, `badge_overlay_image`, `telegram_channel`, `telegram_channel_censor_photo`, `quick_start`, `location_hints_enabled`, `timeout_absolute`, `timeout_interval`, `registered_on`) VALUES
+(1, 1, 128, 'Code Week 2020', 'Europe', NULL, NULL, 'en', 1, NULL, NULL, NULL, b'0', 0, b'1', NULL, NULL, '2020-10-05 21:21:49');
 
 -- --------------------------------------------------------
 
@@ -180,6 +194,13 @@ CREATE TABLE `identities` (
   `is_admin` tinyint(1) NOT NULL DEFAULT '0',
   `active_game` int(10) UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `identities`
+--
+
+INSERT INTO `identities` (`id`, `telegram_id`, `first_name`, `full_name`, `first_seen_on`, `last_access`, `language`, `is_admin`, `active_game`) VALUES
+(1, 178430499, 'Lorenz', 'Lorenz Klopfenstein', '2020-10-05 16:41:47', '2020-10-05 16:41:47', NULL, 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -258,6 +279,44 @@ CREATE TABLE `riddles` (
   `image_path` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `solution` varchar(60) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `riddles`
+--
+
+INSERT INTO `riddles` (`event_id`, `riddle_id`, `riddle_type`, `riddle_param`, `image_path`, `solution`) VALUES
+(1, 1, 1, 'FFLFFLF', 'codeweek-2017/img1-1.png', 'b'),
+(1, 2, 1, 'FFLFFLF', 'codeweek-2017/img1-1.png', 'b'),
+(1, 3, 1, 'FFFLFFFRF', 'codeweek-2017/img1-1.png', 'a'),
+(1, 4, 1, 'LFFFRFF', 'codeweek-2017/img1-1.png', 'c'),
+(1, 5, 1, 'RFLFF', 'codeweek-2017/img1-2.png', 'b'),
+(1, 6, 1, 'FLFF', 'codeweek-2017/img1-2.png', 'a'),
+(1, 7, 1, 'RFFRF', 'codeweek-2017/img1-2.png', 'c'),
+(1, 21, 2, '', 'codeweek-2017/img2-1.png', 'frflff'),
+(1, 22, 2, '', 'codeweek-2017/img2-2.png', 'rfrflff'),
+(1, 23, 2, '', 'codeweek-2017/img2-3.png', 'fflff'),
+(1, 24, 2, '', 'codeweek-2017/img2-4.png', 'ffrfff'),
+(1, 25, 2, '', 'codeweek-2017/img2-5.png', 'ffrfffrf'),
+(1, 31, 3, 'FFLFLFF', 'codeweek-2017/img3-1.png', '1'),
+(1, 32, 3, 'FLFRFF', 'codeweek-2017/img3-1.png', '1'),
+(1, 33, 3, 'FFLFFRFF', 'codeweek-2017/img3-2.png', '1'),
+(1, 34, 3, 'FFFLFFF', 'codeweek-2017/img3-2.png', '0'),
+(1, 35, 3, 'FLFFRRFF', 'codeweek-2017/img3-3.png', '2'),
+(1, 41, 4, '', 'codeweek-2017/img4-1.png', 'l'),
+(1, 42, 4, '', 'codeweek-2017/img4-2.png', 'r'),
+(1, 43, 4, '', 'codeweek-2017/img4-3.png', 'f'),
+(1, 44, 4, '', 'codeweek-2017/img4-4.png', 'l'),
+(1, 51, 5, 'FFFLFLFFF', 'codeweek-2017/img5-1.png', 'c'),
+(1, 52, 5, 'FLFRFF', 'codeweek-2017/img5-1.png', 'b'),
+(1, 53, 5, 'FFFRFRFFF', 'codeweek-2017/img5-1.png', 'a'),
+(1, 54, 5, 'FLFFLF', 'codeweek-2017/img5-2.png', 'a'),
+(1, 55, 5, 'FFLFF', 'codeweek-2017/img5-2.png', 'c'),
+(1, 56, 5, 'LFFRFF', 'codeweek-2017/img5-2.png', 'b'),
+(1, 61, 6, '', 'codeweek-2017/img6-1.png', '19'),
+(1, 62, 6, '', 'codeweek-2017/img6-2.png', '15'),
+(1, 71, 7, '', 'codeweek-2017/img7-1.png', '11'),
+(1, 72, 7, '', 'codeweek-2017/img7-2.png', '9'),
+(1, 73, 7, '', 'codeweek-2017/img7-3.png', '6');
 
 --
 -- Indexes for dumped tables
@@ -383,17 +442,20 @@ ALTER TABLE `riddles`
 -- AUTO_INCREMENT for table `events`
 --
 ALTER TABLE `events`
-  MODIFY `event_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `event_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
 -- AUTO_INCREMENT for table `games`
 --
 ALTER TABLE `games`
-  MODIFY `game_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `game_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
 -- AUTO_INCREMENT for table `identities`
 --
 ALTER TABLE `identities`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'Internal ID';
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'Internal ID', AUTO_INCREMENT=2;
+
 --
 -- AUTO_INCREMENT for table `log`
 --
