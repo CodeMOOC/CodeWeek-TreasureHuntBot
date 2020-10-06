@@ -227,11 +227,11 @@ function msg_processing_handle_group_response($context) {
             }
 
             $number = intval($message_response);
-            if($number < 2) {
+            if($number < 1) {
                 $context->comm->reply(__('registration_name_response_toofew'));
                 return true;
             }
-            else if($number > 20) {
+            else if($number > 50) {
                 $context->comm->reply(__('registration_name_response_toomany'));
                 return true;
             }
@@ -392,7 +392,7 @@ function msg_processing_handle_group_response($context) {
                     $confirm_text = __('game_puzzle_response_correct');
                     $current_hint = bot_get_current_hint($context);
                     if($current_hint) {
-                        $confirm_text .= ' <code>' . $current_hint . '</code>';
+                        $confirm_text .= ' <b>' . $current_hint . '</b>';
                     }
                     $context->comm->reply($confirm_text);
 
