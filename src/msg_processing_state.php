@@ -275,8 +275,13 @@ function msg_processing_handle_group_response($context) {
             return true;
 
         case STATE_REG_READY:
-            //Nop
-            msg_processing_handle_group_state($context);
+            // Go straight to riddle and next location!
+            $riddle_id = bot_assign_random_riddle($context);
+            if($riddle_id === false || $riddle_id === null) {
+                $context->comm->reply(__('failure_general'));
+                return true;
+            }
+
             return true;
 
         /* GAME */
@@ -366,33 +371,6 @@ function msg_processing_handle_group_response($context) {
                 if($riddle_id === false || $riddle_id === null) {
                     $context->comm->reply(__('failure_general'));
                     return true;
-                }
-
-                // Get riddle information
-                $riddle_info = bot_get_riddle_info($context, $riddle_id);
-                
-                $riddle_text = '';
-                $riddle_hydration = array();
-
-                if(!$riddle_info[0] || intval($riddle_info[0]) <= 0) {
-                    // Unknown/custom riddle type, get text from parameter
-                    $riddle_text = $riddle_info[1];
-                }
-                else {
-                    // Standard riddle, get translated riddle text and hydrate with parameter
-                    $riddle_text = __('riddle_type_' . $riddle_info[0], 'riddles');
-                    $riddle_hydration = array(
-                        '%RIDDLE_PARAM%' => $riddle_info[1]
-                    );
-                }
-
-                if($riddle_info[2]) {
-                    // Has picture
-                    $context->comm->picture("../riddles/{$riddle_info[2]}", $riddle_text, $riddle_hydration);
-                }
-                else {
-                    // Text-only riddle
-                    $context->comm->reply($riddle_text, $riddle_hydration);
                 }
             }
             else {

@@ -109,7 +109,7 @@ function bot_assign_random_riddle($context, $user_id = null) {
         return null;
     }
 
-    // Write new riddle
+    // Write new riddle and set state
     if(db_perform_action(sprintf(
         "INSERT INTO `assigned_riddles` (`event_id`, `game_id`, `riddle_id`, `group_id`, `assigned_on`) VALUES(%d, %d, %d, %d, NOW())",
         $context->game->event_id,
@@ -122,6 +122,33 @@ function bot_assign_random_riddle($context, $user_id = null) {
     bot_set_group_state($context, STATE_GAME_PUZZLE);
 
     Logger::info("Riddle #{$riddle_id} assigned to group #{$user_id}", __FILE__, $context);
+
+    // Send out riddle information
+    $riddle_info = bot_get_riddle_info($context, $riddle_id);
+
+    $riddle_text = '';
+    $riddle_hydration = array();
+
+    if(!$riddle_info[0] || intval($riddle_info[0]) <= 0) {
+        // Unknown/custom riddle type, get text from parameter
+        $riddle_text = $riddle_info[1];
+    }
+    else {
+        // Standard riddle, get translated riddle text and hydrate with parameter
+        $riddle_text = __('riddle_type_' . $riddle_info[0], 'riddles');
+        $riddle_hydration = array(
+            '%RIDDLE_PARAM%' => $riddle_info[1]
+        );
+    }
+
+    if($riddle_info[2]) {
+        // Has picture
+        $context->comm->picture("../riddles/{$riddle_info[2]}", $riddle_text, $riddle_hydration);
+    }
+    else {
+        // Text-only riddle
+        $context->comm->reply($riddle_text, $riddle_hydration);
+    }
 
     return $riddle_id;
 }
@@ -282,8 +309,10 @@ function bot_reach_location($context, $location_id, $game_id) {
             return false;
         }
 
-        if(!bot_set_group_state($context, STATE_GAME_SELFIE)) {
-            return false;
+        $riddle_id = bot_assign_random_riddle($context);
+        if($riddle_id === false || $riddle_id === null) {
+            $context->comm->reply(__('failure_general'));
+            return true;
         }
 
         return true;
