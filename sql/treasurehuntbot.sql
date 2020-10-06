@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: db
--- Generation Time: Oct 06, 2020 at 08:01 AM
+-- Generation Time: Oct 06, 2020 at 09:20 AM
 -- Server version: 5.7.31
 -- PHP Version: 7.2.22
 
@@ -66,6 +66,7 @@ CREATE TABLE `code_lookup` (
 --
 
 INSERT INTO `code_lookup` (`code`, `type`, `event_id`, `game_id`, `location_id`, `is_disabled`) VALUES
+('codeweek2020', 'registration', NULL, 1, NULL, b'0'),
 ('cw2020-01-2bpg', 'location', NULL, 1, 1, b'0'),
 ('cw2020-02-XIgS', 'location', NULL, 1, 2, b'0'),
 ('cw2020-03-knkA', 'location', NULL, 1, 3, b'0'),
@@ -277,7 +278,7 @@ CREATE TABLE `identities` (
 --
 
 INSERT INTO `identities` (`id`, `telegram_id`, `first_name`, `full_name`, `first_seen_on`, `last_access`, `language`, `is_admin`, `active_game`) VALUES
-(1, 178430499, 'Lorenz', 'Lorenz Klopfenstein', '2020-10-05 16:41:47', '2020-10-05 16:41:47', NULL, 0, NULL);
+(1, 178430499, 'Lorenz', 'Lorenz Klopfenstein', '2020-10-05 16:41:47', '2020-10-06 09:14:15', NULL, 0, 1);
 
 -- --------------------------------------------------------
 
