@@ -148,7 +148,7 @@ function bot_assign_random_riddle($context, $user_id = null) {
 
     if($riddle_info[2]) {
         // Has picture
-        $context->comm->picture("../riddles/{$riddle_info[2]}", $riddle_text, $riddle_hydration);
+        $context->comm->picture("riddles/{$riddle_info[2]}", $riddle_text, $riddle_hydration);
     }
     else {
         // Text-only riddle

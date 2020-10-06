@@ -26,7 +26,7 @@ function msg_processing_handle_group_state($context) {
             $context->comm->reply(__('registration_new_state'));
 
             $context->comm->picture(
-                '../images/quiz-captcha.png',
+                'images/quiz-captcha.png',
                 __('registration_new_state_caption')
             );
 
