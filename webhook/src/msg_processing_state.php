@@ -70,6 +70,20 @@ function msg_processing_handle_group_state($context) {
             return true;
 
         case STATE_GAME_LAST_LOC:
+            $context->comm->reply(
+                "You’re almost there! During the course of the game, at each step, I have sent you small hints about the final location to find. Go look for those hints: reading them as some form of… <i>code</i> might point you in the right direction. 🧐",
+                null,
+                array("reply_markup" => array(
+                    "inline_keyboard" => array(
+                        array(
+                            array(
+                                "text" => __('game_location_hint_button'),
+                                "callback_data" => 'hint'
+                            )
+                        )
+                    )
+                )
+            );
             return true;
 
         case STATE_GAME_LAST_SELF:
@@ -390,54 +404,35 @@ function msg_processing_handle_group_response($context) {
                         return true;
                     }
 
-                    // Prepare target location information
-                    $target_location_id = $advance_result['location_id'];
-                    $location_info = bot_get_location_info($context, $target_location_id);
+                    if(!$advance_result['end_of_track']) {
+                        // Send out directions for next location
+                        $target_location_id = $advance_result['location_id'];
+                        $location_info = bot_get_location_info($context, $target_location_id);
 
-                    $send_location = false;
-                    if($context->game->cluster_forces_location_on_enter($advance_result['reached_locations'])) {
-                        // Starting a new cluster, force next location to be shown
-                        $send_location = true;
-                    }
-                    if(!$location_info[2] && !$location_info[3]) {
-                        // Only location is available, force send
-                        $send_location = true;
-                    }
-
-                    // Send out exact location first, if needed
-                    if($send_location) {
-                        telegram_send_location(
-                            $context->get_telegram_chat_id(),
-                            $location_info[0],
-                            $location_info[1]
-                        );
-                    }
-
-                    // Send out riddles, if set
-                    $hint_keyboard = null;
-                    if($context->game->location_hints_enabled && !$advance_result['end_of_track']) {
-                        $hint_keyboard = array("reply_markup" => array(
-                            "inline_keyboard" => array(
-                                array(
-                                    array("text" => __('game_location_hint_button'), "callback_data" => 'hint')
-                                )
+                        // Prep keyboard
+                        $keyboard = array(
+                            array(
+                                "text" => "Open location map",
+                                "url" => 'https://dev.codeweek.eu/code-hunting-game'
                             )
-                        ));
-                    }
+                        );
+                        if($context->game->location_hints_enabled && $location_info[5]) {
+                            $keyboard[] = array(
+                                "text" => __('game_location_hint_button'),
+                                "callback_data" => 'hint'
+                            );
+                        }
 
-                    if($location_info[3]) {
-                        // Image with optional caption
-                        $caption_text = ($location_info[2]) ? $location_info[2] : null;
-
-                        $context->comm->picture(
-                            '/data/locations/' . $location_info[3], $caption_text, null, $hint_keyboard
+                        $context->comm->reply(
+                            $location_info[2],
+                            null,
+                            array("reply_markup" => array(
+                                "inline_keyboard" => array($keyboard)
+                            ))
                         );
                     }
-                    else if($location_info[2]) {
-                        // Textual riddle
-                        $context->comm->reply($location_info[2], null, $hint_keyboard);
-                    }
 
+                    // This sends out hint to last location, if required
                     msg_processing_handle_group_state($context);
                 }
                 else {
@@ -452,8 +447,30 @@ function msg_processing_handle_group_response($context) {
             return true;
 
         case STATE_GAME_LAST_LOC:
-            // Expecting last location QR Code
-            msg_processing_handle_group_state($context);
+            // We expect a deeplink that will come through the /start command
+            if($context->is_callback() && $context->callback->data === 'hint') {
+                $context->comm->reply(
+                    "OK, well then. If you string all previous hints together you will obtain a <b>GeoHash</b>, a code for a specific geographical location. You can easily convert the hash using an online tool.",
+                    null,
+                    array("reply_markup" => array(
+                        "inline_keyboard" => array(
+                            array(
+                                array(
+                                    "text" => "GeoHash conversion",
+                                    "url" => "https://geohash.xyz/"
+                                ),
+                                array(
+                                    "text" => "Location map",
+                                    "url" => "https://dev.codeweek.eu/code-hunting-game"
+                                )
+                            )
+                        )
+                    )
+                );
+            }
+            else if($context->is_message() && $context->message->is_text()) {
+                // Nop
+            }
             return true;
 
         case STATE_GAME_LAST_SELF:
