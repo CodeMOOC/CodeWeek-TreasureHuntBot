@@ -387,6 +387,7 @@ function msg_processing_handle_group_response($context) {
                     $advance_result = bot_advance_track_location($context);
                     if($advance_result === false) {
                         $context->comm->reply(__('failure_general'));
+                        return true;
                     }
 
                     // Prepare target location information
