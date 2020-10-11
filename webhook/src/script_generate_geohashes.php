@@ -81,7 +81,7 @@ $locations = array(
 );
 
 foreach ($locations as $location) {
-    $hash = GeoHash::encode($location['lat'], $location['lng'], 0.001);
+    $hash = GeoHash::encode($location['lng'], $location['lat'], 0.001);
     echo $location['location_id'] . ': ' . $hash . PHP_EOL;
 
     db_perform_action(sprintf(
