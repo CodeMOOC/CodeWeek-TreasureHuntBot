@@ -82,7 +82,7 @@ function msg_processing_handle_group_state($context) {
                             )
                         )
                     )
-                )
+                ))
             );
             return true;
 
@@ -465,7 +465,7 @@ function msg_processing_handle_group_response($context) {
                                 )
                             )
                         )
-                    )
+                    ))
                 );
             }
             else if($context->is_message() && $context->message->is_text()) {
