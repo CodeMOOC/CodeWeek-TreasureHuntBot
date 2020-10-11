@@ -66,9 +66,23 @@ function msg_process_victory($context, $event_id = null, $game_id = null) {
 
         Logger::info("Delivering certificate from {$certificate_path}", __FILE__, $context);
         $context->comm->document($certificate_path, __('questionnaire_attachment_caption'));
-        $context->comm->reply(__('questionnaire_finish_thankyou'));
 
         bot_set_group_state($context, STATE_CERT_SENT);
+
+        $context->comm->reply(
+            __('questionnaire_finish_thankyou'),
+            null,
+            array("reply_markup" => array(
+                "inline_keyboard" => array(
+                    array(
+                        array(
+                            "text" => "Play again!",
+                            "callback_data" => "RESET GAME " . $context->game->game_id
+                        )
+                    )
+                )
+            ))
+        );
     }
     else {
         $context->comm->reply(__('failure_general'));
