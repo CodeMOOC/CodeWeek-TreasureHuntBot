@@ -146,7 +146,7 @@ msgstr "The event “%EVENT_NAME%” has not started yet."
 
 # Registration: captcha quiz for verification
 msgid "registration_new_state"
-msgstr "Are you ready to play? To be sure, I’ll ask you a simple coding question. (The rules are based on the <a href=\"http://codemooc.org/codyroby/\">CodyRoby</a> game.)"
+msgstr "Are you ready to play? To be sure, I’ll ask you a simple coding question. (The rules are based on the <a href=\"http://codemooc.org/codyroby/en/\">CodyRoby</a> game.)"
 
 # Registration: captcha quiz caption with instructions
 msgid "registration_new_state_caption"
