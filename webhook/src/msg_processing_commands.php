@@ -126,8 +126,6 @@ function msg_processing_commands($context) {
                                     )
                                 ))
                             );
-
-                            msg_processing_handle_group_state($context);
                         }
                         else if($result === 'unallowed_event_not_ready') {
                             $context->comm->reply(__('cmd_register_game_unallowed_event_not_ready'));
