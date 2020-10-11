@@ -52,20 +52,23 @@ function msg_process_victory($context, $event_id = null, $game_id = null) {
             ));
         }
 
-        // Send out questionnaire starting option
-        $context->memorize_callback(
-            $context->comm->reply(
-                __('questionnaire_init_question'),
-                null,
-                array("reply_markup" => array(
-                    "inline_keyboard" => array(
-                        array(
-                            array("text" => __('questionnaire_init_question_response'), "callback_data" => "questionnaire")
-                        )
-                    )
-                ))
-            )
-        );
+        $context->comm->reply(__('questionnaire_finish_generating'));
+        telegram_send_chat_action($context->comm->get_telegram_id());
+
+        // Generate certificate
+        $identifier = "{$context->game->game_id}-{$context->get_internal_id()}";
+
+        $certificate_path = "/data/certificates/{$identifier}-certificate.pdf";
+        $certificate_cmd = "php /html2pdf/cert-gen.php \"{$certificate_path}\" {$context->game->group_participants} \"" . addslashes($context->game->group_name) . "\" \"completed\" \"{$context->game->game_name}\" \"{$identifier}\"";
+        Logger::debug("Generating certificate at {$certificate_path} with command: {$certificate_cmd}", __FILE__, $context);
+
+        exec($certificate_cmd);
+
+        Logger::info("Delivering certificate from {$certificate_path}", __FILE__, $context);
+        $context->comm->document($certificate_path, __('questionnaire_attachment_caption'));
+        $context->comm->reply(__('questionnaire_finish_thankyou'));
+
+        bot_set_group_state($context, STATE_CERT_SENT);
     }
     else {
         $context->comm->reply(__('failure_general'));

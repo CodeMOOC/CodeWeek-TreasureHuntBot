@@ -377,7 +377,7 @@ msgstr "Ok. Write down any comments or suggestion here:"
 
 # Finished, thank you, generating the certificate
 msgid "questionnaire_finish_generating"
-msgstr "Thank you! 🙌 Generating your certificate…"
+msgstr "Generating your certificate…"
 
 # Caption for the certificate transmission
 msgid "questionnaire_attachment_caption"
