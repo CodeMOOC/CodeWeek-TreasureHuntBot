@@ -77,7 +77,10 @@ $locations = array(
     array('location_id' => '60','lat' => '46.2352','lng' => '6.03053'),
     array('location_id' => '61','lat' => '53.2183','lng' => '-0.625536'),
     array('location_id' => '62','lat' => '59.5035','lng' => '13.3196'),
-    array('location_id' => '63','lat' => '45.4543','lng' => '7.85498')
+    array('location_id' => '63','lat' => '45.4543','lng' => '7.85498'),
+    array('location_id' => '64','lat' => '51.578541','lng' => '-0.389534'),
+    array('location_id' => '65','lat' => '46.199936','lng' => '6.144828'),
+    array('location_id' => '66','lat' => '59.975078','lng' => '11.044971'),
 );
 
 foreach ($locations as $location) {

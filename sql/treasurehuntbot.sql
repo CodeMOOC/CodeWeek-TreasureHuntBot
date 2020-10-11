@@ -125,7 +125,10 @@ INSERT INTO `code_lookup` (`code`, `type`, `event_id`, `game_id`, `location_id`,
 ('cw2020-59-gQmd', 'location', NULL, 1, 59, b'0'),
 ('cw2020-61-agiq', 'location', NULL, 1, 61, b'0'),
 ('cw2020-62-V9Xs', 'location', NULL, 1, 62, b'0'),
-('cw2020-63-0X8o', 'location', NULL, 1, 63, b'0');
+('cw2020-63-0X8o', 'location', NULL, 1, 63, b'0'),
+('cw2020-64-xcv4', 'location', NULL, 1, 64, b'0'),
+('cw2020-65-poi7', 'location', NULL, 1, 65, b'0'),
+('cw2020-66-beva', 'location', NULL, 1, 66, b'0');
 
 -- --------------------------------------------------------
 
@@ -360,7 +363,10 @@ INSERT INTO `locations` (`game_id`, `location_id`, `cluster_id`, `internal_note`
 (1, 59, 1, 'Alan Turing', 53.3285, -2.20738, NULL, 'Find the house where a famous matematician, cryptographer, computer scientist, and pioneer of artificial intelligence spent his childhood.', 'He gave a fundamental contribution to breaking the Enigma code.', 'gcqrmu0t', b'0', b'0'),
 (1, 61, 1, 'George Boole', 53.2183, -0.625536, NULL, 'Find the town where the father of Boolean algebra was born.', 'The word “Boolean” comes from the last name of the mathematician who invented algebraic logic', 'gcrwcb07', b'0', b'0'),
 (1, 62, 1, 'Harry Nyquist', 59.5035, 13.3196, NULL, 'Find the European town where one of the two scientis who developed a famous sampling theorem is born.', 'The ?–Shannon sampling theorem is a theorem in the field of digital signal processing and led to the to the development of information theory.', 'u696x071', b'0', b'0'),
-(1, 63, 1, 'ELEA 9003', 45.4543, 7.85498, NULL, 'Find the town where the first computer to be entirely made with transistors.', 'Adriano Olivetti was born there in 1901.', 'u0jdddxy', b'0', b'0');
+(1, 63, 1, 'ELEA 9003', 45.4543, 7.85498, NULL, 'Find the town where the first computer to be entirely made with transistors.', 'Adriano Olivetti was born there in 1901.', 'u0jdddxy', b'0', b'0'),
+(1, 64, 1, 'Joyce Aylard', 51.578541, -0.389534, NULL, 'Find the place where one of the female codebreakers worked during WW2.', 'Joyce Aylard worked at an outstation not far from Bletchley Park.', 'gcptrjs6', b'0', b'0'),
+(1, 65, 1, 'MIRALab', 46.199936, 6.144828, NULL, 'Find the University where the MIRALab is conducting user interface research.', 'The lab is headed by Nadia Magnenat Thalmann, an eminent computer graphics expert and robotician.', 'u0hqgf6w', b'0', b'0'),
+(1, 66, 1, 'NORSAR', 59.975078, 11.044971, NULL, 'Find the first European site connected to the ARPANET.', 'The site also hosts the Norwegian Seismic Array.', 'u4xv5q4s', b'0', b'0');
 
 -- --------------------------------------------------------
 
