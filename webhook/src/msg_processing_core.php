@@ -35,6 +35,35 @@ function process_update($context) {
         return;
     }
 
+    // Additional pre commands
+    if($context->is_callback() && strpos($context->callback->data, 'RESET GAME ') === 0) {
+        Logger::info("Reset game callback received with data: " . $context->callback->data, __FILE__, $context);
+
+        $game_id = intval(substr($context->callback->data, 11));
+
+        $result = bot_register($context, $game_id, true);
+        if($result === true) {
+            $context->comm->reply(__('cmd_register_confirm'));
+            msg_processing_handle_group_state($context);
+        }
+        else if($result === 'unallowed_event_not_ready') {
+            $context->comm->reply(__('cmd_register_game_unallowed_event_not_ready'));
+        }
+        else if($result === 'unallowed_event_over') {
+            $context->comm->reply(__('cmd_register_game_unallowed_event'));
+        }
+        else if($result === 'unallowed_game_over') {
+            $context->comm->reply(__('cmd_register_game_unallowed'));
+        }
+        else if($result === 'unallowed_game_not_ready') {
+            $context->comm->reply(__('cmd_register_game_unallowed_not_ready'));
+        }
+        else {
+            $context->comm->reply(__('failure_general'));
+        }
+        return;
+    }
+
     // Base game commands
     if(msg_processing_commands($context)) {
         return;

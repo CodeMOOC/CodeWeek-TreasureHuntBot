@@ -112,7 +112,21 @@ function msg_processing_commands($context) {
                             msg_processing_handle_group_state($context);
                         }
                         else if($result === 'already_registered') {
-                            $context->comm->reply(__('cmd_register_registered'));
+                            $context->comm->reply(
+                                "You are already registered to this game. 👍",
+                                null,
+                                array("reply_markup" => array(
+                                    "inline_keyboard" => array(
+                                        array(
+                                            array(
+                                                "text" => "Restart game from the start",
+                                                "callback_data" => "RESET GAME " . $context->game->game_id
+                                            )
+                                        )
+                                    )
+                                ))
+                            );
+
                             msg_processing_handle_group_state($context);
                         }
                         else if($result === 'unallowed_event_not_ready') {

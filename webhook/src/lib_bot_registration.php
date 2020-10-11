@@ -23,15 +23,30 @@ function bot_is_registered($context, $game_id) {
 /**
  * Registers the user for a game.
  */
-function bot_register($context, $game_id) {
+function bot_register($context, $game_id, $restart = false) {
     $game_id = intval($game_id);
 
     if(bot_is_registered($context, $game_id)) {
-        Logger::info("User already registered for game #{$game_id}", __FILE__, $context);
+        if($restart) {
+            // Delete group from game, in order to register anew below
+            if(db_perform_action(sprintf(
+                "DELETE FROM `groups` WHERE `game_id` = %d AND `group_id` = %d",
+                $game_id,
+                $context->get_internal_id()
+            )) === false) {
+                Logger::error("Failed to delete group from game", __FILE__, $context);
+                return false;
+            }
 
-        $context->set_active_game($game_id, false);
+            Logger::debug("Group deletes from game", __FILE__, $context);
+        }
+        else {
+            Logger::info("User already registered for game #{$game_id}", __FILE__, $context);
 
-        return 'already_registered';
+            $context->set_active_game($game_id, false);
+
+            return 'already_registered';
+        }
     }
 
     if($context->game->game_id != null) {
