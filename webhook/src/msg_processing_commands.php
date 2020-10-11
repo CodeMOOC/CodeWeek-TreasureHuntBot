@@ -119,7 +119,7 @@ function msg_processing_commands($context) {
                                     "inline_keyboard" => array(
                                         array(
                                             array(
-                                                "text" => "Restart game from the start",
+                                                "text" => "Restart game from the beginning",
                                                 "callback_data" => "RESET GAME " . $context->game->game_id
                                             )
                                         )
