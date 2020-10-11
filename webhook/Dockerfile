@@ -6,6 +6,8 @@ RUN apt-get update && apt-get install -y \
     locales \
     && rm -rf /var/lib/apt/lists/*
 
+COPY ./php-dev.ini /usr/local/etc/php/php.ini
+
 RUN docker-php-ext-install mysqli gd gettext
 
 COPY locale.gen /etc/locale.gen
