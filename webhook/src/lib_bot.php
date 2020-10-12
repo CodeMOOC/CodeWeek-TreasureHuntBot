@@ -415,7 +415,8 @@ function bot_get_current_hint($context) {
         $context->get_internal_id()
     ));
     if($solved === false) {
-        return false;
+        Logger::error("Failed to retrieve count of solved riddles", __FILE__, $context);
+        return null;
     }
 
     if($solved === 0) {

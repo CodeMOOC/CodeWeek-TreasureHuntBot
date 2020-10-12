@@ -420,7 +420,7 @@ function msg_processing_handle_group_response($context) {
                 else if($result === true) {
                     $confirm_text = __('game_puzzle_response_correct');
                     $current_hint = bot_get_current_hint($context);
-                    if($current_hint) {
+                    if($current_hint !== null) {
                         $confirm_text .= ' <b>' . $current_hint . '</b>';
                     }
                     $context->comm->reply($confirm_text);
