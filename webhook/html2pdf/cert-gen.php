@@ -7,9 +7,10 @@ use Dompdf\Dompdf;
 $output_file = $argv[1];     //output PDF path
 $data_participants = $argv[2];
 $data_team_name = $argv[3];
-$data_action = $argv[4];
+$data_avatar_filename = $argv[4];
 $data_game_name = $argv[5];
 $data_identifier = $argv[6];
+$data_elapsed_mins = ($argv[7]) ? $argv[7] : 0;
 
 // instantiate and use the dompdf class
 $input_file = dirname(__FILE__) . '/template-certificate.html';
@@ -20,10 +21,11 @@ $content = file_get_contents($input_file);
 $content = str_replace("%root%", realpath(dirname(__FILE__) . '/../'), $content);
 $content = str_replace("%NUMBER%", $data_participants, $content);
 $content = str_replace("%TEAM_NAME%", $data_team_name, $content);
-$content = str_replace("%ACTION%", $data_action, $content);
+$content = str_replace("%AVATAR_NAME%", $data_avatar_filename, $content);
 $content = str_replace("%GAME_NAME%", $data_game_name, $content);
 $content = str_replace("%BASE_GEN_FILE%", $data_identifier, $content);
 $content = str_replace("%DATE%", date('j F Y'), $content);
+$content = str_replace("%ELAPSED_MINS%", $data_elapsed_mins, $content);
 
 $dompdf->loadHtml($content, 'UTF-8');
 

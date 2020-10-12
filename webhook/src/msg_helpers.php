@@ -57,9 +57,19 @@ function msg_process_victory($context, $event_id = null, $game_id = null) {
 
         // Generate certificate
         $identifier = "{$context->game->game_id}-{$context->get_internal_id()}";
+        $elapsed_minutes = intval(ceil($context->game->get_elapsed_time() / 60.0));
 
         $certificate_path = "/data/certificates/{$identifier}-certificate.pdf";
-        $certificate_cmd = "php /html2pdf/cert-gen.php \"{$certificate_path}\" {$context->game->group_participants} \"" . addslashes($context->game->group_name) . "\" \"completed\" \"{$context->game->game_name}\" \"{$identifier}\"";
+        $certificate_cmd = sprintf(
+            'php /html2pdf/cert-gen.php "%s" %d "%s" "%s" "%s" "%s" %d',
+            $certificate_path,
+            $context->game->group_participants,
+            addslashes($context->game->group_name),
+            $context->game->get_group_avatar(),
+            $context->game->game_name,
+            $identifier,
+            $elapsed_minutes
+        );
         Logger::debug("Generating certificate at {$certificate_path} with command: {$certificate_cmd}", __FILE__, $context);
 
         exec($certificate_cmd);

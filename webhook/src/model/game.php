@@ -275,4 +275,27 @@ class Game {
         return false;
     }
 
+    /**
+     * Gets the seconds elapsed since game registration.
+     */
+    function get_elapsed_time() {
+        if(!$this->game_id) {
+            return 0;
+        }
+
+        return db_scalar_query(sprintf(
+            'SELECT TIMESTAMPDIFF(SECOND, `registered_on`, NOW()) FROM `groups` WHERE `game_id` = %d AND `group_id` = %d LIMIT 1',
+            $this->game_id,
+            $this->owning_context->get_internal_id()
+        ));
+    }
+
+    function get_group_avatar() {
+        return db_scalar_query(sprintf(
+            'SELECT `photo_path` FROM `groups` WHERE `game_id` = %d AND `group_id` = %d LIMIT 1',
+            $this->game_id,
+            $this->owning_context->get_internal_id()
+        ));
+    }
+
 }
