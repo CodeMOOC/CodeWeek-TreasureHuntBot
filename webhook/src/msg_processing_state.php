@@ -42,7 +42,20 @@ function msg_processing_handle_group_state($context) {
             return true;
 
         case STATE_REG_NUMBER:
-            $context->comm->reply(__('registration_number_state'));
+            $context->comm->reply(
+                __('registration_number_state'),
+                null,
+                array("reply_markup" => array(
+                    "inline_keyboard" => array(
+                        array(
+                            array(
+                                "text" => 'Skip',
+                                "callback_data" => 'skip avatar'
+                            )
+                        )
+                    )
+                ))
+            );
             return true;
 
         case STATE_REG_READY:
@@ -266,6 +279,20 @@ function msg_processing_handle_group_response($context) {
                 telegram_download_file($file_path, "/data/avatars/$local_path");
 
                 bot_set_group_photo($context, $local_path);
+                bot_set_group_state($context, STATE_REG_READY);
+
+                $groups_count = bot_stats_ready_groups($context)[0];
+
+                Logger::info("Group '{$context->game->group_name}' is ready for the game ({$groups_count}th)", __FILE__, $context);
+
+                $context->comm->reply(__('registration_number_response_ok'), array(
+                    '%GROUP_COUNT%' => $groups_count
+                ));
+
+                msg_processing_handle_group_state($context);
+            }
+            else if($context->is_callback() && $context->callback->data === 'skip avatar') {
+                bot_set_group_photo($context, 'default_user.jpg');
                 bot_set_group_state($context, STATE_REG_READY);
 
                 $groups_count = bot_stats_ready_groups($context)[0];

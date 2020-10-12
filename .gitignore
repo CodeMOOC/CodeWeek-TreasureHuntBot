@@ -3,6 +3,7 @@
 
 data/avatars/*
 !data/avatars/placeholder
+!data/avatars/default_user.jpg
 data/badges/*
 !data/badges/placeholder
 data/certificates/*
