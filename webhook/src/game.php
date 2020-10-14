@@ -7,10 +7,11 @@
  * Game data.
  */
 
-const STATE_NEW             = 0;   // newly registered, captcha given
-const STATE_REG_VERIFIED    = 1;   // verified as human user, name asked
-const STATE_REG_NAME        = 2;   // name registered, participants asked
-const STATE_REG_NUMBER      = 3;   // number of participants given, selfie asked
+const STATE_NEW             = 0;   // newly registered, provide guide
+const STATE_NEW_INSTRUCTED  = 1;   // guide confirmed, captcha given
+const STATE_REG_VERIFIED    = 2;   // verified as human user, name asked
+const STATE_REG_NAME        = 3;   // name registered, participants asked
+const STATE_REG_NUMBER      = 4;   // number of participants given, selfie asked
 const STATE_REG_READY       = 10;  // avatar given, ready to play
 const STATE_GAME_LOCATION   = 30;  // [puzzle solved], location assigned, waiting for qr code
 const STATE_GAME_SELFIE     = 32;  // location reached, qr code scanned, waiting for selfie

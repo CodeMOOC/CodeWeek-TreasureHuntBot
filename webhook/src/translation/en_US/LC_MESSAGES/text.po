@@ -67,11 +67,11 @@ msgstr "All set! You have everything you need to scan QR Codes and play with Cod
 
 # Response to naked /start command: greeting and general instructions
 msgid "cmd_start_new"
-msgstr "Hi, %FULL_NAME%! Welcome to the <b>Code Hunting Games</b> bot. In order to participate, you must register to a game: follow the instructions given by the organizers."
+msgstr "Hi, %FULL_NAME%! Welcome to the <b>Code Hunting Games</b> bot. Check out the <a href=\"http://codehunting.games/codeweek2020\">instructions</a> to find out how to play."
 
 # Response to naked /start command: user is already registered for a game
 msgid "cmd_start_registered"
-msgstr "Welcome back, %FULL_NAME%! This is the <b>Code Hunting Games</b> bot."
+msgstr "Welcome back, %FULL_NAME%! This is the <b>Code Hunting Games</b> bot. Check out the <a href=\"http://codehunting.games/codeweek2020\">instructions</a> to find out how to play."
 
 # Response to victory code in invalid state
 msgid "cmd_start_prize_invalid"
@@ -121,7 +121,7 @@ msgstr "Sorry, I didn’t understand that. Did you scan the wrong code?"
 
 # First response after registration code, welcome to game
 msgid "cmd_register_confirm"
-msgstr "Welcome to <b>%GAME_NAME%</b>! 🎉 Let’s start by registering your team."
+msgstr "Welcome to <b>%GAME_NAME%</b>! 🎉"
 
 # Successive responses to registration of same game
 msgid "cmd_register_registered"
@@ -146,7 +146,7 @@ msgstr "The event “%EVENT_NAME%” has not started yet."
 
 # Registration: captcha quiz for verification
 msgid "registration_new_state"
-msgstr "Are you ready to play? To be sure, I’ll ask you a simple coding question. (The rules are based on the <a href=\"http://codemooc.org/codyroby/en/\">CodyRoby</a> game.)"
+msgstr "During the game, I’ll ask you some <i>coding</i> questions. Let’s check if you know how to solve them! (The rules are based on the <a href=\"http://codemooc.org/codyroby/en/\">CodyRoby</a> game.)"
 
 # Registration: captcha quiz caption with instructions
 msgid "registration_new_state_caption"

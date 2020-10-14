@@ -22,7 +22,25 @@ function msg_processing_handle_group_state($context) {
 
     switch($context->game->group_state) {
         case STATE_NEW:
-            //Needs to send the captcha question
+            // Send out guide
+            $context->comm->reply(
+                "If this is the first time you play a <i>Code Hunting Game</i>, please <a href=\"http://codehunting.games/codeweek2020\">take a look to the online guide</a> that will tell you how the game works.",
+                null,
+                array("reply_markup" => array(
+                    "inline_keyboard" => array(
+                        array(
+                            array(
+                                "text" => 'Got it! 👍',
+                                "callback_data" => 'done'
+                            )
+                        )
+                    )
+                ))
+            );
+            return true;
+
+        case STATE_NEW_INSTRUCTED:
+            // Send out the captcha question
             $context->comm->reply(__('registration_new_state'));
 
             $context->comm->picture(
@@ -84,7 +102,7 @@ function msg_processing_handle_group_state($context) {
 
         case STATE_GAME_LAST_LOC:
             $context->comm->reply(
-                "You’re almost there! During the course of the game, at each step, I have sent you small hints about the final location to find. Go look for those hints: reading them as some form of… <i>code</i> might point you in the right direction. 🧐",
+                "You’re almost there! During the course of the game, at each step, I have sent you some hints that you can use to find your final location on the Code Week Treasure Hunt map. Go look for those hints: reading them as some form of… <i>code</i> might point you in the right direction. 🧐",
                 null,
                 array("reply_markup" => array(
                     "inline_keyboard" => array(
@@ -92,6 +110,10 @@ function msg_processing_handle_group_state($context) {
                             array(
                                 "text" => __('game_location_hint_button'),
                                 "callback_data" => 'hint'
+                            ),
+                            array(
+                                "text" => "Open location map",
+                                "url" => 'https://dev.codeweek.eu/code-hunting-game'
                             )
                         )
                     )
@@ -207,8 +229,21 @@ function msg_processing_handle_group_response($context) {
     switch($context->game->group_state) {
 
         /* REGISTRATION */
-
         case STATE_NEW:
+            if(
+                ($context->is_callback() && $context->callback->data === 'done') ||
+                is_affirmative($message_response)
+            ) {
+                bot_set_group_state($context, STATE_NEW_INSTRUCTED);
+
+                msg_processing_handle_group_state($context);
+            }
+            else {
+                $context->comm->reply('Say again? Are you ready to play?');
+            }
+            return true;
+
+        case STATE_NEW_INSTRUCTED:
             if('c' === $message_response) {
                 bot_set_group_state($context, STATE_REG_VERIFIED);
                 $context->comm->reply(__('registration_new_response_correct'));
@@ -477,7 +512,7 @@ function msg_processing_handle_group_response($context) {
             // We expect a deeplink that will come through the /start command
             if($context->is_callback() && $context->callback->data === 'hint') {
                 $context->comm->reply(
-                    "OK, well then. If you string all previous hints together you will obtain a <b>GeoHash</b>, a code for a specific geographical location. You can easily convert the hash using an online tool.",
+                    "OK, well then. If you string all previous hints together you will obtain a <b>GeoHash</b>, a code for a specific geographical location. You can easily convert the hash using an online tool. Go to that location on the map and scan the QR code.",
                     null,
                     array("reply_markup" => array(
                         "inline_keyboard" => array(
@@ -487,7 +522,7 @@ function msg_processing_handle_group_response($context) {
                                     "url" => "https://www.movable-type.co.uk/scripts/geohash.html"
                                 ),
                                 array(
-                                    "text" => "Location map",
+                                    "text" => "Open location map",
                                     "url" => "https://dev.codeweek.eu/code-hunting-game"
                                 )
                             )

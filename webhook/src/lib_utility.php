@@ -104,3 +104,24 @@ function unite_arrays($a, $b) {
 
     return $a;
 }
+
+/**
+ * Checks whether a normalized string matches an affirmative utterance.
+ */
+function is_affirmative($string) {
+    return in_array($string, array(
+        'ok',
+        'yes',
+        'proceed',
+        'advance',
+        'si',
+        'sì',
+        'ja',
+        'yep',
+        'confirm',
+        'of course',
+        'skip',
+        'go on',
+        'go'
+    ));
+}
