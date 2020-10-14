@@ -484,7 +484,7 @@ function msg_processing_handle_group_response($context) {
                             array(
                                 array(
                                     "text" => "GeoHash conversion",
-                                    "url" => "https://geohash.xyz/"
+                                    "url" => "https://www.movable-type.co.uk/scripts/geohash.html"
                                 ),
                                 array(
                                     "text" => "Location map",
