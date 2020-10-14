@@ -24,7 +24,7 @@ function msg_processing_handle_group_state($context) {
         case STATE_NEW:
             // Send out guide
             $context->comm->reply(
-                "If this is the first time you play a <i>Code Hunting Game</i>, please <a href=\"http://codehunting.games/codeweek2020\">take a look to the online guide</a> that will tell you how the game works.",
+                "If this is the first time you play a <i>Code Hunting Game</i>, please <a href=\"https://codehunting.games/codeweek2020\">take a look to the online guide</a> that will tell you how the game works.",
                 null,
                 array("reply_markup" => array(
                     "inline_keyboard" => array(

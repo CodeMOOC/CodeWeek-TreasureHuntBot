@@ -67,11 +67,11 @@ msgstr "All set! You have everything you need to scan QR Codes and play with Cod
 
 # Response to naked /start command: greeting and general instructions
 msgid "cmd_start_new"
-msgstr "Hi, %FULL_NAME%! Welcome to the <b>Code Hunting Games</b> bot. Check out the <a href=\"http://codehunting.games/codeweek2020\">instructions</a> to find out how to play."
+msgstr "Hi, %FULL_NAME%! Welcome to the <b>Code Hunting Games</b> bot. Check out the <a href=\"https://codehunting.games/codeweek2020\">instructions</a> to find out how to play."
 
 # Response to naked /start command: user is already registered for a game
 msgid "cmd_start_registered"
-msgstr "Welcome back, %FULL_NAME%! This is the <b>Code Hunting Games</b> bot. Check out the <a href=\"http://codehunting.games/codeweek2020\">instructions</a> to find out how to play."
+msgstr "Welcome back, %FULL_NAME%! This is the <b>Code Hunting Games</b> bot. Check out the <a href=\"https://codehunting.games/codeweek2020\">instructions</a> to find out how to play."
 
 # Response to victory code in invalid state
 msgid "cmd_start_prize_invalid"
