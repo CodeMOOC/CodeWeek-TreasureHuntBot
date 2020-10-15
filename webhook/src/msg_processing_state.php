@@ -113,7 +113,7 @@ function msg_processing_handle_group_state($context) {
                             ),
                             array(
                                 "text" => "Open location map",
-                                "url" => 'https://dev.codeweek.eu/code-hunting-game'
+                                "url" => 'https://codeweek.eu/code-hunting-game'
                             )
                         )
                     )
@@ -475,7 +475,7 @@ function msg_processing_handle_group_response($context) {
                         $keyboard = array(
                             array(
                                 "text" => "Open location map",
-                                "url" => 'https://dev.codeweek.eu/code-hunting-game'
+                                "url" => 'https://codeweek.eu/code-hunting-game'
                             )
                         );
                         if($context->game->location_hints_enabled && $location_info[5]) {
@@ -523,7 +523,7 @@ function msg_processing_handle_group_response($context) {
                                 ),
                                 array(
                                     "text" => "Open location map",
-                                    "url" => "https://dev.codeweek.eu/code-hunting-game"
+                                    "url" => "https://codeweek.eu/code-hunting-game"
                                 )
                             )
                         )
