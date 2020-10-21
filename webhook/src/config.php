@@ -29,6 +29,11 @@ define('DEBUG_TO_BOT', false);
 define('DEACTIVATED', false);
 define('BOT_DEEPLINK_START_ROOT', 'https://t.me/BOTNAME?start=');
 
+/* WOM connector setup */
+// define("DEV", True);
+define('INSTRUMENT_ID', getenv('WOM_SOURCE_ID'));
+define('INSTRUMENT_PRIVATE_KEY', '/keys/wom-source.pem');
+
 // PHP configuration
 date_default_timezone_set('UTC'); // ensure UTC is used for all date functions
 set_time_limit(0); // ensure scripts are not interrupted (e.g., long-polling or downloads)

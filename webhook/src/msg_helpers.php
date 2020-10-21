@@ -80,18 +80,20 @@ function msg_process_victory($context, $event_id = null, $game_id = null) {
         bot_set_group_state($context, STATE_CERT_SENT);
 
         $context->comm->reply(
-            __('questionnaire_finish_thankyou'),
+            'But that’s not all! We have a <b>special prize</b> waiting for you. Please, send us your current location (using the button below) in order to redeem it.',
             null,
-            array("reply_markup" => array(
-                "inline_keyboard" => array(
-                    array(
+            array(
+                'reply_markup' => array(
+                    'keyboard' => array(
                         array(
-                            "text" => "Play again!",
-                            "callback_data" => "RESET GAME " . $context->game->game_id
+                            array(
+                                'text' => 'Send current location',
+                                'request_location' => true
+                            )
                         )
                     )
                 )
-            ))
+            )
         );
     }
     else {

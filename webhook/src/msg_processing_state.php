@@ -204,6 +204,27 @@ function msg_processing_handle_group_state($context) {
 
         case STATE_CERT_SENT:
             $context->comm->reply(__('game_won_state'));
+
+            $context->comm->reply(
+                'You won the game! We still have a <b>special prize</b> waiting for you: send us your location in order to redeem it.',
+                null,
+                array(
+                    'reply_markup' => array(
+                        'keyboard' => array(
+                            array(
+                                array(
+                                    'text' => 'Send current location',
+                                    'request_location' => true
+                                )
+                            )
+                        )
+                    )
+                )
+            );
+            return true;
+
+        case STATE_WOM_SENT:
+            $context->comm->reply(__('game_won_state'));
             return true;
     }
 
@@ -636,6 +657,60 @@ function msg_processing_handle_group_response($context) {
             return true;
 
         case STATE_CERT_SENT:
+            if($context->message && $context->message->is_location()) {
+                $context->comm->reply('Got it, generating your prize…');
+                telegram_send_chat_action($context->comm->get_telegram_id());
+
+                $lat = $context->message->latitude;
+                $lng = $context->message->longitude;
+
+                // Generate WOM vouchers
+                $Instrument = new \WOM\Instrument(INSTRUMENT_ID, INSTRUMENT_PRIVATE_KEY, INSTRUMENT_PRIVATE_KEY_PASSWORD);
+                $vouchers[] = \WOM\Voucher::Create('C', $lat, $lng, new DateTime('NOW'), 30);
+
+                try {
+                    Logger::info("Generating WOM vouchers", __FILE__, $context);
+
+                    $Instrument->RequestVouchers($vouchers, "", $pin, $otc);
+
+                    $womCodePath = "/data/qrcodes/wom-otc-" . $context->get_internal_id() . "-" . $context->game->game_id . ".png";
+                    Logger::debug("Storing WOM QR code at {$womCodePath}", __FILE__, $context);
+                    \WOM\WOMQRCodeGenerator::GetQRCode($otc, 200, $womCodePath);
+
+                    $context->comm->picture($womCodePath, null);
+                    $context->comm->reply(sprintf(
+                        "Here you are! 🎖 Scan the QR Code or <a href=\"%s\">click this link</a> in order to redeem your <a href=\"https://wom.social\">WOM vouchers</a> as an award for your efforts. Use the following PIN code to access them: <code>%s</code>.",
+                        "https://wom.social/vouchers/" . $otc,
+                        $pin
+                    ));
+                }
+                catch(Exception $exception) {
+                    Logger::error($exception, __FILE__, $context);
+                }
+
+                bot_set_group_state($context, STATE_WOM_SENT);
+
+                $context->comm->reply(
+                    __('questionnaire_finish_thankyou'),
+                    null,
+                    array("reply_markup" => array(
+                        "inline_keyboard" => array(
+                            array(
+                                array(
+                                    "text" => "Play again!",
+                                    "callback_data" => "RESET GAME " . $context->game->game_id
+                                )
+                            )
+                        )
+                    ))
+                );
+            }
+            else {
+                msg_processing_handle_group_state($context);
+            }
+            return true;
+
+        case STATE_WOM_SENT:
             msg_processing_handle_group_state($context);
             return true;
     }

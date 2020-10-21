@@ -14,6 +14,7 @@ services:
     - treasurehunt-backend
     volumes:
     - ./data:/data:rw
+    - ./wom-source.pem:/keys/wom-source.pem:ro
     env_file:
     - config.env
     expose:

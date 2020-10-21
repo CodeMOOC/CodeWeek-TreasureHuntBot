@@ -23,3 +23,5 @@ html2pdf/images/signature_ab\.png
 
 docker-compose.custom.yml
 config.env
+
+wom-source.pem

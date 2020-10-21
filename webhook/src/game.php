@@ -24,6 +24,7 @@ const STATE_GAME_WON        = 99;  // final qrcode scanned, victory
 const STATE_FEEDBACK        = 128; // won, asked for feedback
                                    //   multiple feedback states
 const STATE_CERT_SENT       = 160; // won, certificate sent
+const STATE_WOM_SENT        = 170; // won, WOMs sent
 const STATE_INVALID         = -1;  // mysterious invalid state
 
 const STATE_ALL             = array(
