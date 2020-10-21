@@ -341,8 +341,6 @@ function bot_reach_location($context, $location_id, $game_id) {
     else if($state === STATE_GAME_LAST_LOC) {
         Logger::info("Group reached the final location", __FILE__, $context);
 
-        $context->comm->reply(__('cmd_start_location_reached_last'));
-
         return 'last';
     }
 }

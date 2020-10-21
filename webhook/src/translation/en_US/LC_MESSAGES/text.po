@@ -80,12 +80,12 @@ msgstr "Hmmm, you appear to have found the prize, but <i>too</i> soon! 🤔"
 # Response to victory code (first of game)
 msgid "cmd_start_prize_first"
 msgstr "🎉 <b>Congratulations!</b> 🎉\n"
-"You solved the last puzzle correctly and you’re the first team to complete the game! 🏁"
+"You solved the GeoHash puzzle correctly and you’re the first team to complete the game! 🏁"
 
 # Response to victory code (not first of game, %WINNING_GROUP% first group, %INDEX% arrival position)
 msgid "cmd_start_prize_not_first"
 msgstr "🎉 <b>Congratulations!</b> 🎉\n"
-"You are team number %INDEX% to solve the last puzzle correctly and to complete the game! 🏁"
+"You are team number %INDEX% to solve the GeoHash puzzle correctly and to complete the game! 🏁"
 
 # Response to first victory code on public channel (%GROUP_NAME% name)
 msgid "cmd_start_prize_channel_first"
