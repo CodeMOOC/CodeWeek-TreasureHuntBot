@@ -1,5 +1,11 @@
 {
+    "config": {
+        "platform": {
+            "php": "7.4"
+        }
+    },
     "require": {
-        "lvht/geohash": "^1.1"
+        "lvht/geohash": "^1.1",
+        "digitsrl/php-wom-connector": "dev-master"
     }
 }
