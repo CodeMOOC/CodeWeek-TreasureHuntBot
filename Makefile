@@ -42,7 +42,7 @@ import-db: confirmation
 
 .PHONY: up
 up:
-	${DC} up -d webhook
+	${DC} up -d proxy
 	${DC} ps
 	@echo
 	@echo 'Service is now up'
@@ -58,9 +58,9 @@ rs:
 
 .PHONY: rebuild
 rebuild:
-	${DC} rm -sf webhook
+	${DC} rm -sf proxy webhook
 	${DC} build webhook
-	${DC} up -d
+	${DC} up -d proxy
 
 .PHONY: phpmyadmin
 phpmyadmin:

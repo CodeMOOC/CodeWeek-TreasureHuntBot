@@ -5,12 +5,23 @@ networks:
   treasurehunt-backend:
 
 services:
+  proxy:
+    image: nginx:1.19-alpine
+    depends_on:
+    - webhook
+    networks:
+    - web
+    - treasurehunt-backend
+    volumes:
+    - ./proxy/server.conf:/etc/nginx/conf.d/default.conf:ro
+    expose:
+    - 80
+
   webhook:
     build: ./webhook
     depends_on:
     - db
     networks:
-    - web
     - treasurehunt-backend
     volumes:
     - ./data:/data:rw
@@ -18,7 +29,7 @@ services:
     env_file:
     - config.env
     expose:
-    - 80
+    - 9000
 
   db:
     image: mysql:5.7.31
