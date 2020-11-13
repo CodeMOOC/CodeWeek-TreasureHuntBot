@@ -4,6 +4,7 @@ RUN apt-get update && apt-get install -y \
     gettext \
     libpng-dev \
     locales \
+    zip \
     && rm -rf /var/lib/apt/lists/*
 
 COPY ./php-prod.ini /usr/local/etc/php/php.ini

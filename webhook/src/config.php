@@ -21,7 +21,7 @@ define('DATABASE_USERNAME', getenv('MYSQL_USER'));
 define('DATABASE_PASSWORD', getenv('MYSQL_PASSWORD'));
 
 /* Settings constant */
-define('DEBUG', true);
+define('DEBUG', false);
 define('PERF_LOGGING', false);
 define('CHAT_GROUP_DEBUG', 0);
 define('DEBUG_TO_DB', false);
