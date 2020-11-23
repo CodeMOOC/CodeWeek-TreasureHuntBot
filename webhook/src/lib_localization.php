@@ -83,7 +83,7 @@ function localization_set_locale_and_persist($context, $locale_iso_code) {
 
     db_perform_action(sprintf(
         'UPDATE `identities` SET `language` = \'%s\' WHERE `id` = %d',
-        db_escape($locale),
+        substr(db_escape($locale), 0, 5),
         $context->get_internal_id()
     ));
 
