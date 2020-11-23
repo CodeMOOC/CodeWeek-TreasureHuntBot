@@ -81,14 +81,14 @@ function msg_process_victory($context, $event_id = null, $game_id = null) {
         bot_set_group_state($context, STATE_CERT_SENT);
 
         $context->comm->reply(
-            'But that’s not all! We have a <b>special prize</b> waiting for you. Please, send us your current location (using the button below) in order to redeem it.',
+            __('won_ask_location_for_wom'),
             null,
             array(
                 'reply_markup' => array(
                     'keyboard' => array(
                         array(
                             array(
-                                'text' => 'Send current location',
+                                'text' => __('send_current_location'),
                                 'request_location' => true
                             )
                         )

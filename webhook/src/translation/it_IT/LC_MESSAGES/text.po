@@ -228,7 +228,7 @@ msgstr "Chiedi suggerimento"
 
 # Must wait for %SECONDS% seconds before getting hint
 msgid "game_location_hint_wait"
-msgstr "Dovete aspettare almeno altri %SECONDS% secondi prima di poter ricevere un suggerimento. ⏱"
+msgstr "Dovrai aspettare almeno altri %SECONDS% secondi prima di poter ricevere un suggerimento. ⏱"
 
 # Here's the hint
 msgid "game_location_hint_confirm"
@@ -256,11 +256,11 @@ msgstr "Scrivete qui la risposta al quesito appena inviato."
 
 # Game state: too quick puzzle response, wait %SECONDS% more for next answer
 msgid "game_puzzle_response_wait"
-msgstr "Dovete aspettare altri %SECONDS% secondi prima di poter rispondere."
+msgstr "Dovrai aspettare altri %SECONDS% secondi prima di poter rispondere."
 
 # Game state: puzzle solution wrong, wait 30 seconds
 msgid "game_puzzle_response_wrong"
-msgstr "Ehm… Non proprio! 😩 Purtroppo avete sbagliato e dovrete aspettare qualche secondo prima di poter dare un’altra risposta…\n"
+msgstr "Ehm… Non proprio! 😩 Purtroppo hai sbagliato e dovrai aspettare qualche secondo prima di poter dare un’altra risposta…\n"
 "Giusto il tempo di pensare alla soluzione corretta! 😉"
 
 # Game state: puzzle solution correct, congratulations
@@ -269,7 +269,7 @@ msgstr "Risposta azzeccata!"
 
 # Game state: reach last location
 msgid "game_last_location_state"
-msgstr "Manca pochissimo alla conclusione della gara… raggiungete l’ultima tappa!"
+msgstr "Manca pochissimo alla conclusione della gara… raggiungi l’ultima tappa!"
 
 # Game state: please snap last selfie
 msgid "game_last_selfie_state"
@@ -433,3 +433,6 @@ msgstr "Hai già effettuato la registrazione a questa partita. 👍"
 
 msgid "restart_registered_game"
 msgstr "Ricomincia la partita da capo"
+
+msgid "won_ask_location_for_wom"
+msgstr "Ma non è tutto! Abbiamo un <b>premio speciale</b> per te. Ti prego di inviarmi la tua posizione geografica (usando il pulsante qui sotto) per riceverlo."

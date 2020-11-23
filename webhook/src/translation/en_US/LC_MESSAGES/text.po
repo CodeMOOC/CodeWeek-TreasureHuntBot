@@ -431,3 +431,6 @@ msgstr "You are already registered to this game. 👍"
 
 msgid "restart_registered_game"
 msgstr "Restart game from the beginning"
+
+msgid "won_ask_location_for_wom"
+msgstr "But that’s not all! We have a <b>special prize</b> waiting for you. Please, send us your current location (using the button below) in order to redeem it."
