@@ -680,7 +680,7 @@ function msg_processing_handle_group_response($context) {
                     $context->comm->picture($womCodePath, null);
                     $context->comm->reply(__('received_wom_vouchers'), array(
                         '%WOM_LINK%' => 'https://wom.social/vouchers/' . $otc,
-                        '%WOM_PIN%' => '$pin'
+                        '%WOM_PIN%' => $pin
                     ));
                 }
                 catch(Exception $exception) {
