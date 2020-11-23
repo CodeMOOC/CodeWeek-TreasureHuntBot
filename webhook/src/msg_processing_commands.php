@@ -113,13 +113,13 @@ function msg_processing_commands($context) {
                         }
                         else if($result === 'already_registered') {
                             $context->comm->reply(
-                                "You are already registered to this game. 👍",
+                                __('already_registered_to_game'),
                                 null,
                                 array("reply_markup" => array(
                                     "inline_keyboard" => array(
                                         array(
                                             array(
-                                                "text" => "Restart game from the beginning",
+                                                "text" => __('restart_registered_game'),
                                                 "callback_data" => "RESET GAME " . $context->game->game_id
                                             )
                                         )

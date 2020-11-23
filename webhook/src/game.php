@@ -165,6 +165,16 @@ const GAME_LAST_PUZZLE_2_SOLUTION = 'd5';
 const GAME_LAST_PUZZLE_3_IMAGE = '../riddles/codeweek-2018/pascal.jpg';
 const GAME_LAST_PUZZLE_3_SOLUTION = 'pascal';
 
+const GAME_GUIDE_LINKS = array(
+    1       => 'https://codehunting.games/codeweek2020',
+    2       => 'https://codehunting.games/inaf2020'
+);
+
+const GAME_MAP_LINKS = array(
+    1       => 'https://codeweek.eu/code-hunting-game',
+    2       => 'https://umap.openstreetmap.fr/it/map/inaf-code-hunting-game_526996#6/41.860/11.821'
+);
+
 const EVENT_IDS_WITH_FINAL_PUZZLE = array(
     2,
     7,

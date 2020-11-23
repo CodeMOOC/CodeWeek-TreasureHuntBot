@@ -387,3 +387,47 @@ msgstr "Certificate for “%GROUP_NAME%”"
 msgid "questionnaire_finish_thankyou"
 msgstr "Thank you again for playing! 🙂"
 
+msgid "start_right_away"
+msgstr "Let’s start right away! Here is your first coding quiz. 💡"
+
+msgid "skip"
+msgstr "Skip"
+
+msgid "almost_there_geohash"
+msgstr "You’re almost there! During the course of the game, at each step, I have sent you some hints that you can use to find your final location on the Code Week Treasure Hunt map. Go look for those hints: reading them as some form of… <i>code</i> might point you in the right direction. 🧐"
+
+msgid "open_location_map"
+msgstr "Open location map"
+
+msgid "victory_location_for_wom"
+msgstr "You won the game! We still have a <b>special prize</b> waiting for you: send us your location in order to redeem it."
+
+msgid "send_current_location"
+msgstr "Send current location"
+
+msgid "say_again_ready"
+msgstr "Say again? Are you ready to play?"
+
+msgid "geohash_hint"
+msgstr "OK, well then. If you string all previous hints together you will obtain a <b>GeoHash</b>, a code for a specific geographical location. You can easily convert the hash using an online tool. Go to that location on the map and scan the QR code."
+
+msgid "geohash_conversion_link"
+msgstr "GeoHash conversion"
+
+msgid "received_location_for_wom"
+msgstr "Got it, generating your prize…"
+
+msgid "received_wom_vouchers"
+msgstr "Here you are! 🎖 Scan the QR Code or <a href=\"%WOM_LINK%\">click this link</a> in order to redeem your <a href=\"https://wom.social\">WOM vouchers</a> as an award for your efforts. Use the following PIN code to access them: <code>%WOM_PIN%</code>."
+
+msgid "send_out_game_guide"
+msgstr "If this is the first time you play a <i>Code Hunting Game</i>, please <a href=\"%HELP_LINK%\">take a look to the online guide</a> that will tell you how the game works."
+
+msgid "game_guide_got_it"
+msgstr "Got it! 👍"
+
+msgid "already_registered_to_game"
+msgstr "You are already registered to this game. 👍"
+
+msgid "restart_registered_game"
+msgstr "Restart game from the beginning"

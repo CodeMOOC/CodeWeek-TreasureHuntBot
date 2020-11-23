@@ -121,7 +121,7 @@ msgstr "Non ho capito il comando: hai scansionato il codice corretto?"
 
 # First response after registration code, welcome to game
 msgid "cmd_register_confirm"
-msgstr "Benvenuti a <b>%GAME_NAME%</b>! 🎉 Cerchiamo di registrare il vostro gruppo al gioco."
+msgstr "Ti diamo il benvenuto a <b>%GAME_NAME%</b>! 🎉"
 
 # Successive responses to registration of same game
 msgid "cmd_register_registered"
@@ -146,7 +146,7 @@ msgstr "L’evento “%EVENT_NAME%” non è ancora cominciato."
 
 # Registration: captcha quiz for verification
 msgid "registration_new_state"
-msgstr "Ma siete veramente pronti per il gioco? Per esserne certi farò una domanda semplice semplice per iniziare. (Le regole sono basate su <a href=\"http://codemooc.org/codyroby/\">CodyRoby</a>.)"
+msgstr "Per essere certi che saprai rispondere alle domande di <i>coding</i> che troverai durante il gioco, ti farò una domanda semplice semplice per iniziare. (Le regole sono basate su <a href=\"http://codemooc.org/codyroby/\">CodyRoby</a>.)"
 
 # Registration: captcha quiz caption with instructions
 msgid "registration_new_state_caption"
@@ -164,19 +164,19 @@ msgstr "<i>Sbagliato!</i>\n"
 
 # Registration: name choice prompt
 msgid "registration_verified_state"
-msgstr "Ora dovete soltanto assegnare un nome avvincente al vostro gruppo. Qualcosa che incuta terrore agli avversari, forse. Che nome scegliete?"
+msgstr "Ora dovrai soltanto assegnare un nome avvincente alla tua squadra. Qualcosa che incuta terrore agli avversari, forse. Che nome scegli?"
 
 # Registration: name choice confirmation (%GROUP_NAME% name, %GROUP_COUNT% prog. count)
 msgid "registration_verified_response_ok"
-msgstr "Ok, “%GROUP_NAME%” suona bene! Siete il %GROUP_COUNT%° gruppo a registrarsi per il gioco."
+msgstr "Ok, “%GROUP_NAME%” suona bene! Questa è la %GROUP_COUNT%° squadra a registrarsi per il gioco."
 
 # Registration: name choice not valid
 msgid "registration_verified_response_invalid"
-msgstr "Non mi sembra un nome valido. Come volete che il vostro gruppo si chiami?"
+msgstr "Non mi sembra un nome valido. Come vuoi che la tua squadra si chiami?"
 
 # Registration: number of participants prompt
 msgid "registration_name_state"
-msgstr "Mi potete scrivere quanti componenti ci sono nel gruppo?"
+msgstr "Quanti componenti ci sono nella squadra?"
 
 # Registration: number of participants not valid
 msgid "registration_name_response_invalid"
@@ -196,7 +196,7 @@ msgstr "Hai appena confermato per %NUMBER% partecipanti!"
 
 # Registration: avatar prompt
 msgid "registration_number_state"
-msgstr "Mi potete mandare ora una foto o un’immagine da usare come icona del gruppo?"
+msgstr "Mi potresti mandare una foto o un’immagine da usare come icona della squadra?"
 
 # Registration: avatar confirmation
 msgid "registration_number_response_ok"
@@ -204,11 +204,11 @@ msgstr "Bella foto! Il gruppo “%GROUP_NAME%” è registrato. 👍"
 
 # Registration: avatar not valid
 msgid "registration_number_response_invalid"
-msgstr "Si è verificato un errore. Inviate un’immagine da usare come icona del gruppo, per favore."
+msgstr "Si è verificato un errore. Invia un’immagine da usare come icona del gruppo, per favore."
 
 # Registration: final confirmation and instructions (%GAME_CHANNEL% Telegram channel)
 msgid "registration_ready_state_with_channel"
-msgstr "Tutto ok! Assicuratevi di essere iscritti al canale %GAME_CHANNEL% e seguite le istruzioni che vi verranno date."
+msgstr "Tutto ok! Assicurati di essere iscritti al canale %GAME_CHANNEL% e seguite le istruzioni che vi verranno date."
 
 # Registration: final confirmation and instructions
 msgid "registration_ready_state_without_channel"
@@ -220,7 +220,7 @@ msgstr "Raggiungete il punto assegnato e trovate il QR Code!"
 
 # Location sent, wrong response given, do you want hint?
 msgid "game_location_hint_nudge"
-msgstr "Come? 🤔 Vi siete persi?"
+msgstr "Come? 🤔 Non trovi la strada giusta?"
 
 # Location sent, button text to ask for hint
 msgid "game_location_hint_button"
@@ -389,3 +389,47 @@ msgstr "Certificato per “%GROUP_NAME%”"
 msgid "questionnaire_finish_thankyou"
 msgstr "Grazie ancora per aver partecipato! 🙂"
 
+msgid "start_right_away"
+msgstr "Iniziamo subito. Ecco il tuo primo indovinello di coding! 💡"
+
+msgid "skip"
+msgstr "Salta"
+
+msgid "almost_there_geohash"
+msgstr "Ci sei quasi! Durante la partita, ad ogni tappa, ti ho inviato un indizio su quale sarà la tappa finale sulla mappa. Vai a cercare questi indizi, leggerli come una specie di… <i>codice</i> potrebbe indicarti la destinazione da raggiungere. 🧐"
+
+msgid "open_location_map"
+msgstr "Apri mappa delle tappe"
+
+msgid "victory_location_for_wom"
+msgstr "Hai vinto la partita! Abbiamo un <b>premio speciale</b> tutto per te: inviaci la tua posizione attuale per riceverlo."
+
+msgid "send_current_location"
+msgstr "Invia posizione geografica"
+
+msgid "say_again_ready"
+msgstr "Come dici? Pronti per giocare?"
+
+msgid "geohash_hint"
+msgstr "OK, benissimo. Se metti in ordine tutti i codici ricevuti ad ogni tappa otterrai un <b>GeoHash</b>, un codice che indica una specifica posizione geografica. Puoi convertire questo hash con uno strumento online. Poi trova la tappa sulla mappa e scansiona il QR Code."
+
+msgid "geohash_conversion_link"
+msgstr "Conversione di GeoHash"
+
+msgid "received_location_for_wom"
+msgstr "Ricevuto, sto preparando il premio…"
+
+msgid "received_wom_vouchers"
+msgstr "Ecco qua! 🎖 Scansiona il QR Code oppure <a href=\"%WOM_LINK%\">clicca qui</a> per ottenere i tuoi <a href=\"https://wom.social\">voucher WOM</a> come premio per i tuoi sforzi. Usa il seguente PIN per sbloccare il premio: <code>%WOM_PIN%</code>."
+
+msgid "send_out_game_guide"
+msgstr "Se questa è la prima volta che partecipi ad un <i>Code Hunting Game</i>, <a href=\"%HELP_LINK%\">dai un’occhiata a questa guida online</a> che ti indicherà come funziona il gioco."
+
+msgid "game_guide_got_it"
+msgstr "Tutto chiaro! 👍"
+
+msgid "already_registered_to_game"
+msgstr "Hai già effettuato la registrazione a questa partita. 👍"
+
+msgid "restart_registered_game"
+msgstr "Ricomincia la partita da capo"

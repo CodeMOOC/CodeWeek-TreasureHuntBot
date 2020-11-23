@@ -24,13 +24,15 @@ function msg_processing_handle_group_state($context) {
         case STATE_NEW:
             // Send out guide
             $context->comm->reply(
-                "If this is the first time you play a <i>Code Hunting Game</i>, please <a href=\"https://codehunting.games/codeweek2020\">take a look to the online guide</a> that will tell you how the game works.",
-                null,
+                __('send_out_game_guide'),
+                array(
+                    '%HELP_LINK%' => GAME_GUIDE_LINKS[$context->game->game_id]
+                ),
                 array("reply_markup" => array(
                     "inline_keyboard" => array(
                         array(
                             array(
-                                "text" => 'Got it! 👍',
+                                "text" => __('game_guide_got_it'),
                                 "callback_data" => 'done'
                             )
                         )
@@ -67,7 +69,7 @@ function msg_processing_handle_group_state($context) {
                     "inline_keyboard" => array(
                         array(
                             array(
-                                "text" => 'Skip',
+                                "text" => __('skip'),
                                 "callback_data" => 'skip avatar'
                             )
                         )
@@ -77,7 +79,7 @@ function msg_processing_handle_group_state($context) {
             return true;
 
         case STATE_REG_READY:
-            $context->comm->reply("Let’s start right away! Here is your first coding quiz. 💡");
+            $context->comm->reply(__('start_right_away'));
 
             // Go straight to riddle and next location!
             $riddle_id = bot_assign_random_riddle($context);
@@ -102,7 +104,7 @@ function msg_processing_handle_group_state($context) {
 
         case STATE_GAME_LAST_LOC:
             $context->comm->reply(
-                "You’re almost there! During the course of the game, at each step, I have sent you some hints that you can use to find your final location on the Code Week Treasure Hunt map. Go look for those hints: reading them as some form of… <i>code</i> might point you in the right direction. 🧐",
+                __('almost_there_geohash'),
                 null,
                 array("reply_markup" => array(
                     "inline_keyboard" => array(
@@ -112,8 +114,8 @@ function msg_processing_handle_group_state($context) {
                                 "callback_data" => 'hint'
                             ),
                             array(
-                                "text" => "Open location map",
-                                "url" => 'https://codeweek.eu/code-hunting-game'
+                                "text" => __('open_location_map'),
+                                "url" => GAME_MAP_LINKS[$context->game->game_id]
                             )
                         )
                     )
@@ -206,14 +208,14 @@ function msg_processing_handle_group_state($context) {
             $context->comm->reply(__('game_won_state'));
 
             $context->comm->reply(
-                'You won the game! We still have a <b>special prize</b> waiting for you: send us your location in order to redeem it.',
+                __('victory_location_for_wom'),
                 null,
                 array(
                     'reply_markup' => array(
                         'keyboard' => array(
                             array(
                                 array(
-                                    'text' => 'Send current location',
+                                    'text' => __('send_current_location'),
                                     'request_location' => true
                                 )
                             )
@@ -260,7 +262,7 @@ function msg_processing_handle_group_response($context) {
                 msg_processing_handle_group_state($context);
             }
             else {
-                $context->comm->reply('Say again? Are you ready to play?');
+                $context->comm->reply(__('say_again_ready'));
             }
             return true;
 
@@ -410,9 +412,7 @@ function msg_processing_handle_group_response($context) {
                 }
             }
             else if($context->is_message() && $context->message->is_text()) {
-                $context->comm->reply(__('game_location_hint_nudge'), array(
-                    '%SECONDS%' => $seconds_to_wait
-                ), array("reply_markup" => array(
+                $context->comm->reply(__('game_location_hint_nudge'), null, array("reply_markup" => array(
                     "inline_keyboard" => array(
                         array(
                             array("text" => __('game_location_hint_button'), "callback_data" => 'hint')
@@ -495,8 +495,8 @@ function msg_processing_handle_group_response($context) {
                         // Prep keyboard
                         $keyboard = array(
                             array(
-                                "text" => "Open location map",
-                                "url" => 'https://codeweek.eu/code-hunting-game'
+                                "text" => __('open_location_map'),
+                                "url" => GAME_MAP_LINKS[$context->game->game_id]
                             )
                         );
                         if($context->game->location_hints_enabled && $location_info[5]) {
@@ -533,18 +533,18 @@ function msg_processing_handle_group_response($context) {
             // We expect a deeplink that will come through the /start command
             if($context->is_callback() && $context->callback->data === 'hint') {
                 $context->comm->reply(
-                    "OK, well then. If you string all previous hints together you will obtain a <b>GeoHash</b>, a code for a specific geographical location. You can easily convert the hash using an online tool. Go to that location on the map and scan the QR code.",
+                    __('geohash_hint'),
                     null,
                     array("reply_markup" => array(
                         "inline_keyboard" => array(
                             array(
                                 array(
-                                    "text" => "GeoHash conversion",
+                                    "text" => __('geohash_conversion_link'),
                                     "url" => "https://www.movable-type.co.uk/scripts/geohash.html"
                                 ),
                                 array(
-                                    "text" => "Open location map",
-                                    "url" => "https://codeweek.eu/code-hunting-game"
+                                    "text" => __('open_location_map'),
+                                    "url" => GAME_MAP_LINKS[$context->game->game_id]
                                 )
                             )
                         )
@@ -658,7 +658,7 @@ function msg_processing_handle_group_response($context) {
 
         case STATE_CERT_SENT:
             if($context->message && $context->message->is_location()) {
-                $context->comm->reply('Got it, generating your prize…');
+                $context->comm->reply(__('received_location_for_wom'));
                 telegram_send_chat_action($context->comm->get_telegram_id());
 
                 $lat = $context->message->latitude;
@@ -678,10 +678,9 @@ function msg_processing_handle_group_response($context) {
                     \WOM\WOMQRCodeGenerator::GetQRCode($otc, 200, $womCodePath);
 
                     $context->comm->picture($womCodePath, null);
-                    $context->comm->reply(sprintf(
-                        "Here you are! 🎖 Scan the QR Code or <a href=\"%s\">click this link</a> in order to redeem your <a href=\"https://wom.social\">WOM vouchers</a> as an award for your efforts. Use the following PIN code to access them: <code>%s</code>.",
-                        "https://wom.social/vouchers/" . $otc,
-                        $pin
+                    $context->comm->reply(__('received_wom_vouchers'), array(
+                        '%WOM_LINK%' => 'https://wom.social/vouchers/' . $otc,
+                        '%WOM_PIN%' => '$pin'
                     ));
                 }
                 catch(Exception $exception) {
