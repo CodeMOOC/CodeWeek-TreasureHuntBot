@@ -165,6 +165,11 @@ const GAME_LAST_PUZZLE_2_SOLUTION = 'd5';
 const GAME_LAST_PUZZLE_3_IMAGE = '../riddles/codeweek-2018/pascal.jpg';
 const GAME_LAST_PUZZLE_3_SOLUTION = 'pascal';
 
+const GAME_CERTIFICATE_TEMPLATES = array(
+    1       => 'template-certificate-codeweek.html',
+    2       => 'template-certificate-inaf.html'
+);
+
 const GAME_GUIDE_LINKS = array(
     1       => 'https://codehunting.games/codeweek2020',
     2       => 'https://codehunting.games/inaf2020'
