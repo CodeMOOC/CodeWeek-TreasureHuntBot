@@ -350,7 +350,7 @@ function msg_processing_handle_group_response($context) {
                 msg_processing_handle_group_state($context);
             }
             else if($context->is_callback() && $context->callback->data === 'skip avatar') {
-                bot_set_group_photo($context, 'default_user.jpg');
+                bot_set_group_photo($context, 'default_codyroby.png');
                 bot_set_group_state($context, STATE_REG_READY);
 
                 $groups_count = bot_stats_ready_groups($context)[0];

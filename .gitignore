@@ -4,6 +4,7 @@
 data/avatars/*
 !data/avatars/placeholder
 !data/avatars/default_user.jpg
+!data/avatars/default_codyroby.png
 data/badges/*
 !data/badges/placeholder
 data/certificates/*
