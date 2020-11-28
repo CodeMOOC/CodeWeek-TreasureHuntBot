@@ -1,0 +1,22 @@
+version: '3'
+volumes:
+  treasurehunt-db:
+    external: true
+
+services:
+  proxy:
+    logging:
+      driver: none
+    restart: unless-stopped
+
+  webhook:
+    logging:
+      driver: none
+    restart: unless-stopped
+
+  db:
+    volumes:
+    - treasurehunt-db:/var/lib/mysql:rw
+    restart: unless-stopped
+
+  database-manager:
