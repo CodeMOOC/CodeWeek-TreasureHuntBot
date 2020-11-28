@@ -24,30 +24,36 @@ $add_message = $argv[3];
 $context = new Context((int)$group_id);
 $context->set_active_game($game_id, false, false);
 
-// Generate certificate and montages
-$intermediate_locations_count = db_scalar_query(sprintf(
-    'SELECT `min_num_locations` FROM `events` WHERE `event_id` = %d',
-    $context->game->event_id
-));
-$total_locations_count = $intermediate_locations_count + 2; // start and end
-
-$rootdir = realpath(dirname(__FILE__) . '/..');
+// Generate certificate
 $identifier = "{$context->game->game_id}-{$context->get_internal_id()}";
+$elapsed_minutes = intval(ceil($context->game->get_elapsed_time() / 60.0));
 
 echo "Generating montage with identifier: '" . $identifier . "'" . PHP_EOL;
 
-exec("montage {$rootdir}/data/selfies/{$identifier}-*.jpg -background \"#0000\" -auto-orient -geometry 150x150 +polaroid -tile {$total_locations_count}x1 {$rootdir}/data/certificates/{$identifier}-montage.png");
+$certificate_path = "/data/certificates/{$identifier}-certificate.pdf";
+$certificate_cmd = sprintf(
+    'php /html2pdf/cert-gen.php "%s" "%s" %d "%s" "%s" "%s" "%s" %d',
+    GAME_CERTIFICATE_TEMPLATES[$context->game->game_id],
+    $certificate_path,
+    $context->game->group_participants,
+    addslashes($context->game->group_name),
+    $context->game->get_group_avatar(),
+    $context->game->game_name,
+    $identifier,
+    $elapsed_minutes
+);
+Logger::debug("Generating certificate at {$certificate_path} with command: {$certificate_cmd}", __FILE__, $context);
 
-exec("php {$rootdir}/html2pdf/cert-gen.php \"{$rootdir}/data/certificates/{$identifier}-certificate.pdf\" {$context->game->group_participants} \"" . addslashes($context->game->group_name) . "\" \"completed\" \"{$context->game->game_name}\" \"{$identifier}\"");
+exec($certificate_cmd);
 
-echo "Delivering certificate" . PHP_EOL;
-
+// Send out stuff
 if(!empty($add_message)) {
     echo "Writing out additional message" . PHP_EOL;
     $context->comm->reply($add_message);
 }
 
-$context->comm->document("{$rootdir}/data/certificates/{$identifier}-certificate.pdf", __('questionnaire_attachment_caption'));
-$context->comm->reply(__('questionnaire_finish_thankyou'));
+echo "Delivering certificate" . PHP_EOL;
+
+$context->comm->document($certificate_path, __('questionnaire_attachment_caption'));
 
 bot_set_group_state($context, STATE_CERT_SENT);
