@@ -11,6 +11,10 @@ require_once(dirname(__FILE__) . '/lib_database.php');
 require_once(dirname(__FILE__) . '/lib_telegram.php');
 require_once(dirname(__FILE__) . '/lib_utility.php');
 
+if(!defined('STDERR')) {
+    define('STDERR', fopen('php://stderr', 'w'));
+}
+
 class Logger {
 
     private static $is_suspended = false;
@@ -64,7 +68,7 @@ class Logger {
     private static function common($level, $message, $tag = '', $context = null) {
         $base_tag = basename($tag, '.php');
 
-        if(is_cli()) {
+        if(true || is_cli()) {
             // In CLI mode, output all logs to stderr
             fwrite(STDERR, self::severity_to_char($level) . '/' . $message . PHP_EOL);
         }
