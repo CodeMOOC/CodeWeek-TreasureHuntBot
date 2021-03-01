@@ -62,7 +62,7 @@ function msg_process_victory($context, $event_id = null, $game_id = null) {
         $certificate_path = "/data/certificates/{$identifier}-certificate.pdf";
         $certificate_cmd = sprintf(
             'php /html2pdf/cert-gen.php "%s" "%s" %d "%s" "%s" "%s" "%s" %d',
-            GAME_CERTIFICATE_TEMPLATES[$context->game->game_id],
+            game_get_certificate_template($context->game->game_id),
             $certificate_path,
             $context->game->group_participants,
             addslashes($context->game->group_name),

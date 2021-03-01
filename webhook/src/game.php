@@ -169,11 +169,27 @@ const GAME_CERTIFICATE_TEMPLATES = array(
     1       => 'template-certificate-codeweek.html',
     2       => 'template-certificate-inaf.html'
 );
+function game_get_certificate_template($game_id) {
+    if(in_array($game_id, GAME_CERTIFICATE_TEMPLATES)) {
+        return GAME_CERTIFICATE_TEMPLATES[$game_id];
+    }
+    else {
+        return GAME_CERTIFICATE_TEMPLATES[0];
+    }
+}
 
 const GAME_GUIDE_LINKS = array(
     1       => 'https://codehunting.games/codeweek2020',
     2       => 'https://codehunting.games/inaf2020'
 );
+function game_get_guide_link($game_id) {
+    if(in_array($game_id, GAME_GUIDE_LINKS)) {
+        return GAME_GUIDE_LINKS[$game_id];
+    }
+    else {
+        return 'https://codehunting.games/en/how-to-play';
+    }
+}
 
 const GAME_MAP_LINKS = array(
     1       => 'https://codeweek.eu/code-hunting-game',

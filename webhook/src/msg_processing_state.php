@@ -26,7 +26,7 @@ function msg_processing_handle_group_state($context) {
             $context->comm->reply(
                 __('send_out_game_guide'),
                 array(
-                    '%HELP_LINK%' => GAME_GUIDE_LINKS[$context->game->game_id]
+                    '%HELP_LINK%' => game_get_guide_link($context->game->game_id)
                 ),
                 array("reply_markup" => array(
                     "inline_keyboard" => array(
