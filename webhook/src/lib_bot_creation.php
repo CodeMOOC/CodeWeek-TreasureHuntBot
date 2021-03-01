@@ -420,21 +420,20 @@ function bot_creation_check_location_conditions($context) {
 }
 
 function bot_creation_generate_code_pdf($context, $template_name, $location_id, $code, $lat, $lng, $name, $filename_part) {
-    $rootdir = realpath(dirname(__FILE__) . '/..');
-
     // Generating PNG
-    exec(sprintf(
+    $png_command = sprintf(
         'php %s "%s" "%s"',
-        $rootdir . '/html2pdf/qrcode-gen.php',
+        '/html2pdf/qrcode-gen.php',
         BOT_DEEPLINK_START_ROOT . urlencode($code),
         '/data/qrcodes/tmp/game-' . $context->game->game_id . "-{$filename_part}.png"
-    ));
+    );
+    exec($png_command);
 
     // Generating PDF
-    exec(sprintf(
+    $pdf_command = sprintf(
         'php %s "%s" "%s" "%s" "%F" "%F" "%s" "%d" "%s"',
-        $rootdir . '/html2pdf/pdf-gen.php',
-        $rootdir . '/html2pdf/' . $template_name,
+        '/html2pdf/pdf-gen.php',
+        '/html2pdf/' . $template_name,
         '/data/qrcodes/tmp/game-' . $context->game->game_id . "-{$filename_part}.pdf",
         '/data/qrcodes/tmp/game-' . $context->game->game_id . "-{$filename_part}.png",
         $lat,
@@ -442,7 +441,8 @@ function bot_creation_generate_code_pdf($context, $template_name, $location_id, 
         $name,
         $location_id,
         BOT_DEEPLINK_START_ROOT . urlencode($code)
-    ));
+    );
+    exec($pdf_command);
 }
 
 /**
