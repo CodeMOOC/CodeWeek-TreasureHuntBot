@@ -32,7 +32,7 @@ services:
     - 9000
 
   db:
-    image: mysql:5.7.31
+    image: mysql:5.7.33
     networks:
     - treasurehunt-backend
     env_file: config.env
@@ -46,7 +46,7 @@ services:
     env_file: config.env
 
   database-manager:
-    image: phpmyadmin/phpmyadmin:latest
+    image: phpmyadmin/phpmyadmin:5.1.0-apache
     depends_on:
     - db
     networks:
