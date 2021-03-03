@@ -84,20 +84,23 @@ function bot_register($context, $game_id, $restart = false) {
         $game_timeout = "DATE_ADD(NOW(), INTERVAL {$game_info[1]} MINUTE)";
     }
 
-    $quick_start = (bool)$game_info[4];
-
-    // Pre-generate final destination (TODO: this must be extracted/made optional)
-    $final_location_id = db_scalar_query(sprintf(
-        'SELECT `location_id` FROM `locations` WHERE `game_id` = %d ORDER BY RAND() LIMIT 1',
-        $game_id
-    ));
+    // Pre-generate final destination, if needed
+    if($context->game->pick_random_final_location) {
+        $final_location_id = db_scalar_query(sprintf(
+            'SELECT `location_id` FROM `locations` WHERE `game_id` = %d ORDER BY RAND() LIMIT 1',
+            $game_id
+        ));
+    }
+    else {
+        $final_location_id = "'NULL'";
+    }
 
     // Perform group registration
     if(db_perform_action(sprintf(
-        "INSERT INTO `groups` (`game_id`, `group_id`, `state`, `registered_on`, `last_state_change`, `timeout_absolute`, `final_location_id`) VALUES(%d, %d, %d, NOW(), NOW(), %s, %d)",
+        "INSERT INTO `groups` (`game_id`, `group_id`, `state`, `registered_on`, `last_state_change`, `timeout_absolute`, `final_location_id`) VALUES(%d, %d, %d, NOW(), NOW(), %s, %s)",
         $game_id,
         $context->get_internal_id(),
-        ($quick_start) ? STATE_REG_READY : STATE_NEW,
+        STATE_NEW,
         $game_timeout,
         $final_location_id
     )) === false) {

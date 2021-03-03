@@ -115,7 +115,7 @@ class Communicator {
             return false;
         }
         if($message === null) {
-            Logger::info("Message is null", __FILE__, $this->owning_context);
+            Logger::error("Message is null", __FILE__, $this->owning_context);
             return false;
         }
 

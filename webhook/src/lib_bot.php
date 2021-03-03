@@ -321,10 +321,18 @@ function bot_reach_location($context, $location_id, $game_id) {
             return false;
         }
 
-        $riddle_id = bot_assign_random_riddle($context);
-        if($riddle_id === false || $riddle_id === null) {
-            $context->comm->reply(__('failure_general'));
-            return true;
+        if($context->game->skip_selfies) {
+            // Skipping selfies, go directly to riddle
+            $riddle_id = bot_assign_random_riddle($context);
+            if($riddle_id === false || $riddle_id === null) {
+                return false;
+            }
+        }
+        else {
+            // Go to selfie as usual
+            if(!bot_set_group_state($context, STATE_GAME_SELFIE)) {
+                return false;
+            }
         }
 
         return true;
