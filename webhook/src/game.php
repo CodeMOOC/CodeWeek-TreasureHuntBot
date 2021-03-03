@@ -191,11 +191,6 @@ function game_get_guide_link($game_id) {
     }
 }
 
-const GAME_MAP_LINKS = array(
-    1       => 'https://codeweek.eu/code-hunting-game',
-    2       => 'https://umap.openstreetmap.fr/it/map/inaf-code-hunting-game_526996#6/41.860/11.821'
-);
-
 const EVENT_IDS_WITH_FINAL_PUZZLE = array(
     2,
     7,

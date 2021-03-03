@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.1
+-- version 5.1.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: db
--- Generation Time: Oct 11, 2020 at 01:56 PM
--- Server version: 5.7.31
--- PHP Version: 7.2.22
+-- Generation Time: Mar 03, 2021 at 05:22 PM
+-- Server version: 5.7.33
+-- PHP Version: 7.4.15
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -128,7 +127,9 @@ INSERT INTO `code_lookup` (`code`, `type`, `event_id`, `game_id`, `location_id`,
 ('cw2020-63-0X8o', 'location', NULL, 1, 63, b'0'),
 ('cw2020-64-xcv4', 'location', NULL, 1, 64, b'0'),
 ('cw2020-65-poi7', 'location', NULL, 1, 65, b'0'),
-('cw2020-66-beva', 'location', NULL, 1, 66, b'0');
+('cw2020-66-beva', 'location', NULL, 1, 66, b'0'),
+('free-to-play', 'creation', 2, NULL, NULL, b'0'),
+('nottericercatori', 'registration', NULL, 2, NULL, b'0');
 
 -- --------------------------------------------------------
 
@@ -166,7 +167,8 @@ CREATE TABLE `events` (
 --
 
 INSERT INTO `events` (`event_id`, `name`, `state`, `logo_path`, `registered_on`, `min_num_locations`, `max_num_locations`, `organizer_id`, `min_avg_distance`, `telegram_channel`) VALUES
-(1, 'Code Week 2020', 224, NULL, '2020-10-05 21:18:26', 6, 12, 1, NULL, NULL);
+(1, 'Code Week 2020', 255, NULL, '2020-10-05 21:18:26', 6, 12, 1, NULL, NULL),
+(2, 'Free to play', 192, NULL, '2021-03-01 18:48:02', 8, 30, 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -190,6 +192,7 @@ CREATE TABLE `games` (
   `telegram_channel_censor_photo` bit(1) NOT NULL DEFAULT b'0' COMMENT 'Set if pictures should not be sent on the channel',
   `quick_start` tinyint(1) NOT NULL DEFAULT '0',
   `location_hints_enabled` bit(1) NOT NULL DEFAULT b'0',
+  `location_map_url` varchar(1024) COLLATE utf8_unicode_ci DEFAULT NULL,
   `timeout_absolute` datetime DEFAULT NULL COMMENT 'Absolute timeout when game ends',
   `timeout_interval` smallint(6) DEFAULT NULL COMMENT 'Relative timeout in minutes from start',
   `registered_on` datetime NOT NULL
@@ -199,8 +202,9 @@ CREATE TABLE `games` (
 -- Dumping data for table `games`
 --
 
-INSERT INTO `games` (`game_id`, `event_id`, `state`, `name`, `location_name`, `location_lat`, `location_lng`, `language`, `organizer_id`, `organizer_email`, `badge_overlay_image`, `telegram_channel`, `telegram_channel_censor_photo`, `quick_start`, `location_hints_enabled`, `timeout_absolute`, `timeout_interval`, `registered_on`) VALUES
-(1, 1, 128, 'Code Week 2020', 'Europe', NULL, NULL, 'en', 1, NULL, NULL, NULL, b'0', 0, b'1', NULL, NULL, '2020-10-05 21:21:49');
+INSERT INTO `games` (`game_id`, `event_id`, `state`, `name`, `location_name`, `location_lat`, `location_lng`, `language`, `organizer_id`, `organizer_email`, `badge_overlay_image`, `telegram_channel`, `telegram_channel_censor_photo`, `quick_start`, `location_hints_enabled`, `location_map_url`, `timeout_absolute`, `timeout_interval`, `registered_on`) VALUES
+(1, 1, 128, 'Code Week 2020', 'Europe', NULL, NULL, 'en', 1, NULL, NULL, NULL, b'0', 0, b'1', 'https://codeweek.eu/code-hunting-game', NULL, NULL, '2020-10-05 21:21:49'),
+(2, 1, 128, 'La Notte dei Ricercatori', 'Italy', NULL, NULL, 'it', 1, NULL, NULL, NULL, b'0', 0, b'0', 'https://umap.openstreetmap.fr/it/map/inaf-code-hunting-game_526996#6/41.860/11.821', NULL, NULL, '2020-11-18 17:20:20');
 
 -- --------------------------------------------------------
 
@@ -221,7 +225,8 @@ CREATE TABLE `game_location_clusters` (
 --
 
 INSERT INTO `game_location_clusters` (`game_id`, `cluster_id`, `num_locations`, `description`, `force_location_on_enter`) VALUES
-(1, 1, 8, 'Main cluster', b'0');
+(1, 1, 8, 'Main cluster', b'0'),
+(2, 1, 8, 'Main cluster', b'0');
 
 -- --------------------------------------------------------
 
@@ -364,9 +369,107 @@ INSERT INTO `locations` (`game_id`, `location_id`, `cluster_id`, `internal_note`
 (1, 61, 1, 'George Boole', 53.2183, -0.625536, NULL, 'Find the town where the father of Boolean algebra was born.', 'The word “Boolean” comes from the last name of the mathematician who invented algebraic logic', 'gcrwcb07', b'0', b'0'),
 (1, 62, 1, 'Harry Nyquist', 59.5035, 13.3196, NULL, 'Find the European town where one of the two scientis who developed a famous sampling theorem is born.', 'The ?–Shannon sampling theorem is a theorem in the field of digital signal processing and led to the to the development of information theory.', 'u696x071', b'0', b'0'),
 (1, 63, 1, 'ELEA 9003', 45.4543, 7.85498, NULL, 'Find the town where the first computer to be entirely made with transistors.', 'Adriano Olivetti was born there in 1901.', 'u0jdddxy', b'0', b'0'),
-(1, 64, 1, 'Joyce Aylard', 51.578541, -0.389534, NULL, 'Find the place where one of the female codebreakers worked during WW2.', 'Joyce Aylard worked at an outstation not far from Bletchley Park.', 'gcptrjs6', b'0', b'0'),
-(1, 65, 1, 'MIRALab', 46.199936, 6.144828, NULL, 'Find the University where the MIRALab is conducting user interface research.', 'The lab is headed by Nadia Magnenat Thalmann, an eminent computer graphics expert and robotician.', 'u0hqgf6w', b'0', b'0'),
-(1, 66, 1, 'NORSAR', 59.975078, 11.044971, NULL, 'Find the first European site connected to the ARPANET.', 'The site also hosts the Norwegian Seismic Array.', 'u4xv5q4s', b'0', b'0');
+(1, 64, 1, 'Joyce Aylard', 51.5785, -0.389534, NULL, 'Find the place where one of the female codebreakers worked during WW2.', 'Joyce Aylard worked at an outstation not far from Bletchley Park.', 'gcptrjs6', b'0', b'0'),
+(1, 65, 1, 'MIRALab', 46.1999, 6.14483, NULL, 'Find the University where the MIRALab is conducting user interface research.', 'The lab is headed by Nadia Magnenat Thalmann, an eminent computer graphics expert and robotician.', 'u0hqgf6w', b'0', b'0'),
+(1, 66, 1, 'NORSAR', 59.9751, 11.045, NULL, 'Find the first European site connected to the ARPANET.', 'The site also hosts the Norwegian Seismic Array.', 'u4xv5q4s', b'0', b'0'),
+(2, 1, 1, 'Aeroporto di Taranto-Grottaglie', 40.5173, 17.4024, NULL, 'Trova quello che presto diventerà il primo Spazioporto italiano', 'Cerca nel tacco dello stivale', 'srhqkpbn', b'0', b'0'),
+(2, 2, 1, 'Angelo Secchi', 44.6966, 10.6269, NULL, 'Incontra colui che propose la prima classificazione stellare basata su criteri spettroscopici', 'Cerca a Reggio Emilia, dove nacque il 28 giugno 1818 in una piccola casa di via Porta Brennone', 'spzw3bf2', b'0', b'0'),
+(2, 3, 1, 'Angioletta Coradini', 41.8389, 12.6469, NULL, 'Incontra colei che fu direttrice dell\'Istituto di Fisica dello Spazio Interplanetario dal 2001 al 2010', 'Vai all\'indirizzo dell\'istituto che ha diretto Margherita Hack', 'sr2ypb91', b'0', b'0'),
+(2, 4, 1, 'Agenzia Spaziale Italiana', 41.8552, 12.6195, NULL, 'Trova l’ente governativo italiano che ha il compito di predisporre e attuare la politica aerospaziale italiana', 'Cerca vicino all\'Università degli Studi di Roma Tor Vergata', 'sr2yp5t0', b'0', b'0'),
+(2, 5, 1, 'Atlante Farnese', 40.8538, 14.2505, NULL, 'Trova la scultura che possiede la più antica e una delle più complete raffigurazioni delle costellazioni', 'Cerca nel Museo archeologico nazionale di Napoli', 'sr60km0y', b'0', b'0'),
+(2, 6, 1, 'Basilica di San Lorenzo', 43.7751, 11.2538, NULL, 'Trova la basilica con una volta affrescata del cielo del 4 luglio 1442', 'Cerca nella Sagrestia Vecchia della basilica di San Lorenzo a Firenze', 'srb1014b', b'0', b'0'),
+(2, 7, 1, 'Basilica di Santa Croce', 43.7685, 11.2625, NULL, 'Trova il pantheon italiano dove è stato sepolto Galileo Galilei', 'Cerca un simbolo prestigioso di Firenze', 'srb0brc1', b'0', b'0'),
+(2, 8, 1, 'Basilica di Santa Maria degli Angeli e dei Martiri', 41.9035, 12.4973, NULL, 'Trova la basilica della capitale al cui interno si trova una meridiana di notevole interesse storico e artistico', 'Cerca la chiesa dove si svolgono le cerimonie ufficiali della Repubblica Italiana', 'sr2ykkk3', b'0', b'0'),
+(2, 9, 1, 'Basilica di Santa Maria Novella ', 43.7741, 11.2495, NULL, 'Trova la chiesa di Firenze sulla cui facciata è riportato un laboratorio astronomico', 'Cerca la facciata capolavoro rinascimentale di Leon Battista Alberti, a Firenze', 'spzcpbzd', b'0', b'0'),
+(2, 10, 1, 'Campanile di Giotto', 43.7728, 11.2557, NULL, 'Trova il campanile attorno al quale è scolpito il bassorilievo di un astronomo', 'Cerca in Piazza del Duomo, a Firenze', 'srb100s5', b'0', b'0'),
+(2, 11, 1, 'Centro di geodesia spaziale Giuseppe Colombo', 40.6492, 16.7042, NULL, 'Trova il centro di geodesia spaziale dell\'Agenzia Spaziale Italiana', 'Cerca sul limite occidentale delle Murge.', 'sr5zhpgw', b'0', b'0'),
+(2, 12, 1, 'Centro Visite Torre dei Guardiani', 40.9863, 16.4328, NULL, 'Trovo un luogo privilegiato per le osservazioni astronomiche situato nel Parco Nazionale dell\'Alta Murgia', 'Cerca in Puglia, nel Parco Nazionale dell\'Alta Murgia', 'sr79jvmf', b'0', b'0'),
+(2, 13, 1, 'Città della scienza', 40.8056, 14.1747, NULL, 'Trova la sede del festival di divulgazione scientifica Futuro Remoto', 'Cerca sul Golfo di Napoli', 'sr604s3t', b'0', b'0'),
+(2, 15, 1, 'CTAO Headquarter', 44.5219, 11.3367, NULL, 'Trova il quartier generale del Cherenkov Telescope Array Observatory', 'Cerca a Bologna, vicino al Navile', 'srbj3bzn', b'0', b'0'),
+(2, 16, 1, 'Enrico Fermi', 41.8971, 12.4931, NULL, 'Incontra il nobel per la Fisica nel 1938', 'Cerca nella città Natale del premio Nobel per la Fisica nel 1938', 'sr2yk71h', b'0', b'0'),
+(2, 17, 1, 'ESRIN', 41.8274, 12.6745, NULL, 'Trova uno dei sei centri dell\'Agenzia Spaziale Europea responsabile per il telerilevamento', 'Cerca uno dei sei centri dell\'ESA, poco fuori Roma', 'sr3jbqmq', b'0', b'0'),
+(2, 18, 1, 'Ex sede dell\'INAF Osservatorio Astronomico di Cagliari', 39.1369, 8.97315, NULL, 'Trova la vecchia sede dell\'Osservatorio Astronomico di Cagliari', 'Cerca nel Poggio sardo dove gli alberi spargono i loro aghi ed un tempo si studiavano le stelle', 'snyqshwh', b'0', b'0'),
+(2, 19, 1, 'Galileo Galilei', 43.7163, 10.4058, NULL, 'Incontra il padre della scienza moderna', 'Cerca la sua casa Natale, vicino alla Chiesa di Sant\'Andrea Forisportam', 'spz2sy33', b'0', b'0'),
+(2, 20, 1, 'Giovanni Domenico Cassini', 43.8669, 7.67435, NULL, 'Incontra colui a cui è intitolata la Divisione negli anelli di Saturno', 'Cerca nel suo luogo di nascita, lungo l\'esile cresta collinare che si stacca a levante dal nodo dei monti Bignone e Caggio', 'spv3w9sr', b'0', b'0'),
+(2, 21, 1, 'Giovanni Virginio Schiaparelli', 45.4718, 9.18899, NULL, 'Incontra colui che nel 1877 fece fondamentali osservazioni del Pianeta rosso', 'Cerca la Cupola Schiaparelli, a Milano', 'u0nd9jgh', b'0', b'0'),
+(2, 22, 1, 'Giulio Fabrizio Tomasi Principe di Lampedusa', 38.1649, 13.3287, NULL, 'Incontra il principe che ispirò il Gattopardo', 'Vai nel luogo in cui è nato Giulio Fabrizio Tomasi Principe di Lampedusa', 'sqc3p79w', b'0', b'0'),
+(2, 23, 1, 'Giuseppe Occhialini', 43.689, 12.8061, NULL, 'Incontra colui al quale hanno intitolato il satellite per alte energie SAX, BeppoSAX', 'Cerca il luogo in cui Giuseppe Occhialini è nato', 'src0e3m4', b'0', b'0'),
+(2, 24, 1, 'Guglielmo Marconi', 44.4314, 11.2675, NULL, 'Incontra il Nobel per la Fisica nel 1909', 'Cerca il luogo, vicino a Bologna, in cui Marconi compì i suoi primi esperimenti di radiotrasmissione', 'srbhb2kx', b'0', b'0'),
+(2, 25, 1, 'Il marmo zodiacale intarsiato nel pavimento di San Miniato al Monte ', 43.7595, 11.2651, NULL, 'Trova la Basilica nel cui pavimento è intarsiato uno zodiaco di marmo del 1207, di cui recentemente si è scoperto l’uso astronomico (di segnalazione del solstizio estivo)  ', '\'Cerca la Basilica con la scritta \"Haec est porta coeli\"\'', 'srb0bq4v', b'0', b'0'),
+(2, 26, 1, 'INAF IAPS Roma', 41.8401, 12.6489, NULL, 'Trova l’Istituto di astrofisica e planetologia spaziali che ha sede nella capitale', 'Cerca vicino all\'Orto Botanico, Università di Roma Tor Vergata', 'sr2ypbf8', b'0', b'0'),
+(2, 27, 1, 'INAF IASF Milano', 45.4807, 9.23158, NULL, 'Trova una delle strutture INAF in Lombardia', 'Cerca la struttura fondata nel 1969 da Giuseppe Occhialini', 'u0nddpd0', b'0', b'0'),
+(2, 28, 1, 'INAF IASF Palermo', 38.1661, 13.3104, NULL, 'Trova la struttura siciliana dell\'INAF fondata da Livio Scarsi nel 1981', 'Cerca nella Trinacria', 'sqc3ngum', b'0', b'0'),
+(2, 29, 1, 'INAF Istituto di Radioastronomia di Bologna', 44.5339, 11.3353, NULL, 'Trova la struttura di ricerca nata appositamente per la radioastronomia e per gestire i primi radiotelescopi italiani', 'Cerca l\'Ente di ricerca dell\'INAF che gestisce i radiotelescopi della Stazione radioastronomica di Medicina e il radiotelescopio di Noto, in Sicilia', 'srbj3gnh', b'0', b'0'),
+(2, 30, 1, 'INAF Osservatorio Astrofisico di Arcetri', 43.7507, 11.2544, NULL, 'Trova uno tra i più importanti osservatori d\'Europa, in una zona collinare del comune di Firenze', 'Cerca vicino alla Villa in cui visse e morì Galileo Galilei', 'srb0bhe4', b'0', b'0'),
+(2, 31, 1, 'INAF Osservatorio Astrofisico di Asiago', 45.8486, 11.5689, NULL, 'Trova il più grande strumento ottico presente sul suolo italiano', 'Cerca sulla sommità di Cima Ekar', 'u20hz62p', b'0', b'0'),
+(2, 32, 1, 'INAF Osservatorio Astrofisico di Catania', 37.529, 15.0719, NULL, 'Trova quella che, nel 1887, fu l\'unica sede italiana a partecipare alla redazione della Carte du Ciel', 'Nel 1887, fu l\'unico Osservatorio italiano a partecipare alla redazione del prestigioso catalogo Carte du Ciel, insieme ad altre 18 stazioni straniere nel mondo', 'sqdtqzzn', b'0', b'0'),
+(2, 33, 1, '\'INAF Osservatorio Astrofisico di Catania - Sede \"Mario Girolamo Fracastoro\" presso la località Serra La Nave\'', 37.6931, 14.9745, NULL, 'Trova la sede dell\'Osservatorio Astrofisico di Catania presso la contrada di Serra La Nave', 'Cerca l\'Osservatorio Astrofisico più a sud sul territorio italiano, a un\'altitudine di 1735 metri sul livello del mare', 'sqdwkvb4', b'0', b'0'),
+(2, 34, 1, 'INAF Osservatorio Astrofisico di Torino', 45.0413, 7.76513, NULL, 'Trova la cupola del rifrattore Morais', 'Cerca vicino a un planetario il cui nome richiama l\'Infinito', 'u0j80xw2', b'0', b'0'),
+(2, 35, 1, 'INAF Osservatorio Astronomico Capodimonte', 40.8637, 14.255, NULL, 'Trova la più antica istituzione scientifica partenopea', 'Cerca la sezione napoletana dell\'Istituto Nazionale di Astrofisica', 'sr60krh0', b'0', b'0'),
+(2, 36, 1, 'INAF Osservatorio Astronomico d’Abruzzo (OAAb), sede di Teramo', 42.6538, 13.7316, NULL, 'Trova l’unico Osservatorio Astronomico Nazionale vicino alla costa adriatica, dalla Puglia alle Marche', 'Cerca la sede di Teramo dell\'Osservatorio Astronomico d\'Abruzzo', 'sr9f8kzh', b'0', b'0'),
+(2, 37, 1, 'INAF Osservatorio Astronomico d’Abruzzo, sede di Campo Imperatore', 42.4443, 13.558, NULL, 'Trova l\'unico Osservatorio, sul territorio italiano, con un telescopio dotato di camera infrarossa', 'Cerca nel Parco Nazionale del Gran Sasso', 'sr99kw8x', b'0', b'0'),
+(2, 38, 1, 'INAF Osservatorio Astronomico di Brera', 45.4718, 9.18808, NULL, 'Trova lo storico osservatorio nel palazzo di Brera che ospita la Cupola Schiaparelli', 'Cerca a Milano', 'u0nd9jfs', b'0', b'0'),
+(2, 39, 1, 'INAF Osservatorio Astronomico di Cagliari', 39.2819, 9.13136, NULL, 'Trova il centro di eccellenza per l\'astrofisica e la radioastronomia che gestisce il Sardinia Radio Telescope', 'Cerca in Sardegna', 'snyrrz13', b'0', b'0'),
+(2, 40, 1, 'INAF Osservatorio Astronomico di Padova', 45.4019, 11.8684, NULL, '\'Trova l\'Osservatorio con una sezione museale denominata \"Museo della Specola\"\'', 'Cerca la Torlonga, un\'antica torre di difesa medievale edificata nel IX secolo d.C.', 'u206q14m', b'0', b'0'),
+(2, 41, 1, 'INAF Osservatorio Astronomico di Palermo - Museo della Specola', 38.1118, 13.3534, NULL, 'Trova l\'Osservatorio nel quale, nel 1801, è stato scoperto Cerere', 'Cerca in Sicilia, a Palermo', 'sqc2zf59', b'0', b'0'),
+(2, 42, 1, 'INAF Osservatorio Astronomico di Roma', 41.9227, 12.4522, NULL, 'Trova l\'Osservatorio Astronomico che nasce dalla fusione dell\'Osservatorio del Collegio Romano e dell\'Osservatorio del Campidoglio', 'Cerca l\'osservatorio della capitale', 'sr2y7rg3', b'0', b'0'),
+(2, 43, 1, 'INAF Osservatorio Astronomico di Trieste', 45.6448, 13.774, NULL, 'Cerca l\'Osservatorio che ha due sedi, una delle quali è la Specola intitolata a Margherita Hack', 'Cerca il castello Basevi, a Trieste', 'u21g9mmu', b'0', b'0'),
+(2, 44, 1, 'INAF Osservatorio di Astrofisica e Scienza dello Spazio di Bologna', 44.5219, 11.3366, NULL, 'Trova l\'ultima nata fra le sedi dell’Istituto Nazionale di Astrofisica', 'Cerca accanto all\'Area della Ricerca di Bologna', 'srbj3bzn', b'0', b'0'),
+(2, 45, 1, 'INAF Osservatorio di Loiano', 44.2593, 11.3342, NULL, 'Trova il telescopio più grande d\'Italia dopo quello di Asiago', 'Cerca tra gli alberi del Monte Orzale', 'srb5ccjm', b'0', b'0'),
+(2, 46, 1, 'Joseph-Louis Lagrange', 45.0637, 7.68058, NULL, 'Incontra colui a cui sono intitolati i famosi punti Lagrangiani', 'Cerca un monumento dedicato a Joseph-Louis Lagrange nella sua città Natale, Torino', 'u0j2qg8g', b'0', b'0'),
+(2, 47, 1, 'La sala delle Carte geografiche in Palazzo Vecchio ', 43.7693, 11.2562, NULL, 'Trovala la sala delle Carte geografiche di Cosimo I de\' Medici ', 'Cerca in Palazzo Vecchio, a Firenze', 'srb0bpuw', b'0', b'0'),
+(2, 48, 1, 'La sfera armillare di Solunto', 38.0922, 13.5314, NULL, 'Trova una delle immagini più antiche di una sfera armillare, a Palermo', 'Cerca nella casa di Leda, a Palermo', 'sqc8eymr', b'0', b'0'),
+(2, 49, 1, 'La Torre Solare di Monte Mario', 41.9231, 12.4523, NULL, 'Trova la Torre Solare dell’INAF più grande d’Italia', 'Cerca la torre solare a Monte Mario, nella capitale', 'sr2y7rg7', b'0', b'0'),
+(2, 50, 1, 'Laboratori e officine di INAF', 38.1095, 13.3727, NULL, 'Trova i laboratori, a Palermo, in cui si sviluppano strumenti per l\'astronomia nei raggi X', 'Cerca in Sicilia, a Palermo', 'sqc8b39e', b'0', b'0'),
+(2, 51, 1, 'Laboratori Nazionali del Gran Sasso', 42.42, 13.5172, NULL, 'Trova il centro di ricerca sotterraneo più grande e importante del mondo', 'Cerca nel Parco Nazionale del Gran Sasso', 'sr997d6f', b'0', b'0'),
+(2, 52, 1, 'Le tavole sciateriche di Kircher', 41.8112, 12.7047, NULL, 'Trova una invenzione gnomonica a opera di Kircher', 'Cerca a Monte Porzio Catone', 'sr3jc57r', b'0', b'0'),
+(2, 53, 1, 'Marcello Ceccarelli', 44.4996, 11.3539, NULL, 'Incontra colui che è considerato il padre della radioastronomia italiana', 'Cerca il luogo in cui Marcello Ceccarelli ha iniziato a lavorare e ha costruito il gruppo di lavoro che ha progettato e costruito il primo radiotelescopio italiano, la Croce del Nord', 'srbj4kgs', b'0', b'0'),
+(2, 54, 1, 'Margherita Hack', 43.7844, 11.2764, NULL, 'Incontra la famosa astronoma che, nel 2012, è stata nominata Cavaliere di gran croce dell\'Ordine al merito della Repubblica italiana, per il costante e instancabile impegno profuso nella ricerca scientifica e al servizio della società, che la rende esempio di straordinaria dedizione e coerenza per le giovani generazioni', 'Trova la via in cui Marcherita Hack è nata il 12 giugno 1922, vicino a Campo di Marte', 'srb10den', b'0', b'0'),
+(2, 55, 1, 'Mentore Maggini', 42.654, 13.7313, NULL, 'Incontra il pioniere italiano della fotometria fotoelettrica', 'Cerca Mentore Maggini in quello che fu l\'Osservatorio di Collurania, che ha diretto dal 1926', 'sr9f8kyv', b'0', b'0'),
+(2, 56, 1, 'Meridiana della Cattedrale di Palermo', 38.1144, 13.3561, NULL, 'Trova la meridiana che è stata fatta realizzare da Giuseppe Piazzi', 'Cerca la meridiana nella cattedrale normanna di Palermo', 'sqc2zft8', b'0', b'0'),
+(2, 57, 1, 'Meridiana di Cassini', 44.4931, 11.3431, NULL, 'Trova la meridiana più grande al mondo', 'Cerca nella chiesa più grande di Bologna', 'srbj45ez', b'0', b'0'),
+(2, 58, 1, 'Meridiana di Rocco Bovi', 40.8436, 14.2411, NULL, 'Trova la meridiana a camera oscura alla Certosa di San Martino', 'Cerca sulla collina del Vomero, accanto al castel Sant\'Elmo', 'sr60k565', b'0', b'0'),
+(2, 59, 1, 'Meridiana di Santa Maria del Fiore ', 43.7731, 11.2571, NULL, 'Trova la meridiana più alta del mondo', 'Cerca nella cupola di Brunelleschi del Duomo di Firenze', 'srb100th', b'0', b'0'),
+(2, 60, 1, 'MuSA - Museo degli Strumenti Astronomici', 40.8637, 14.2555, NULL, 'Trova il museo astronomico pubblico dell\'Italia centro-meridionale aperto ai visitatori', 'Cerca il museo degli strumenti astronomici a Napoli', 'sr60krh8', b'0', b'0'),
+(2, 61, 1, 'Museo Astronomico e Copernicano', 41.9224, 12.4513, NULL, 'Trova il museo di storia dell’astronomia più antico d’Italia', 'Cerca in Viale del Parco Mellini, nella capitale', 'sr2y7rdz', b'0', b'0'),
+(2, 62, 1, 'Museo del Balì', 43.7565, 12.8903, NULL, 'Trova un moderno science centre nelle Marche', 'Cerca nelle Marche, lungo il corso del Metauro', 'src0vmdk', b'0', b'0'),
+(2, 63, 1, 'Museo del Cielo e della Terra', 44.6362, 11.1827, NULL, 'Trova il museo del cielo e della terra', 'Cercalo nella sede aministrativa dei comuni di terre d\'acqua', 'spzvymyb', b'0', b'0'),
+(2, 64, 1, 'Museo della Specola di Bologna', 44.4969, 11.3524, NULL, 'Trova la sede storica del Dipartimento di Astronomia di Bologna', 'Cerca la torre astronomica in via Zamboni 33', 'srbj4k6t', b'0', b'0'),
+(2, 65, 1, 'Museo dell\'astronomia e Planetario di Torino', 45.0399, 7.76185, NULL, 'Trova uno dei planetari più belli d\'Italia, in Piemonte', 'Cerca sulle colline di Torino', 'u0j80xk0', b'0', b'0'),
+(2, 66, 1, 'Museo Galileo', 43.7679, 11.2559, NULL, 'Trova il museo che conserva una delle raccolte di strumenti scientifici più importanti al mondo, in particolare gli strumenti originali di Galileo Galilei', 'Cerca un museo di Firenze intitolato al padre del metodo scientifico', 'srb0bpsq', b'0', b'0'),
+(2, 67, 1, 'Nichi D\'Amico', 39.4932, 9.24505, NULL, 'Incontra il Presidente dell\'Inaf scomparso il 14 settembre 2020, per 8 anni direttore dell\'Osservatorio Astronomico di Cagliari e direttore del progetto Sardinia Radio Telescope', 'Cercalo in Sardegna, dove sorge il Sardinia Radio Telescope', 'spn8dms0', b'0', b'0'),
+(2, 68, 1, 'Orologio astronomico di Messina', 38.1938, 15.5549, NULL, 'Trova l’orologio astronomico e meccanico più grande del mondo', 'Cerca nei pressi dello stretto di Messina', 'sqg13byx', b'0', b'0'),
+(2, 69, 1, 'Osservatorio astronomico del Campidoglio', 41.893, 12.4834, NULL, 'Trova uno dei due osservatori astronomici di Roma in cui nella seconda metà dell’Ottocento sono stati compiuti i primi studi pionieristici di astrofisica', 'Cerca nel Campidoglio', 'sr2yk46h', b'0', b'0'),
+(2, 70, 1, 'Osservatorio astronomico del Collegio Romano', 41.8978, 12.4804, NULL, 'Trova l\'osservatorio in cui Padre Angelo Secchi propose la prima classificazione spettrale delle stelle', 'Cerca nella capitale', 'sr2y7grb', b'0', b'0'),
+(2, 71, 1, 'Osservatorio Astronomico di Siligo', 40.5826, 8.73213, NULL, 'Trova un punto di riferimento per la promozione e la divulgazione dell\'astronomia nel nord Sardegna e in tutta l\'isola', 'Cerca nel settentrione della terra più isolata dal continente, dove troverai un luogo da cui osservare le stelle, vere o riprodotte, comunque belle', 'spnnyeyd', b'0', b'0'),
+(2, 72, 1, 'Osservatorio Astronomico Ferdinando Caliumi', 39.8775, 9.50402, NULL, 'Trova la sede osservativa dell\'Associazione Ogliastrina di Astronomia, associazione di astrofili molto attiva nel territorio dell\'Ogliastra', 'Cerca un osservatorio astronomico sito in Ogliastra', 'spnfb72x', b'0', b'0'),
+(2, 73, 1, '\'Osservatorio e Parco astronomico \"Luigi Lilio\"\'', 39.315, 16.7517, NULL, 'Trova un parco astronomico nel crotonese', 'Cerca vicino alla punta dello stivale', 'sqgztjn4', b'0', b'0'),
+(2, 74, 1, 'Osservatorio Fondation Clément Fillietroz', 45.7897, 7.47852, NULL, 'Trova l\'osservatorio astronomico della Regione Autonoma Valle d\'Aosta', 'Cerca nel vallone di Saint-Barthélemy', 'u0jk6pv8', b'0', b'0'),
+(2, 75, 1, 'Palazzo Viviani o “dei Cartelloni”', 43.7755, 11.2515, NULL, 'Trova il primo monumento pubblico in onore di Galileo Galilei', 'Cerca a Firenze', 'srb10114', b'0', b'0'),
+(2, 76, 1, 'Pantheon', 41.8988, 12.4774, NULL, 'Trova uno dei monumenti romani più celebri, luogo di osservazione di fenomeni astronomici', 'Cerca il luogo in cui è sepolto Raffaello Sanzio', 'sr2y7gmy', b'0', b'0'),
+(2, 77, 1, 'Parco Astronomico dell\'Osservatorio di Roma', 41.8116, 12.7024, NULL, 'Trova il parco astronomico della capitale', 'Cerca a Monte Porzio Catone', 'sr3jc59d', b'0', b'0'),
+(2, 78, 1, 'Parco Astronomico di Sardegna in Miniatura', 39.7012, 8.98, NULL, 'Trova un science center dedicato all\'astronomia in Sardegna', 'Cerca nell\'area del famoso villaggio nuragico Su Nuraxi di Barumini', 'spn3u77h', b'0', b'0'),
+(2, 79, 1, 'Parco Astronomico Fondazione Gal Hassin, Isnello', 37.9395, 14.0212, NULL, 'Trova uno dei parchi astronomici più importanti d\'Italia, e lo sarà ancora di più quando monteranno il telescopio ESA su Monte Mufara', 'Cerca il luogo in cui sta per sorgere il Wide-field Mufara Telescope', 'sq9zz49v', b'0', b'0'),
+(2, 80, 1, 'Planetario Civico Ulrico Hoepli, Milano', 45.4739, 9.20361, NULL, 'Trova un famoso planetario di Milano', 'Cerca nei giardini pubblici di Porta Venezia', 'u0nd9qmb', b'0', b'0'),
+(2, 81, 1, 'Planetario de L\'Unione Sarda', 39.2268, 9.09822, NULL, 'Trova un planetario che opera dal 2011 nel territorio sardo, fornendo un importante supporto al mondo della divulgazione e dell\'istruzione nelle discipline scientifiche', 'Cerca, a Cagliari, un posto in cui puoi guardare l\'Universo ma anche leggere il più diffuso quotidiano sardo!', 'snyrpj10', b'0', b'0'),
+(2, 82, 1, 'Planetario di Bari', 41.1374, 16.8379, NULL, 'Trova uno dei sette planetari più grandi d\'Italia, il più grande del Sud Italia', 'Cerca vicino a un porto da cui si salpa per Durazzo', 'sr7fp0uf', b'0', b'0'),
+(2, 83, 1, 'Planetario di Padova', 45.4043, 11.8936, NULL, 'Trova il planetario inaugurato nell\'aprile 2009', 'Cerca a Padova, all’interno del parco naturalistico urbano “Ex Macello”', 'u206q9se', b'0', b'0'),
+(2, 84, 1, 'Planetario e museo astronomico di Roma', 41.9194, 12.4884, NULL, 'Trova il planetario e museo astronomico della capitale', 'Cerca a Roma, vicino al Bio Parco', 'sr2ykpjy', b'0', b'0'),
+(2, 85, 1, 'Planetario INAF - Osservatorio Astronomico di Cagliari', 39.2819, 9.13136, NULL, 'Trova il planetario dell’Osservatorio Astronomico di Cagliari', 'Cerca un planetario sardo', 'snyrrz13', b'0', b'0'),
+(2, 86, 1, 'Planetario Osservatorio astronomico di Anzi', 40.518, 15.924, NULL, 'Trova un osservatorio astronomico in Basilicata', 'Cerca sulla vetta del Monte Siri', 'sr5qd25d', b'0', b'0'),
+(2, 87, 1, 'Planetarium Pythagoras', 38.1196, 15.6602, NULL, 'Trova il planetario che dal 2013 è diventato uno dei dieci poli nazionali per l\'organizzazione delle Olimpiadi italiane di Astronomia', 'Cerca vicino al Parco Nazionale dell\'Aspromonte', 'sqg0u77q', b'0', b'0'),
+(2, 88, 1, 'Radiotelescopio di Noto', 36.9007, 15.0656, NULL, 'Trova il radiotelescopio italiano più a sud, uno dei più importanti per la radioastronomia europea', 'Cerca nel comune siciliano il cui centro storico è patrimonio Unesco', 'sqd9yvd6', b'0', b'0'),
+(2, 89, 1, 'REM, the Rapid Eye Mount', -29.2564, -70.7386, NULL, 'Trova il telescopio italiano che ha fotografato la kilonova nell\'agosto del 2017. Attenzione: è italiano ma è lontano dall\'Italia!', '\'Cerca una piccola cupola nascosta su un \"cerro\" delle Ande cilene\'', '66v9w619', b'0', b'0'),
+(2, 90, 1, 'Riccardo Giacconi', 45.4722, 9.1891, NULL, 'Incontra il premio Nobel per la fisica nel 2002', 'Cerca all\'Osservatorio Astronomico di Brera, dove esisteva una stanza per le visite di Riccardo Giacconi', 'u0nd9jgq', b'0', b'0'),
+(2, 91, 1, 'Salone della Meridiana – Museo Archeologico Nazionale di Napoli', 40.8538, 14.2505, NULL, 'Trova uno dei più importanti musei archeologici al mondo', 'Cerca nella città del vulcano', 'sr60km0y', b'0', b'0'),
+(2, 92, 1, 'Sardinia Radio Telescope (SRT)', 39.4931, 9.24545, NULL, 'Trova la parabola radioastronomica più grande d\'Italia', 'Cerca il radiotelescopio in località Pranu \'e sànguni', 'spn8dmkr', b'0', b'0'),
+(2, 93, 1, 'Stazione Astronomica di Carloforte', 39.1378, 8.31222, NULL, 'Trova la prima sede osservativa astronomica in Sardegna, una delle cinque stazioni dell\'International Latitude Service', 'Cerca il primo osservatorio astronomico in Sardegna', 'snvythuf', b'0', b'0'),
+(2, 94, 1, 'Stazione Radioastronomica di Medicina', 44.5246, 11.6462, NULL, 'Trova il luogo in cui è nata la radioastronomia italiana, con il gruppo di ricerca di Marcello Ceccarelli', 'Cerca vicino a Bologna', 'srbm312w', b'0', b'0'),
+(2, 95, 1, 'Telescopio ASTRI-Horn', 37.6931, 14.9744, NULL, 'Trova il prototipo di uno degli Small Size Telescope proposti per CTA', 'Cerca alle pendici del Monte Etna', 'sqdwkvb4', b'0', b'0'),
+(2, 96, 1, 'Telescopio Nazionale Galileo', 28.7544, -17.8893, NULL, 'Anche se non si trova in Italia, è il più grande telescopio ottico/infrarosso completamente italiano', 'Cerca nelle isole Canarie', 'et578ft6', b'0', b'0'),
+(2, 97, 1, 'Torre del Primo Meridiano d\'Italia', 41.9243, 12.4517, NULL, 'Trova l\'origine delle longitudini della moderna cartografia italiana e della rete geodetica nazionale', 'Cerca nella capitale il punto di origine delle longitudini italiane', 'sr2ye254', b'0', b'0'),
+(2, 99, 1, 'Villa Adriana ', 41.9431, 12.7747, NULL, 'Trova una villa oggetto di studi di archeoastronomia che hanno confermato l’orientamento astronomico dell’intera Spianata', 'Cerca la celebre villa imperiale nelle vicinanze di Roma', 'sr3ndew2', b'0', b'0'),
+(2, 100, 1, 'Vincenzo Cerulli', 42.6585, 13.7052, NULL, 'Incontra il fondatore dell’Osservatorio Astronomico di Collurania', 'Cerca nella città Natale di Vincenzo Cerulli il corso a lui intitolato', 'sr9dxvez', b'0', b'0');
 
 -- --------------------------------------------------------
 
@@ -462,7 +565,39 @@ INSERT INTO `riddles` (`event_id`, `riddle_id`, `riddle_type`, `riddle_param`, `
 (1, 62, 6, '', 'codeweek-2017/img6-2.png', '15'),
 (1, 71, 7, '', 'codeweek-2017/img7-1.png', '11'),
 (1, 72, 7, '', 'codeweek-2017/img7-2.png', '9'),
-(1, 73, 7, '', 'codeweek-2017/img7-3.png', '6');
+(1, 73, 7, '', 'codeweek-2017/img7-3.png', '6'),
+(2, 1, 1, 'FFLFFLF', 'codeweek-2017/img1-1.png', 'b'),
+(2, 2, 1, 'FFLFFLF', 'codeweek-2017/img1-1.png', 'b'),
+(2, 3, 1, 'FFFLFFFRF', 'codeweek-2017/img1-1.png', 'a'),
+(2, 4, 1, 'LFFFRFF', 'codeweek-2017/img1-1.png', 'c'),
+(2, 5, 1, 'RFLFF', 'codeweek-2017/img1-2.png', 'b'),
+(2, 6, 1, 'FLFF', 'codeweek-2017/img1-2.png', 'a'),
+(2, 7, 1, 'RFFRF', 'codeweek-2017/img1-2.png', 'c'),
+(2, 21, 2, '', 'codeweek-2017/img2-1.png', 'frflff'),
+(2, 22, 2, '', 'codeweek-2017/img2-2.png', 'rfrflff'),
+(2, 23, 2, '', 'codeweek-2017/img2-3.png', 'fflff'),
+(2, 24, 2, '', 'codeweek-2017/img2-4.png', 'ffrfff'),
+(2, 25, 2, '', 'codeweek-2017/img2-5.png', 'ffrfffrf'),
+(2, 31, 3, 'FFLFLFF', 'codeweek-2017/img3-1.png', '1'),
+(2, 32, 3, 'FLFRFF', 'codeweek-2017/img3-1.png', '1'),
+(2, 33, 3, 'FFLFFRFF', 'codeweek-2017/img3-2.png', '1'),
+(2, 34, 3, 'FFFLFFF', 'codeweek-2017/img3-2.png', '0'),
+(2, 35, 3, 'FLFFRRFF', 'codeweek-2017/img3-3.png', '2'),
+(2, 41, 4, '', 'codeweek-2017/img4-1.png', 'l'),
+(2, 42, 4, '', 'codeweek-2017/img4-2.png', 'r'),
+(2, 43, 4, '', 'codeweek-2017/img4-3.png', 'f'),
+(2, 44, 4, '', 'codeweek-2017/img4-4.png', 'l'),
+(2, 51, 5, 'FFFLFLFFF', 'codeweek-2017/img5-1.png', 'c'),
+(2, 52, 5, 'FLFRFF', 'codeweek-2017/img5-1.png', 'b'),
+(2, 53, 5, 'FFFRFRFFF', 'codeweek-2017/img5-1.png', 'a'),
+(2, 54, 5, 'FLFFLF', 'codeweek-2017/img5-2.png', 'a'),
+(2, 55, 5, 'FFLFF', 'codeweek-2017/img5-2.png', 'c'),
+(2, 56, 5, 'LFFRFF', 'codeweek-2017/img5-2.png', 'b'),
+(2, 61, 6, '', 'codeweek-2017/img6-1.png', '19'),
+(2, 62, 6, '', 'codeweek-2017/img6-2.png', '15'),
+(2, 71, 7, '', 'codeweek-2017/img7-1.png', '11'),
+(2, 72, 7, '', 'codeweek-2017/img7-2.png', '9'),
+(2, 73, 7, '', 'codeweek-2017/img7-3.png', '6');
 
 --
 -- Indexes for dumped tables
@@ -588,13 +723,13 @@ ALTER TABLE `riddles`
 -- AUTO_INCREMENT for table `events`
 --
 ALTER TABLE `events`
-  MODIFY `event_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `event_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `games`
 --
 ALTER TABLE `games`
-  MODIFY `game_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `game_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `identities`

@@ -79,12 +79,23 @@ function msg_processing_handle_group_state($context) {
             return true;
 
         case STATE_REG_READY:
-            $context->comm->reply(__('start_right_away'));
+            if($context->game->quickstart) {
+                // Quickstart enable, start right away with first riddle
+                $context->comm->reply(__('start_right_away'));
 
-            // Go straight to riddle and next location!
-            $riddle_id = bot_assign_random_riddle($context);
-            if($riddle_id === false || $riddle_id === null) {
-                $context->comm->reply(__('failure_general'));
+                $riddle_id = bot_assign_random_riddle($context);
+                if($riddle_id === false || $riddle_id === null) {
+                    $context->comm->reply(__('failure_general'));
+                }
+            }
+            else {
+                // Traditional start, give information and wait for first QR Code scan
+                if($context->game->game_channel_name) {
+                    $context->comm->reply(__('registration_ready_state_with_channel'));
+                }
+                else {
+                    $context->comm->reply(__('registration_ready_state_without_channel'));
+                }
             }
 
             return true;
@@ -115,7 +126,7 @@ function msg_processing_handle_group_state($context) {
                             ),
                             array(
                                 "text" => __('open_location_map'),
-                                "url" => GAME_MAP_LINKS[$context->game->game_id]
+                                "url" => $context->game->location_map_url
                             )
                         )
                     )
@@ -496,7 +507,7 @@ function msg_processing_handle_group_response($context) {
                         $keyboard = array(
                             array(
                                 "text" => __('open_location_map'),
-                                "url" => GAME_MAP_LINKS[$context->game->game_id]
+                                "url" => $context->game->location_map_url
                             )
                         );
                         if($context->game->location_hints_enabled && $location_info[5]) {
@@ -544,7 +555,7 @@ function msg_processing_handle_group_response($context) {
                                 ),
                                 array(
                                     "text" => __('open_location_map'),
-                                    "url" => GAME_MAP_LINKS[$context->game->game_id]
+                                    "url" => $context->game->location_map_url
                                 )
                             )
                         )
