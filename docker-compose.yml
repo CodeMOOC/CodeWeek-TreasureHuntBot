@@ -46,7 +46,7 @@ services:
     env_file: config.env
 
   database-manager:
-    image: phpmyadmin/phpmyadmin:5.1.0-apache
+    image: phpmyadmin:5.1.0-apache
     depends_on:
     - db
     networks:

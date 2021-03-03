@@ -208,7 +208,7 @@ msgstr "Si è verificato un errore. Invia un’immagine da usare come icona del 
 
 # Registration: final confirmation and instructions (%GAME_CHANNEL% Telegram channel)
 msgid "registration_ready_state_with_channel"
-msgstr "Tutto ok! Assicurati di essere iscritti al canale %GAME_CHANNEL% e seguite le istruzioni che vi verranno date."
+msgstr "Tutto ok! Assicuratevi di essere iscritti al canale %GAME_CHANNEL% e seguite le istruzioni che vi verranno date."
 
 # Registration: final confirmation and instructions
 msgid "registration_ready_state_without_channel"

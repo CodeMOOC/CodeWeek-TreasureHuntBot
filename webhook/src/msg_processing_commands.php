@@ -171,6 +171,7 @@ function msg_processing_commands($context) {
                         }
                         else if($result === 'first') {
                             $context->comm->reply(__('cmd_start_location_reached_first'));
+                            msg_processing_handle_group_state($context);
                         }
                         else if($result === 'last') {
                             msg_process_victory($context);
