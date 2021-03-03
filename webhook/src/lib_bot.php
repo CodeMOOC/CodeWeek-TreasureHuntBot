@@ -409,7 +409,7 @@ function bot_give_solution($context, $solution) {
 function bot_get_current_hint($context) {
     if(!$context->game->group_final_destination_id) {
         // No hint if no final destination is given
-        Logger::error('No final destination given', __FILE__, $context);
+        Logger::info('No final destination given', __FILE__, $context);
         return null;
     }
 

@@ -174,7 +174,7 @@ function game_get_certificate_template($game_id) {
         return GAME_CERTIFICATE_TEMPLATES[$game_id];
     }
     else {
-        return GAME_CERTIFICATE_TEMPLATES[0];
+        return 'template-certificate.html';
     }
 }
 
