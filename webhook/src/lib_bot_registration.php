@@ -92,7 +92,7 @@ function bot_register($context, $game_id, $restart = false) {
         ));
     }
     else {
-        $final_location_id = "'NULL'";
+        $final_location_id = "NULL";
     }
 
     // Perform group registration
