@@ -62,7 +62,7 @@ html, body {
 }
 .content {
     position: absolute;
-    top: 60mm;
+    top: 55mm;
     padding: 0 2em;
     text-align: center;
     line-height: 1.2;
@@ -77,33 +77,34 @@ html, body {
     </style>
 </head>
 <body>
-    <img src="/html2pdf/images/codeweek_certificate.jpg" class="background" />
+    <img src="/html2pdf/images/generic-background.jpg" class="background" />
 
     <div class="page">
-        <!--<div class="header">
+        <div class="header">
             <img src="/html2pdf/images/title.png" style="width: 145mm" />
-        </div>-->
+        </div>
 
         <div class="content">
+            The %NUMBER% members of team
             <div class="big">%TEAM_NAME%</div>
-            for completing the
-            <div class="big">Code Week<br /><i>Code Hunting Game</i></div>
-            on %DATE% in %ELAPSED_MINS% minutes
+            have completed the
+            <div class="big">“%GAME_NAME%”</div>
+            treasure hunt on %DATE%<br />in a <i>Code Hunting Games</i> event.
         </div>
     </div>
 
     <!--<div style="position: absolute; width: 277mm; height: 34mm; left: 10mm; top: 160mm; text-align: center">
-        <img src="%root%/data/certificates/%BASE_GEN_FILE%-montage.png" style="max-width: 277mm; height: 34mm" />
+        <img src="/data/certificates/%BASE_GEN_FILE%-montage.png" style="max-width: 277mm; height: 34mm" />
     </div>-->
 
-    <!--<div class="overlay left-overlay">
+    <div class="overlay left-overlay">
     </div>
 
     <div class="overlay right-overlay">
-    </div>-->
+    </div>
 
-    <img src="/data/avatars/%AVATAR_NAME%" style="position: absolute; width: 40mm; height: auto; max-height: 70mm; top: 48mm; left: 22mm" />
+    <img src="/data/avatars/%AVATAR_NAME%" style="position: absolute; width: 50mm; height: auto; max-height: 80mm; top: 12mm; left: 10mm" />
 
-    <!--<img src="/html2pdf/images/codyroby.png" style="position: absolute; width: 50mm; height: auto; top: 21mm; right: 10mm" />-->
+    <img src="/html2pdf/images/codyroby.png" style="position: absolute; width: 50mm; height: auto; top: 21mm; right: 10mm" />
 </body>
 </html>
