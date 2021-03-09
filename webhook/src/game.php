@@ -170,7 +170,7 @@ const GAME_CERTIFICATE_TEMPLATES = array(
     2       => 'template-certificate-inaf.html'
 );
 function game_get_certificate_template($game_id) {
-    if(in_array($game_id, GAME_CERTIFICATE_TEMPLATES)) {
+    if(array_key_exists($game_id, GAME_CERTIFICATE_TEMPLATES)) {
         return GAME_CERTIFICATE_TEMPLATES[$game_id];
     }
     else {
@@ -183,7 +183,7 @@ const GAME_GUIDE_LINKS = array(
     2       => 'https://codehunting.games/inaf2020'
 );
 function game_get_guide_link($game_id) {
-    if(in_array($game_id, GAME_GUIDE_LINKS)) {
+    if(array_key_exists($game_id, GAME_GUIDE_LINKS)) {
         return GAME_GUIDE_LINKS[$game_id];
     }
     else {
