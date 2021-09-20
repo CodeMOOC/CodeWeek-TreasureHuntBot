@@ -15,12 +15,12 @@ require_once(dirname(__FILE__) . '/lib_log.php');
 // Language codes are matched exactly for regional codes, and then approximately
 // using the first two characters.
 const LANGUAGE_LOCALE_MAP = array(
-    //'de' => 'de_DE.utf8',
+    'de' => 'de_DE.utf8',
     //'el' => 'el_GR.utf8',
     'en-US' => 'en_US.utf8',
-    //'es' => 'es_ES.utf8',
     'en' => 'en_US.utf8',
-    //'fr' => 'fr_FR.utf8',
+    //'es' => 'es_ES.utf8',
+    'fr' => 'fr_FR.utf8',
     //'hr' => 'hr_HR.utf8',
     //'hu' => 'hu_HU.utf8',
     'it' => 'it_IT.utf8',
@@ -34,9 +34,11 @@ const LANGUAGE_LOCALE_MAP = array(
 // This array maps ISO language codes to user-readable representations of the
 // language, localized to the target language.
 const LANGUAGE_NAME_MAP = array(
+    'de' => 'Deutsch 🇩🇪',
     //'el' => 'Greek 🇬🇷',
     'en-US' => 'English 🇺🇸',
     //'es' => 'Español 🇪🇸',
+    'fr' => 'Français 🇫🇷',
     //'hr' => 'Hrvatski 🇭🇷',
     //'hu' => 'Magyar 🇭🇺',
     'it' => 'Italiano 🇮🇹',
