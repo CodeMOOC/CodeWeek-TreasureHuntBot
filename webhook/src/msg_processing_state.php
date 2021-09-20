@@ -521,47 +521,52 @@ function msg_processing_handle_group_response($context) {
                             $location_info[1]
                         );
                     }
-                    else if($context->game->location_hints_enabled && $location_info[5]) {
-                        // If location is not sent out and hints are supported, add hint suggestion to keyboard
-                        
-                        Logger::debug("Precise location not sent, adding hint button to keyboard", __FILE__, $context);
-                        $keyboard[] = array(
-                            "text" => __('game_location_hint_button'),
-                            "callback_data" => 'hint'
-                        );
-                    }
 
-                    if($context->game->location_map_url && !$advance_result['end_of_track']) {
-                        // If location map is enabled and this is not the end, add map URL link to the keyboard
-                        
-                        Logger::debug("Location map enabled, adding link to keyboard", __FILE__, $context);
-                        $keyboard[] = array(
-                            "text" => __('open_location_map'),
-                            "url" => $context->game->location_map_url
-                        );
-                    }
+                    if(!$advance_result['end_of_track']) {
+                        // Send out information only if NOT at end of track
+                        // Last location info is sent out as part of msg_processing_handle_group_state
+                        if($context->game->location_hints_enabled && $location_info[5]) {
+                            // If location is not sent out and hints are supported, add hint suggestion to keyboard
 
-                    if($location_info[3]) {
-                        // Image with optional caption
+                            Logger::debug("Precise location not sent, adding hint button to keyboard", __FILE__, $context);
+                            $keyboard[] = array(
+                                "text" => __('game_location_hint_button'),
+                                "callback_data" => 'hint'
+                            );
+                        }
 
-                        $caption_text = $location_info[2] ?: __('game_location_state');
-                        Logger::debug("Sending location picture from " . $location_info[3] . " with caption {$caption_text}", __FILE__, $context);
-                        $context->comm->picture(
-                            '/data/locations/' . $location_info[3], $caption_text, null,
-                            array("reply_markup" => array(
-                                "inline_keyboard" => array($keyboard)
-                            ))
-                        );
-                    }
-                    else if($location_info[2]) {
-                        // Textual riddle
+                        if($context->game->location_map_url) {
+                            // If location map is enabled and this is not the end, add map URL link to the keyboard
+                            
+                            Logger::debug("Location map enabled, adding link to keyboard", __FILE__, $context);
+                            $keyboard[] = array(
+                                "text" => __('open_location_map'),
+                                "url" => $context->game->location_map_url
+                            );
+                        }
 
-                        Logger::debug("Sending location textual riddle", __FILE__, $context);
-                        $context->comm->reply($location_info[2], null,
-                            array("reply_markup" => array(
-                                "inline_keyboard" => array($keyboard)
-                            ))
-                        );
+                        if($location_info[3]) {
+                            // Image with optional caption
+
+                            $caption_text = $location_info[2] ?: __('game_location_state');
+                            Logger::debug("Sending location picture from " . $location_info[3] . " with caption {$caption_text}", __FILE__, $context);
+                            $context->comm->picture(
+                                '/data/locations/' . $location_info[3], $caption_text, null,
+                                array("reply_markup" => array(
+                                    "inline_keyboard" => array($keyboard)
+                                ))
+                            );
+                        }
+                        else if($location_info[2]) {
+                            // Textual riddle
+
+                            Logger::debug("Sending location textual riddle", __FILE__, $context);
+                            $context->comm->reply($location_info[2], null,
+                                array("reply_markup" => array(
+                                    "inline_keyboard" => array($keyboard)
+                                ))
+                            );
+                        }
                     }
 
                     // This sends out hint to last location, if required
