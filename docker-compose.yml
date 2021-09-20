@@ -6,7 +6,7 @@ networks:
 
 services:
   proxy:
-    image: nginx:1.19-alpine
+    image: nginx:1.21-alpine
     depends_on:
     - webhook
     networks:
@@ -32,7 +32,7 @@ services:
     - 9000
 
   db:
-    image: mysql:5.7.33
+    image: mysql:5.7.35
     networks:
     - treasurehunt-backend
     env_file: config.env
@@ -46,7 +46,7 @@ services:
     env_file: config.env
 
   database-manager:
-    image: phpmyadmin:5.1.0-apache
+    image: phpmyadmin:5.1.1-apache
     depends_on:
     - db
     networks:
