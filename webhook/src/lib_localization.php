@@ -48,6 +48,8 @@ const LANGUAGE_NAME_MAP = array(
     //'sv' => 'Svenska 🇸🇪'
 );
 
+// Retrieves the best match for a given locale ISO code
+// Returns the full name of the locale (see LANGUAGE_LOCALE_MAP)
 function localization_get_locale_for_iso($iso_code) {
     if(array_key_exists($iso_code, LANGUAGE_LOCALE_MAP)) {
         // Exact match
@@ -74,7 +76,7 @@ function localization_set_locale($locale_iso_code) {
         Logger::error("Failed to set locale to {$locale}", __FILE__);
     }
 
-    return $locale;
+    return substr($locale, 0, 2);
 }
 
 /**
