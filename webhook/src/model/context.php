@@ -23,6 +23,7 @@ class Context {
     // Internal ID in table `identities`
     private $internal_id = null;
     public $language_override = null;
+    public $preferred_language = null;
 
     // Alternative update contents
     public $message;
@@ -239,23 +240,25 @@ class Context {
             Logger::debug("Language override set to {$this->language_override}", __FILE__, $this);
 
             // User language override always wins
-            localization_set_locale($this->language_override);
+            $this->preferred_language = localization_set_locale($this->language_override);
         }
         else if($this->game && $this->game->game_language) {
             Logger::debug("Using game locale {$this->game->game_language}", __FILE__, $this);
 
-            localization_set_locale($this->game->game_language);
+            $this->preferred_language = localization_set_locale($this->game->game_language);
         }
         else if($this->sender && $this->sender->language_code) {
             Logger::debug("Using user language code {$this->sender->language_code}", __FILE__, $this);
 
-            localization_set_locale($this->sender->language_code);
+            $this->preferred_language = localization_set_locale($this->sender->language_code);
         }
 
-        // Slight unpleasantness: unnamed group string must be loaded here
+        // Little hack: unnamed group string must be loaded here
         if(!$this->game->group_name) {
             $this->game->group_name = __('unnamed_group');
         }
+
+        Logger::info("User preferred locale set to {$this->preferred_language}", __FILE__, $this);
     }
 
     /**

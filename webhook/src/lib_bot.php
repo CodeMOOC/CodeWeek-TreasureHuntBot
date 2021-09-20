@@ -53,11 +53,35 @@ function bot_get_riddle_info($context, $riddle_id) {
  * Get lat, long, description, image path, and internal note of a location, by ID.
  */
 function bot_get_location_info($context, $location_id) {
-    return db_row_query(sprintf(
+    $info = db_row_query(sprintf(
         "SELECT `lat`, `lng`, `description`, `image_path`, `internal_note`, `hint` FROM `locations` WHERE `game_id` = %d AND `location_id` = %d",
         $context->game->game_id,
         $location_id
     ));
+
+    // Replace base info with localized info, if available
+    $localized_info = db_row_query(sprintf(
+        "SELECT `name`, `image_path`, `description`, `hint`, IF(LOCATE('%s', `locale`) > 0, 10, IF(LOCATE('en', `locale`) > 0, 5, 0)) AS `weight` FROM `locations_descriptions` WHERE `game_id` = %d AND `location_id` = %d ORDER BY `weight` DESC LIMIT 1",
+        $context->preferred_language,
+        $context->game->game_id,
+        $location_id
+    ));
+    if($localized_info != null) {
+        if($localized_info[0]) {
+            $info[4] = $localized_info[0];
+        }
+        if($localized_info[1]) {
+            $info[3] = $localized_info[1];
+        }
+        if($localized_info[2]) {
+            $info[2] = $localized_info[2];
+        }
+        if($localized_info[3]) {
+            $info[5] = $localized_info[3];
+        }
+    }
+
+    return $info;
 }
 
 /**
