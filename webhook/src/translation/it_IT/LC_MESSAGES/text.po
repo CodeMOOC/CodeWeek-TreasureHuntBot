@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: treasure-hunt-bot\n"
-"PO-Revision-Date: 2021-09-21 23:18\n"
+"PO-Revision-Date: 2021-09-21 23:43\n"
 "Last-Translator: Lorenz Cuno Klopfenstein <lck@klopfenstein>\n"
 "Language-Team: Italian\n"
 "MIME-Version: 1.0\n"
@@ -123,7 +123,7 @@ msgstr "Non ho capito il comando: hai scansionato il codice corretto?"
 
 # First response after registration code, welcome to game
 msgid "cmd_register_confirm"
-msgstr "Ti diamo il benvenuto a <b>%GAME_NAME%</b>! 🎉"
+msgstr "Ciao, %FIRST_NAME%, ti diamo il benvenuto a <b>%GAME_NAME%</b>! 🎉"
 
 # Successive responses to registration of same game
 msgid "cmd_register_registered"
@@ -444,3 +444,10 @@ msgstr "Gioca di nuovo!"
 
 msgid "welcome_language_help"
 msgstr "🌐 Non parli italiano? Cambia lingua con il comando /setlanguage."
+
+msgid "cmd_language_ask"
+msgstr "Che lingua dovrei parlare?"
+
+msgid "cmd_language_confirm"
+msgstr "Tutto chiaro, da ora parlerò italiano!"
+

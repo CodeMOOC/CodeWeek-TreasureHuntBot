@@ -429,3 +429,9 @@ msgstr ""
 
 msgid "welcome_language_help"
 msgstr ""
+
+msgid "cmd_language_ask"
+msgstr ""
+
+msgid "cmd_language_confirm"
+msgstr ""

@@ -14,7 +14,7 @@ const MEMORY_LOCALIZATION_KEY = "localizationProcess";
 function msg_processing_localization_set_language_code($context, $code) {
     localization_set_locale_and_persist($context, $code);
 
-    $context->comm->reply("Language set to <code>{$code}</code>. 👍");
+    $context->comm->reply(__('cmd_language_confirm'));
 }
 
 function msg_processing_localization($context) {
@@ -46,7 +46,7 @@ function msg_processing_localization($context) {
             }
 
             // TODO: localization
-            $context->comm->reply('What language do you speak?', null, array(
+            $context->comm->reply(__('cmd_language_ask'), null, array(
                 'reply_markup' => array(
                     'inline_keyboard' => $lang_keyboard
                 )
