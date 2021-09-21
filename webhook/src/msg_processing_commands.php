@@ -109,6 +109,7 @@ function msg_processing_commands($context) {
                         $result = bot_register($context, $game_id);
                         if($result === true) {
                             $context->comm->reply(__('cmd_register_confirm'));
+                            $context->comm->reply(__('welcome_language_help'));
                             msg_processing_handle_group_state($context);
                         }
                         else if($result === 'already_registered') {

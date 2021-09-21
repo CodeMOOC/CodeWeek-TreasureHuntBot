@@ -426,3 +426,6 @@ msgstr ""
 
 msgid "play_again_button"
 msgstr ""
+
+msgid "welcome_language_help"
+msgstr ""

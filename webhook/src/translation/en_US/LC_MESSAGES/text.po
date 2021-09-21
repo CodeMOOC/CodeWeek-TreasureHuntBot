@@ -440,3 +440,5 @@ msgstr "But that’s not all! We have a <b>special prize</b> waiting for you. Pl
 msgid "play_again_button"
 msgstr "Play again!"
 
+msgid "welcome_language_help"
+msgstr "🌐 Don’t speak English? Switch language using the /setlanguage command."

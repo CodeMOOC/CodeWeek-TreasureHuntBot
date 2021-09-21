@@ -442,3 +442,5 @@ msgstr "Ma questo non è tutto! Abbiamo un <b>premio speciale</b> in serbo per t
 msgid "play_again_button"
 msgstr "Gioca di nuovo!"
 
+msgid "welcome_language_help"
+msgstr "🌐 Non parli italiano? Cambia lingua con il comando /setlanguage."
