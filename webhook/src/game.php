@@ -167,7 +167,8 @@ const GAME_LAST_PUZZLE_3_SOLUTION = 'pascal';
 
 const GAME_CERTIFICATE_TEMPLATES = array(
     1       => 'template-certificate-codeweek.html',
-    2       => 'template-certificate-inaf.html'
+    2       => 'template-certificate-inaf.html',
+    43      => 'template-certificate-inaf.html'
 );
 function game_get_certificate_template($game_id) {
     if(array_key_exists($game_id, GAME_CERTIFICATE_TEMPLATES)) {
