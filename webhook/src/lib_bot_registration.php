@@ -90,9 +90,13 @@ function bot_register($context, $game_id, $restart = false) {
             'SELECT `location_id` FROM `locations` WHERE `game_id` = %d ORDER BY RAND() LIMIT 1',
             $game_id
         ));
+
+        Logger::info("Picked location {$final_location_id} as final location", __FILE__, $context);
     }
     else {
         $final_location_id = "NULL";
+
+        Logger::info("No final location set", __FILE__, $context);
     }
 
     // Perform group registration
