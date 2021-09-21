@@ -8,10 +8,12 @@
  */
 
 function msg_processing_admin($context) {
-    if(!$context->game || !$context->game->is_admin) {
+    if(!$context->game) {
         return false;
     }
-
+    if(!$context->game->is_admin) {
+        return false;
+    }
     if(!$context->is_message()) {
         return false;
     }

@@ -254,7 +254,7 @@ class Context {
         }
 
         // Little hack: unnamed group string must be loaded here
-        if(!$this->game->group_name) {
+        if($this->game && !$this->game->group_name) {
             $this->game->group_name = __('unnamed_group');
         }
 

@@ -58,7 +58,7 @@ function bot_register($context, $game_id, $restart = false) {
 
     // Query game information
     $game_info = db_row_query(sprintf(
-        'SELECT `games`.`timeout_absolute`, `games`.`timeout_interval`, `games`.`state`, `events`.`state`, `games`.`quick_start`, `games`.`language` FROM `games` LEFT OUTER JOIN `events` ON `games`.`event_id` = `events`.`event_id` WHERE `games`.`game_id` = %d',
+        'SELECT `games`.`timeout_absolute`, `games`.`timeout_interval`, `games`.`state`, `events`.`state`, `games`.`quick_start`, `games`.`language`, `games`.`pick_random_final_location` FROM `games` LEFT OUTER JOIN `events` ON `games`.`event_id` = `events`.`event_id` WHERE `games`.`game_id` = %d',
         $game_id
     ));
     if($game_info === false || $game_info == null) {
@@ -84,8 +84,8 @@ function bot_register($context, $game_id, $restart = false) {
         $game_timeout = "DATE_ADD(NOW(), INTERVAL {$game_info[1]} MINUTE)";
     }
 
-    // Pre-generate final destination, if needed
-    if($context->game->pick_random_final_location) {
+    // Pre-generate final destination, if random location is needed
+    if($game_info[6]) {
         $final_location_id = db_scalar_query(sprintf(
             'SELECT `location_id` FROM `locations` WHERE `game_id` = %d ORDER BY RAND() LIMIT 1',
             $game_id
@@ -95,8 +95,6 @@ function bot_register($context, $game_id, $restart = false) {
     }
     else {
         $final_location_id = "NULL";
-
-        Logger::info("No final location set", __FILE__, $context);
     }
 
     // Perform group registration
