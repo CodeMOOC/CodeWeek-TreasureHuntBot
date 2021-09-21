@@ -1,18 +1,20 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: treasure-hunt-bot\n"
-"PO-Revision-Date: 2019-06-07 16:29\n"
-"Last-Translator: Lorenz Cuno Klopfenstein (LorenzCK)\n"
+"PO-Revision-Date: 2021-09-21 22:17\n"
+"Last-Translator: Lorenz Cuno Klopfenstein <lck@klopfenstein>\n"
 "Language-Team: Italian\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: crowdin.com\n"
+"X-Generator: Poedit 2.0.3\n"
 "POT-Creation-Date: 2017-09-15 10:27+0200\n"
 "X-Crowdin-Project: treasure-hunt-bot\n"
+"X-Crowdin-Project-ID: 290634\n"
 "X-Crowdin-Language: it\n"
 "X-Crowdin-File: text.pot\n"
+"X-Crowdin-File-ID: 17\n"
 "Language: it_IT\n"
 
 # Name of any group before having a name assigned
@@ -390,49 +392,50 @@ msgid "questionnaire_finish_thankyou"
 msgstr "Grazie ancora per aver partecipato! 🙂"
 
 msgid "start_right_away"
-msgstr "Iniziamo subito. Ecco il tuo primo indovinello di coding! 💡"
+msgstr "Cominciamo subito! Ecco il tuo primo indovinello. 💡"
 
 msgid "skip"
 msgstr "Salta"
 
 msgid "almost_there_geohash"
-msgstr "Ci sei quasi! Durante la partita, ad ogni tappa, ti ho inviato un indizio su quale sarà la tappa finale sulla mappa. Vai a cercare questi indizi, leggerli come una specie di… <i>codice</i> potrebbe indicarti la destinazione da raggiungere. 🧐"
+msgstr "Ci siamo quasi! Durante il corso della partita, ad ogni tappa, ti ho inviato alcuni indizi sulla destinazione finale da trovare sulla mappa della Code Week Treasure Hunt. Dai un’occhiata agli indizi: leggendoli come una specie di… <i>codice</i> potrebbe indicarti la strada giusta. 🧐"
 
 msgid "open_location_map"
 msgstr "Apri mappa delle tappe"
 
 msgid "victory_location_for_wom"
-msgstr "Hai vinto la partita! Abbiamo un <b>premio speciale</b> tutto per te: inviaci la tua posizione attuale per riceverlo."
+msgstr "Hai completato il gioco! Ma abbiamo ancora un <b>premio speciale</b> in serbo per te: inviaci la tua posizione geografica come messaggio per ottenerlo."
 
 msgid "send_current_location"
 msgstr "Invia posizione geografica"
 
 msgid "say_again_ready"
-msgstr "Come dici? Pronti per giocare?"
+msgstr "Come? Siamo pronti per giocare?"
 
 msgid "geohash_hint"
-msgstr "OK, benissimo. Se metti in ordine tutti i codici ricevuti ad ogni tappa otterrai un <b>GeoHash</b>, un codice che indica una specifica posizione geografica. Puoi convertire questo hash con uno strumento online. Poi trova la tappa sulla mappa e scansiona il QR Code."
+msgstr "OK! Se metti insieme tutti gli indizi che ti ho inviato, otterrai un <b>GeoHash</b>, un codice che identifica una precisa posizione geografica. Puoi convertire il GeoHash utilizzando uno dei molti strumenti che troverai online. Trova la destinazione finale e scansiona il relativo QR code."
 
 msgid "geohash_conversion_link"
-msgstr "Conversione di GeoHash"
+msgstr "Conversione GeoHash"
 
 msgid "received_location_for_wom"
-msgstr "Ricevuto, sto preparando il premio…"
+msgstr "Ricevuto, sto generando il tuo premio…"
 
 msgid "received_wom_vouchers"
-msgstr "Ecco qua! 🎖 Scansiona il QR Code oppure <a href=\"%WOM_LINK%\">clicca qui</a> per ottenere i tuoi <a href=\"https://wom.social\">voucher WOM</a> come premio per i tuoi sforzi. Usa il seguente PIN per sbloccare il premio: <code>%WOM_PIN%</code>."
+msgstr "Ecco qua! 🎖 Scansiona il QR Code oppure <a href=\"%WOM_LINK%\">clicca qui</a> per ottenere i tuoi <a href=\"https://wom.social\">voucher WOM</a> come premio per i tuoi sforzi nel gioco. Utilizza il seguente codice PIN per riscattare i voucher: <code>%WOM_PIN%</code>."
 
 msgid "send_out_game_guide"
-msgstr "Se questa è la prima volta che partecipi ad un <i>Code Hunting Game</i>, <a href=\"%HELP_LINK%\">dai un’occhiata a questa guida online</a> che ti indicherà come funziona il gioco."
+msgstr "Se questa è la prima volta che giochi ad un <i>Code Hunting Game</i>, ti suggeriamo di consultare la <a href=\"%HELP_LINK%\">guida online</a>, che ti indicherà come funziona il gioco."
 
 msgid "game_guide_got_it"
-msgstr "Tutto chiaro! 👍"
+msgstr "Ricevuto! 👍"
 
 msgid "already_registered_to_game"
-msgstr "Hai già effettuato la registrazione a questa partita. 👍"
+msgstr "Hai già effettuato la registrazione al gioco. 👍"
 
 msgid "restart_registered_game"
-msgstr "Ricomincia la partita da capo"
+msgstr "Ricomincia il gioco da capo"
 
 msgid "won_ask_location_for_wom"
-msgstr "Ma non è tutto! Abbiamo un <b>premio speciale</b> per te. Ti prego di inviarmi la tua posizione geografica (usando il pulsante qui sotto) per riceverlo."
+msgstr "Ma questo non è tutto! Abbiamo un <b>premio speciale</b> in serbo per te! Per favore, inviaci la tua posizione geografica (utilizzando il pulsante qui sotto) per riceverlo."
+

@@ -375,3 +375,51 @@ msgstr ""
 # Final thank you
 msgid "questionnaire_finish_thankyou"
 msgstr ""
+
+msgid "start_right_away"
+msgstr ""
+
+msgid "skip"
+msgstr ""
+
+msgid "almost_there_geohash"
+msgstr ""
+
+msgid "open_location_map"
+msgstr ""
+
+msgid "victory_location_for_wom"
+msgstr ""
+
+msgid "send_current_location"
+msgstr ""
+
+msgid "say_again_ready"
+msgstr ""
+
+msgid "geohash_hint"
+msgstr ""
+
+msgid "geohash_conversion_link"
+msgstr ""
+
+msgid "received_location_for_wom"
+msgstr ""
+
+msgid "received_wom_vouchers"
+msgstr ""
+
+msgid "send_out_game_guide"
+msgstr ""
+
+msgid "game_guide_got_it"
+msgstr ""
+
+msgid "already_registered_to_game"
+msgstr ""
+
+msgid "restart_registered_game"
+msgstr ""
+
+msgid "won_ask_location_for_wom"
+msgstr ""
