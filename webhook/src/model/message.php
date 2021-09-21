@@ -78,6 +78,13 @@ class Message implements iContent {
         }
     }
 
+    /**
+     * Returns whether a given string matches the message's text.
+     */
+    function matches_text($input) {
+        return $this->get_response() == extract_response($input);
+    }
+
     function is_photo() {
         return isset($this->photo);
     }

@@ -222,8 +222,6 @@ function msg_processing_handle_group_state($context) {
             return true;
 
         case STATE_CERT_SENT:
-            $context->comm->reply(__('game_won_state'));
-
             $context->comm->reply(
                 __('victory_location_for_wom'),
                 null,
@@ -234,6 +232,11 @@ function msg_processing_handle_group_state($context) {
                                 array(
                                     'text' => __('send_current_location'),
                                     'request_location' => true
+                                )
+                            ),
+                            array(
+                                array(
+                                    'text' => __('skip')
                                 )
                             )
                         )
@@ -750,7 +753,25 @@ function msg_processing_handle_group_response($context) {
                         "inline_keyboard" => array(
                             array(
                                 array(
-                                    "text" => "Play again!",
+                                    "text" => __('play_again_button'),
+                                    "callback_data" => "RESET GAME " . $context->game->game_id
+                                )
+                            )
+                        )
+                    ))
+                );
+            }
+            else if($context->message && $context->message->matches_text(__('skip'))) {
+                bot_set_group_state($context, STATE_WOM_SENT);
+
+                $context->comm->reply(
+                    __('questionnaire_finish_thankyou'),
+                    null,
+                    array("reply_markup" => array(
+                        "inline_keyboard" => array(
+                            array(
+                                array(
+                                    "text" => __('play_again_button'),
                                     "callback_data" => "RESET GAME " . $context->game->game_id
                                 )
                             )

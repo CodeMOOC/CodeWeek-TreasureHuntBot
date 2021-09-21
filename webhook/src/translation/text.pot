@@ -423,3 +423,6 @@ msgstr ""
 
 msgid "won_ask_location_for_wom"
 msgstr ""
+
+msgid "play_again_button"
+msgstr ""

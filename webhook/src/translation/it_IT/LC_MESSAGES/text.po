@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: treasure-hunt-bot\n"
-"PO-Revision-Date: 2021-09-21 22:17\n"
+"PO-Revision-Date: 2021-09-21 23:18\n"
 "Last-Translator: Lorenz Cuno Klopfenstein <lck@klopfenstein>\n"
 "Language-Team: Italian\n"
 "MIME-Version: 1.0\n"
@@ -438,4 +438,7 @@ msgstr "Ricomincia il gioco da capo"
 
 msgid "won_ask_location_for_wom"
 msgstr "Ma questo non è tutto! Abbiamo un <b>premio speciale</b> in serbo per te! Per favore, inviaci la tua posizione geografica (utilizzando il pulsante qui sotto) per riceverlo."
+
+msgid "play_again_button"
+msgstr "Gioca di nuovo!"
 

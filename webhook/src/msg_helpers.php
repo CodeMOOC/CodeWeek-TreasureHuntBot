@@ -91,6 +91,11 @@ function msg_process_victory($context, $event_id = null, $game_id = null) {
                                 'text' => __('send_current_location'),
                                 'request_location' => true
                             )
+                        ),
+                        array(
+                            array(
+                                'text' => __('skip')
+                            )
                         )
                     )
                 )
