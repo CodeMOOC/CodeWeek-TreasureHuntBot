@@ -571,23 +571,6 @@ function msg_processing_handle_group_response($context) {
                         return true;
                     }
 
-                    // Send out directions for next location
-                    $target_location_id = $advance_result['location_id'];
-                    $location_info = bot_get_location_info($context, $target_location_id);
-                    $forced_location_on_cluster = $context->game->cluster_forces_location_on_enter($advance_result['reached_locations']);
-
-                    if(false && $forced_location_on_cluster || (!$location_info[2] && !$location_info[3])) {
-                        // Send out location if required by cluster OR when only location is available
-
-                        Logger::debug("Forced precise location send (forced ${forced_location_on_cluster}) and location data: " . print_r($location_info, true), __FILE__, $context);
-
-                        telegram_send_location(
-                            $context->get_telegram_chat_id(),
-                            $location_info[0],
-                            $location_info[1]
-                        );
-                    }
-
                     // This sends out hint to last location, if required
                     msg_processing_handle_group_state($context);
                 }
