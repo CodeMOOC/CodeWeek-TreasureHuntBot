@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: treasure-hunt-bot\n"
-"PO-Revision-Date: 2021-09-21 23:43\n"
+"PO-Revision-Date: 2021-09-22 00:25\n"
 "Last-Translator: Lorenz Cuno Klopfenstein <lck@klopfenstein>\n"
 "Language-Team: Italian\n"
 "MIME-Version: 1.0\n"
@@ -82,12 +82,12 @@ msgstr "Hmmm, sembra che abbiate trovato il premio prima del tempo! 🤔"
 # Response to victory code (first of game)
 msgid "cmd_start_prize_first"
 msgstr "🎉 <b>Complimenti!</b> 🎉\n"
-"Avete risolto l’ultimo indovinello ed avete completato il gioco per primi! 🏁"
+"Avete raggiunto l’ultima tappa ed avete completato il gioco per primi! 🏁"
 
 # Response to victory code (not first of game, %WINNING_GROUP% first group, %INDEX% arrival position)
 msgid "cmd_start_prize_not_first"
 msgstr "🎉 <b>Complimenti!</b> 🎉\n"
-"Siete il %INDEX%° gruppo a risolvere l’ultimo indovinello ed avete quindi completato il gioco con successo! 🏁"
+"Siete il %INDEX%° gruppo a raggiungere l’ultima tappa e a completare il gioco con successo! 🏁"
 
 # Response to first victory code on public channel (%GROUP_NAME% name)
 msgid "cmd_start_prize_channel_first"
@@ -258,7 +258,7 @@ msgstr "Scrivete qui la risposta al quesito appena inviato."
 
 # Game state: too quick puzzle response, wait %SECONDS% more for next answer
 msgid "game_puzzle_response_wait"
-msgstr "Dovrai aspettare altri %SECONDS% secondi prima di poter rispondere."
+msgstr "Dovrai aspettare altri %SECONDS% secondi prima di poter rispondere. ⏱"
 
 # Game state: puzzle solution wrong, wait 30 seconds
 msgid "game_puzzle_response_wrong"

@@ -103,6 +103,61 @@ function msg_processing_handle_group_state($context) {
         /* GAME */
 
         case STATE_GAME_LOCATION:
+            $target_location_id = bot_get_expected_location_id($context);
+            $location_info = bot_get_location_info($context, $target_location_id);
+            $keyboard = array();
+
+            if($context->game->location_hints_enabled && $location_info[5]) {
+                // If location is not sent out and hints are supported, add hint suggestion to keyboard
+
+                Logger::debug("Precise location not sent, adding hint button to keyboard", __FILE__, $context);
+                $keyboard[] = array(
+                    "text" => __('game_location_hint_button'),
+                    "callback_data" => 'hint'
+                );
+            }
+
+            if($context->game->location_map_url) {
+                // If location map is enabled and this is not the end, add map URL link to the keyboard
+                
+                Logger::debug("Location map enabled, adding link to keyboard", __FILE__, $context);
+                $keyboard[] = array(
+                    "text" => __('open_location_map'),
+                    "url" => $context->game->location_map_url
+                );
+            }
+
+            if($location_info[3]) {
+                // Image with optional caption
+
+                $caption_text = $location_info[2] ?: __('game_location_state');
+                Logger::debug("Sending location picture from " . $location_info[3] . " with caption {$caption_text}", __FILE__, $context);
+                $context->comm->picture(
+                    '/data/locations/' . $location_info[3], $caption_text, null,
+                    array("reply_markup" => array(
+                        "inline_keyboard" => array($keyboard)
+                    ))
+                );
+            }
+            else if($location_info[2]) {
+                // Textual riddle
+
+                Logger::debug("Sending location textual riddle", __FILE__, $context);
+                $context->comm->reply($location_info[2], null,
+                    array("reply_markup" => array(
+                        "inline_keyboard" => array($keyboard)
+                    ))
+                );
+            }
+            else {
+                // Geographical position
+
+                telegram_send_location(
+                    $context->get_telegram_chat_id(),
+                    $location_info[0],
+                    $location_info[1]
+                );
+            }
             return true;
 
         case STATE_GAME_SELFIE:
@@ -114,6 +169,8 @@ function msg_processing_handle_group_state($context) {
             return true;
 
         case STATE_GAME_LAST_LOC:
+            $context->comm->reply(__('game_last_location_state'));
+
             if($context->game->pick_random_final_location) {
                 // Send out last location hint when playing with random final locations (GeoHash)
                 $context->comm->reply(
@@ -136,7 +193,14 @@ function msg_processing_handle_group_state($context) {
                 );
             }
             else {
-                $context->comm->reply(__('game_last_location_state'));
+                $target_location_id = bot_get_expected_location_id($context);
+                $location_info = bot_get_location_info($context, $target_location_id);
+
+                telegram_send_location(
+                    $context->get_telegram_chat_id(),
+                    $location_info[0],
+                    $location_info[1]
+                );
             }
             return true;
 
@@ -510,66 +574,18 @@ function msg_processing_handle_group_response($context) {
                     // Send out directions for next location
                     $target_location_id = $advance_result['location_id'];
                     $location_info = bot_get_location_info($context, $target_location_id);
-
-                    $keyboard = array();
                     $forced_location_on_cluster = $context->game->cluster_forces_location_on_enter($advance_result['reached_locations']);
 
-                    if($forced_location_on_cluster || (!$location_info[2] && !$location_info[3])) {
+                    if(false && $forced_location_on_cluster || (!$location_info[2] && !$location_info[3])) {
                         // Send out location if required by cluster OR when only location is available
 
                         Logger::debug("Forced precise location send (forced ${forced_location_on_cluster}) and location data: " . print_r($location_info, true), __FILE__, $context);
+
                         telegram_send_location(
                             $context->get_telegram_chat_id(),
                             $location_info[0],
                             $location_info[1]
                         );
-                    }
-
-                    if(!$advance_result['end_of_track']) {
-                        // Send out information only if NOT at end of track
-                        // Last location info is sent out as part of msg_processing_handle_group_state
-                        if($context->game->location_hints_enabled && $location_info[5]) {
-                            // If location is not sent out and hints are supported, add hint suggestion to keyboard
-
-                            Logger::debug("Precise location not sent, adding hint button to keyboard", __FILE__, $context);
-                            $keyboard[] = array(
-                                "text" => __('game_location_hint_button'),
-                                "callback_data" => 'hint'
-                            );
-                        }
-
-                        if($context->game->location_map_url) {
-                            // If location map is enabled and this is not the end, add map URL link to the keyboard
-                            
-                            Logger::debug("Location map enabled, adding link to keyboard", __FILE__, $context);
-                            $keyboard[] = array(
-                                "text" => __('open_location_map'),
-                                "url" => $context->game->location_map_url
-                            );
-                        }
-
-                        if($location_info[3]) {
-                            // Image with optional caption
-
-                            $caption_text = $location_info[2] ?: __('game_location_state');
-                            Logger::debug("Sending location picture from " . $location_info[3] . " with caption {$caption_text}", __FILE__, $context);
-                            $context->comm->picture(
-                                '/data/locations/' . $location_info[3], $caption_text, null,
-                                array("reply_markup" => array(
-                                    "inline_keyboard" => array($keyboard)
-                                ))
-                            );
-                        }
-                        else if($location_info[2]) {
-                            // Textual riddle
-
-                            Logger::debug("Sending location textual riddle", __FILE__, $context);
-                            $context->comm->reply($location_info[2], null,
-                                array("reply_markup" => array(
-                                    "inline_keyboard" => array($keyboard)
-                                ))
-                            );
-                        }
                     }
 
                     // This sends out hint to last location, if required
@@ -607,10 +623,11 @@ function msg_processing_handle_group_response($context) {
                         )
                     ))
                 );
+
+                return true;
             }
-            else if($context->is_message() && $context->message->is_text()) {
-                // Nop
-            }
+            
+            msg_processing_handle_group_state($context);
             return true;
 
         case STATE_GAME_LAST_SELF:

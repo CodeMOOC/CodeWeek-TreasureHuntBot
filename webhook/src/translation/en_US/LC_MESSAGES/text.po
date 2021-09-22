@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: treasure-hunt-bot\n"
-"PO-Revision-Date: 2021-09-21 23:43\n"
+"PO-Revision-Date: 2021-09-22 00:25\n"
 "Last-Translator: Lorenz Cuno Klopfenstein <lck@klopfenstein>\n"
 "Language-Team: English\n"
 "MIME-Version: 1.0\n"
@@ -82,12 +82,12 @@ msgstr "Hmmm, you appear to have found the prize, but <i>too</i> soon! 🤔"
 # Response to victory code (first of game)
 msgid "cmd_start_prize_first"
 msgstr "🎉 <b>Congratulations!</b> 🎉\n"
-"You solved the GeoHash puzzle correctly and you’re the first team to complete the game! 🏁"
+"You reached the final destination and you’re the first team to complete the game! 🏁"
 
 # Response to victory code (not first of game, %WINNING_GROUP% first group, %INDEX% arrival position)
 msgid "cmd_start_prize_not_first"
 msgstr "🎉 <b>Congratulations!</b> 🎉\n"
-"You are team number %INDEX% to solve the GeoHash puzzle correctly and to complete the game! 🏁"
+"You are team number %INDEX% to reach the final destination and to complete the game! 🏁"
 
 # Response to first victory code on public channel (%GROUP_NAME% name)
 msgid "cmd_start_prize_channel_first"
@@ -258,7 +258,7 @@ msgstr "Write the answer to the puzzle here."
 
 # Game state: too quick puzzle response, wait %SECONDS% more for next answer
 msgid "game_puzzle_response_wait"
-msgstr "Please wait for %SECONDS% more seconds before writing your answer again."
+msgstr "Please wait for %SECONDS% more seconds before writing your answer again. ⏱"
 
 # Game state: puzzle solution wrong, wait 30 seconds
 msgid "game_puzzle_response_wrong"
