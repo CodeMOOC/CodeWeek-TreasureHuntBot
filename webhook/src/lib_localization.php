@@ -76,7 +76,10 @@ function localization_set_locale($locale_iso_code) {
         Logger::error("Failed to set locale to {$locale}", __FILE__);
     }
 
-    return substr($locale, 0, 2);
+    $short_locale = mb_substr($locale, 0, 2);
+    $GLOBALS['locale'] = $short_locale;
+
+    return $short_locale;
 }
 
 /**
@@ -87,7 +90,7 @@ function localization_set_locale_and_persist($context, $locale_iso_code) {
 
     db_perform_action(sprintf(
         'UPDATE `identities` SET `language` = \'%s\' WHERE `id` = %d',
-        substr(db_escape($locale), 0, 5),
+        mb_substr(db_escape($locale), 0, 5),
         $context->get_internal_id()
     ));
 
@@ -125,6 +128,22 @@ function __($msgid, $domain = 'text') {
  */
 function _e($msgid, $domain = 'text') {
     echo localization_safe_gettext($msgid, $domain);
+}
+
+/**
+ * Extracts a string from a source map of translated strings.
+ */
+function _m($source_map) {
+    if(!$source_map) {
+        return '';
+    }
+    if(array_key_exists($GLOBALS['locale'], $source_map)) {
+        return $source_map[$GLOBALS['locale']];
+    }
+    if(array_key_exists('en', $source_map)) {
+        return $source_map['en'];
+    }
+    return '';
 }
 
 // Load text domains

@@ -117,13 +117,13 @@ function msg_processing_handle_group_state($context) {
                 );
             }
 
-            if($context->game->location_map_url) {
+            if($context->game->get_location_map_url()) {
                 // If location map is enabled and this is not the end, add map URL link to the keyboard
                 
                 Logger::debug("Location map enabled, adding link to keyboard", __FILE__, $context);
                 $keyboard[] = array(
                     "text" => __('open_location_map'),
-                    "url" => $context->game->location_map_url
+                    "url" => $context->game->get_location_map_url()
                 );
             }
 
@@ -185,7 +185,7 @@ function msg_processing_handle_group_state($context) {
                                 ),
                                 array(
                                     "text" => __('open_location_map'),
-                                    "url" => $context->game->location_map_url
+                                    "url" => $context->game->get_location_map_url()
                                 )
                             )
                         )
@@ -600,7 +600,7 @@ function msg_processing_handle_group_response($context) {
                                 ),
                                 array(
                                     "text" => __('open_location_map'),
-                                    "url" => $context->game->location_map_url
+                                    "url" => $context->game->get_location_map_url()
                                 )
                             )
                         )

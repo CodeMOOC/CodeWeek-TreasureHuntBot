@@ -25,7 +25,7 @@ class Game {
     public  $skip_selfies = false;
     public  $pick_random_final_location = false;
     public  $location_hints_enabled = false;
-    public  $location_map_url = null;
+    private $location_map_url = null;
     public  $badge_overlay_image = null;
 
     public  $event_id = null;
@@ -304,6 +304,21 @@ class Game {
             $this->game_id,
             $this->owning_context->get_internal_id()
         ));
+    }
+
+    function get_location_map_url() {
+        if(!$this->location_map_url) {
+            return '';
+        }
+
+        if(mb_substr($this->location_map_url, 0, 1) === '{') {
+            // If this string contains some JSON, use language extraction
+            $urls = json_decode($this->location_map_url, true);
+            return _m($urls);
+        }
+
+        // Default to full original string if no JSON
+        return $this->location_map_url;
     }
 
 }
