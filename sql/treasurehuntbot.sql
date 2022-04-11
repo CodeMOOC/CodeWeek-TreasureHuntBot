@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.0
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: db
--- Generation Time: Sep 20, 2021 at 11:17 AM
--- Server version: 5.7.33
--- PHP Version: 7.4.15
+-- Generation Time: Apr 08, 2022 at 09:43 AM
+-- Server version: 5.7.35
+-- PHP Version: 7.4.23
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -174,7 +174,7 @@ CREATE TABLE `hints` (
 
 CREATE TABLE `identities` (
   `id` int(10) UNSIGNED NOT NULL COMMENT 'Internal ID',
-  `telegram_id` int(11) NOT NULL,
+  `telegram_id` bigint(20) NOT NULL,
   `first_name` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
   `full_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `first_seen_on` datetime NOT NULL,
