@@ -119,7 +119,7 @@ function msg_processing_handle_group_state($context) {
 
             if($context->game->get_location_map_url()) {
                 // If location map is enabled and this is not the end, add map URL link to the keyboard
-                
+
                 Logger::debug("Location map enabled, adding link to keyboard", __FILE__, $context);
                 $keyboard[] = array(
                     "text" => __('open_location_map'),
@@ -194,8 +194,11 @@ function msg_processing_handle_group_state($context) {
             }
             else {
                 $target_location_id = bot_get_expected_location_id($context);
-                $location_info = bot_get_location_info($context, $target_location_id);
+                if(!$target_location_id) {
+                    Logger::fatal('Unable to load final location', __FILE__);
+                }
 
+                $location_info = bot_get_location_info($context, $target_location_id);
                 telegram_send_location(
                     $context->get_telegram_chat_id(),
                     $location_info[0],
@@ -609,7 +612,7 @@ function msg_processing_handle_group_response($context) {
 
                 return true;
             }
-            
+
             msg_processing_handle_group_state($context);
             return true;
 
@@ -627,7 +630,7 @@ function msg_processing_handle_group_response($context) {
 
                 if(in_array($context->game->event_id, EVENT_IDS_WITH_FINAL_PUZZLE)) {
                     $context->comm->reply(__('game_last_puzzle_instructions'));
-                    
+
                     bot_set_group_state($context, STATE_GAME_LAST_PUZ);
                 }
                 else {
@@ -654,7 +657,7 @@ function msg_processing_handle_group_response($context) {
                     return true;
                 }
             }
-            
+
             $context->comm->reply(__('game_last_puzzle_wrong'));
             return true;
 
@@ -672,7 +675,7 @@ function msg_processing_handle_group_response($context) {
                     msg_processing_handle_group_state($context);
                 }
             }
-            
+
             $context->comm->reply(__('game_last_puzzle_wrong'));
             return true;
 
@@ -689,7 +692,7 @@ function msg_processing_handle_group_response($context) {
                     return true;
                 }
             }
-            
+
             $context->comm->reply(__('game_last_puzzle_wrong'));
             return true;
 

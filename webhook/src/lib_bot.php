@@ -269,7 +269,7 @@ function bot_get_expected_location_id($context) {
         ));
     }
     else if($state === STATE_GAME_LAST_LOC) {
-        // Directed to last location
+        // Last location has been pre-picked
         if($context->game->group_final_destination_id) {
             return $context->game->group_final_destination_id;
         }
@@ -293,7 +293,7 @@ function bot_get_time_since_location_assignment($context) {
         $context->game->game_id,
         $context->get_internal_id()
     ));
-    
+
     if($elapsed_time) {
         return $elapsed_time;
     }
