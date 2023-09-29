@@ -67,7 +67,7 @@ CREATE TABLE `code_lookup` (
 --
 
 CREATE TABLE `conversation_memories` (
-  `telegram_id` int(11) NOT NULL,
+  `telegram_id` bigint(20) NOT NULL,
   `data` text COLLATE utf8_unicode_ci NOT NULL,
   `last_update` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -115,7 +115,7 @@ CREATE TABLE `games` (
   `skip_selfies` bit(1) NOT NULL DEFAULT b'0',
   `pick_random_final_location` bit(1) NOT NULL DEFAULT b'0',
   `location_hints_enabled` bit(1) NOT NULL DEFAULT b'0',
-  `location_map_url` varchar(1024) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `location_map_url` text COLLATE utf8_unicode_ci,
   `timeout_absolute` datetime DEFAULT NULL COMMENT 'Absolute timeout when game ends',
   `timeout_interval` smallint(6) DEFAULT NULL COMMENT 'Relative timeout in minutes from start',
   `registered_on` datetime NOT NULL
