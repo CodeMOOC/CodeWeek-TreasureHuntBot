@@ -13,9 +13,13 @@ $data_name = $argv[6];       //name
 $data_id = $argv[7];         //loc-id
 $data_qr_content = $argv[8]; //qr-content
 
+echo 'Rendering ' . $input_file . ' into ' . $output_file . PHP_EOL;
+
 // instantiate and use the dompdf class
 $dompdf = new Dompdf();
 $content = file_get_contents($input_file);
+
+echo 'Loaded ' . mb_strlen($content) . ' characters of HTML' . PHP_EOL;
 
 //populate html template
 $content = str_replace("%root%", dirname(__FILE__), $content);
@@ -37,11 +41,11 @@ $dompdf->render();
 $pdf_gen = $dompdf->output();
 
 if(!file_put_contents($output_file, $pdf_gen)){
-    echo 'Not OK!';
+    echo 'Not OK!' . PHP_EOL;
     exit(1);
 }
 else{
-    echo 'OK';
+    echo 'OK' . PHP_EOL;
 }
 
 exit(0);

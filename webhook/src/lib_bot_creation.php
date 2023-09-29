@@ -467,7 +467,7 @@ function bot_creation_generate_codes($context) {
 
     Logger::debug("Generating registration code '{$registration_code}'", __FILE__, $context);
 
-    bot_creation_generate_code_pdf($context, 'template-registration.html', 0, $registration_code, 0, 0, "{$context->game->game_name} (in event ‘{$context->game->event_name}’)", 'registration');
+    bot_creation_generate_code_pdf($context, 'template-registration.html', 0, $registration_code, 0, 0, $context->game->game_name, 'registration');
 
     // Locations
     $location_data = db_table_query(sprintf(
