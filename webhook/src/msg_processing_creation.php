@@ -498,7 +498,9 @@ $msg_processing_creation_state_entry = array(
         telegram_send_chat_action($context->comm->get_telegram_id(), 'upload_document');
         $context->comm->document($code_file, "Package for game “%GAME_NAME%”");
 
-        bot_creation_update_state($context, GAME_STATE_READY);
+        bot_creation_activate($context);
+
+        $context->comm->reply("Your game ‘%GAME_NAME%’ is now active and players can start registering! Check out the <a href=\"http://codehunting.games/create\">guide for game administrators</a> for further information. Good luck and have fun! ✌");
     },
 
     GAME_STATE_READY => function($context) {
