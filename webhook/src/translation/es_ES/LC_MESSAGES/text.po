@@ -144,7 +144,7 @@ msgstr "El evento “%EVENT_NAME%” todavía no ha empezado"
 
 # Registration: captcha quiz for verification
 msgid "registration_new_state"
-msgstr "Listos para jugar? Para estar seguros os haré una pregunta simple sobre programación. (Las reglas están basadas en el juego <a href=\"http://codemooc.org/codyroby/\">CodyRoby</a>)"
+msgstr "Listos para jugar? Para estar seguros os haré una pregunta simple sobre programación. (Las reglas están basadas en el juego <a href=\"https://codemooc.org/codyroby/\">CodyRoby</a>)"
 
 # Registration: captcha quiz caption with instructions
 msgid "registration_new_state_caption"
@@ -293,7 +293,7 @@ msgstr "Esperad, esperad! Todavía no soy <i>tan</i> inteligente, y no puedo ges
 
 # Bot is currently deactivated
 msgid "deactivated"
-msgstr "No hay ningún <i>Code Hunting Game</i> funcionando ahora mismo. Volveremos muy pronto, durante este rato podéis  <a href=\"http://informatica.uniurb.it/en/treasurehuntbot/\">leer la historia de este bot</a>.\n"
+msgstr "No hay ningún <i>Code Hunting Game</i> funcionando ahora mismo. Volveremos muy pronto, durante este rato podéis  <a href=\"https://informatica.uniurb.it/en/treasurehuntbot/\">leer la historia de este bot</a>.\n"
 "<i>Manteneos conectados!</i>"
 
 # After victory, bot asks for questionnaire and certificate generation

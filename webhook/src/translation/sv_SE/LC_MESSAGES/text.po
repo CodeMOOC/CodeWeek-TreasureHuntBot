@@ -144,7 +144,7 @@ msgstr ""
 
 # Registration: captcha quiz for verification
 msgid "registration_new_state"
-msgstr "Är ni redo att spela? För att vara säker ska jag fråga dig en enkel programmeringsfråga. (Reglerna är baserad på <a href=\"http://codemooc.org/codyroby/\">CodyRoby</a>.)"
+msgstr "Är ni redo att spela? För att vara säker ska jag fråga dig en enkel programmeringsfråga. (Reglerna är baserad på <a href=\"https://codemooc.org/codyroby/\">CodyRoby</a>.)"
 
 # Registration: captcha quiz caption with instructions
 msgid "registration_new_state_caption"
@@ -294,7 +294,7 @@ msgstr "Vänta vänta! Jag är inte <i>så</i> smart, ännu, och jag kan inte ha
 
 # Bot is currently deactivated
 msgid "deactivated"
-msgstr "Det är ingen <i>Kodjakt</i> igång just nu. Vi är snart tillbaka, under tiden kan du <a href=\"http://informatica.uniurb.it/en/treasurehuntbot/\">läsa historien om den här boten</a>.\n"
+msgstr "Det är ingen <i>Kodjakt</i> igång just nu. Vi är snart tillbaka, under tiden kan du <a href=\"https://informatica.uniurb.it/en/treasurehuntbot/\">läsa historien om den här boten</a>.\n"
 "<i>Var lugn och vänta!</i>"
 
 # After victory, bot asks for questionnaire and certificate generation

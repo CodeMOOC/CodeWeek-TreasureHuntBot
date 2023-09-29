@@ -143,7 +143,7 @@ msgstr ""
 
 # Registration: captcha quiz for verification
 msgid "registration_new_state"
-msgstr "Készen álltok a játékra? A biztonság kedvéért felteszek egy egyszerű kódolásos kérdést. (A szabályok megegyeznek a <a href=\"http://codemooc.org/codyroby/\">CodyRoby</a> játék szabályaival.)"
+msgstr "Készen álltok a játékra? A biztonság kedvéért felteszek egy egyszerű kódolásos kérdést. (A szabályok megegyeznek a <a href=\"https://codemooc.org/codyroby/\">CodyRoby</a> játék szabályaival.)"
 
 # Registration: captcha quiz caption with instructions
 msgid "registration_new_state_caption"
@@ -293,7 +293,7 @@ msgstr "Várjatok! Még nem vagyok <i>ennyire</i> okos, nem értem ezeket az üz
 
 # Bot is currently deactivated
 msgid "deactivated"
-msgstr "Nem, a <i>Code Hunting Game</i> jelenleg fut. Hamarosan visszatérünk, addig <a href=\"http://informatica.uniurb.it/en/treasurehuntbot/\">elolvashatod ennek a botnak a történetét</a>.\n"
+msgstr "Nem, a <i>Code Hunting Game</i> jelenleg fut. Hamarosan visszatérünk, addig <a href=\"https://informatica.uniurb.it/en/treasurehuntbot/\">elolvashatod ennek a botnak a történetét</a>.\n"
 "<i>Álljatok készen!</i>"
 
 # After victory, bot asks for questionnaire and certificate generation

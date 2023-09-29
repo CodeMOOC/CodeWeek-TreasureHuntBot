@@ -147,7 +147,7 @@ msgstr ""
 
 # Registration: captcha quiz for verification
 msgid "registration_new_state"
-msgstr "Während des Spiels werde ich Ihnen einige <i>Coding</i>-Fragen stellen. Schauen wir mal ob Sie wissen, wie man sie löst! (Die Regeln basieren auf dem Spiel <a href=\"http://codemooc.org/codyroby/en/\">CodyRoby</a>.) "
+msgstr "Während des Spiels werde ich Ihnen einige <i>Coding</i>-Fragen stellen. Schauen wir mal ob Sie wissen, wie man sie löst! (Die Regeln basieren auf dem Spiel <a href=\"https://codemooc.org/codyroby/en/\">CodyRoby</a>.) "
 
 # Registration: captcha quiz caption with instructions
 msgid "registration_new_state_caption"

@@ -500,11 +500,11 @@ $msg_processing_creation_state_entry = array(
 
         bot_creation_activate($context);
 
-        $context->comm->reply("Your game ‘%GAME_NAME%’ is now active and players can start registering! Check out the <a href=\"http://codehunting.games/create\">guide for game administrators</a> for further information. Good luck and have fun! ✌");
+        $context->comm->reply("Your game ‘%GAME_NAME%’ is now active and players can start registering! Check out the <a href=\"https://codehunting.games/create\">guide for game administrators</a> for further information. Good luck and have fun! ✌");
     },
 
     GAME_STATE_READY => function($context) {
-        $context->comm->reply("Your game ‘%GAME_NAME%’ is now ready to be activated. Check out the <a href=\"http://codehunting.games/create\">guide for game administrators</a> for further information. Good luck and have fun! ✌");
+        $context->comm->reply("Your game ‘%GAME_NAME%’ is now ready to be activated. Check out the <a href=\"https://codehunting.games/create\">guide for game administrators</a> for further information. Good luck and have fun! ✌");
 
         $context->comm->reply(
             "When you’re ready to let users register and play, click below to activate the QR Codes.",

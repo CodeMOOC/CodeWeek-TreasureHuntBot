@@ -146,7 +146,7 @@ msgstr "Το παιχνίδι “%EVENT_NAME%” δεν έχει ξεκινήσ�
 
 # Registration: captcha quiz for verification
 msgid "registration_new_state"
-msgstr "Είστε έτοιμοι να παίξετε; Για να σιγουρευτώ, θα σας ρωτήσω κάτι απλό. (Οι κανόνες βασίζονται στο παιχνίδι <a href=\"http://codemooc.org/codyroby/\">CodyRoby</a>.)"
+msgstr "Είστε έτοιμοι να παίξετε; Για να σιγουρευτώ, θα σας ρωτήσω κάτι απλό. (Οι κανόνες βασίζονται στο παιχνίδι <a href=\"https://codemooc.org/codyroby/\">CodyRoby</a>.)"
 
 # Registration: captcha quiz caption with instructions
 msgid "registration_new_state_caption"
@@ -296,7 +296,7 @@ msgstr "Περιμένετε, περιμένετε! Δεν είμαι <i>τόσ�
 
 # Bot is currently deactivated
 msgid "deactivated"
-msgstr "Κανένα <i>Code Hunting Game</i> δεν εξελίσσεται αυτή τη στιγμή. Θα ξεκινήσουμε σύντομα, όσο περιμένετε μπορείτε να <a href=\"http://informatica.uniurb.it/en/treasurehuntbot/\">διαβάσετε την ιστορία του </a>.\n"
+msgstr "Κανένα <i>Code Hunting Game</i> δεν εξελίσσεται αυτή τη στιγμή. Θα ξεκινήσουμε σύντομα, όσο περιμένετε μπορείτε να <a href=\"https://informatica.uniurb.it/en/treasurehuntbot/\">διαβάσετε την ιστορία του </a>.\n"
 "<i>Υπομονή!</i>"
 
 # After victory, bot asks for questionnaire and certificate generation
