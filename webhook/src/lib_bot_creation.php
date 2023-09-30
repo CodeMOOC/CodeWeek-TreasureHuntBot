@@ -191,10 +191,15 @@ function bot_creation_set_channel($context, $channel_name) {
         return false;
     }
 
-    if(!$channel_name || mb_strpos($channel_name, ' ') !== false) {
+    $channel_name = trim($channel_name);
+    if(!$channel_name) !== false) {
         return 'invalid';
     }
 
+    if(mb_substr($channel_name, 0, 13) === 'https://t.me/') {
+        Logger::debug("Fixing channel name by stripping 'https://t.me/' from beginning", __FILE__, $context);
+        $channel_name = mb_substr($channel_name, 13);
+    }
     if(mb_substr($channel_name, 0, 1) !== '@') {
         Logger::debug("Fixing channel name with missing '@' first character", __FILE__, $context);
         $channel_name = '@' . $channel_name;
