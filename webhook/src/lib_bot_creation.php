@@ -192,7 +192,7 @@ function bot_creation_set_channel($context, $channel_name) {
     }
 
     $channel_name = trim($channel_name);
-    if(!$channel_name) !== false) {
+    if(!$channel_name) {
         return 'invalid';
     }
 
