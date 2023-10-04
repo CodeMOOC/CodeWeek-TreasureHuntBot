@@ -2,11 +2,13 @@
 /**
  * @package php-svg-lib
  * @link    http://github.com/PhenX/php-svg-lib
- * @author  Fabien Ménager <fabien.menager@gmail.com>
- * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
+ * @author  Fabien MÃ©nager <fabien.menager@gmail.com>
+ * @license GNU LGPLv3+ http://www.gnu.org/copyleft/lesser.html
  */
 
 namespace Svg\Tag;
+
+use Svg\Style;
 
 class Rect extends Shape
 {
@@ -19,18 +21,21 @@ class Rect extends Shape
 
     public function start($attributes)
     {
+        $width = $this->document->getWidth();
+        $height = $this->document->getHeight();
+
         if (isset($attributes['x'])) {
-            $this->x = $attributes['x'];
+            $this->x = $this->convertSize($attributes['x'], $width);
         }
         if (isset($attributes['y'])) {
-            $this->y = $attributes['y'];
+            $this->y = $this->convertSize($attributes['y'], $height);
         }
 
         if (isset($attributes['width'])) {
-            $this->width = $attributes['width'];
+            $this->width = $this->convertSize($attributes['width'], $width);
         }
         if (isset($attributes['height'])) {
-            $this->height = $attributes['height'];
+            $this->height = $this->convertSize($attributes['height'], $height);
         }
 
         if (isset($attributes['rx'])) {

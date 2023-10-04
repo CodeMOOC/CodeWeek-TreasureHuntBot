@@ -3,7 +3,7 @@
  * @package php-svg-lib
  * @link    http://github.com/PhenX/php-svg-lib
  * @author  Fabien Ménager <fabien.menager@gmail.com>
- * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
+ * @license GNU LGPLv3+ http://www.gnu.org/copyleft/lesser.html
  */
 
 namespace Svg\Tag;
@@ -38,7 +38,7 @@ class Shape extends AbstractTag
 
             if ($fill) {
                 if ($stroke) {
-                    $surface->fillStroke();
+                    $surface->fillStroke(false);
                 } else {
 //                    if (is_string($style->fill)) {
 //                        /** @var LinearGradient|RadialGradient $gradient */
@@ -51,7 +51,7 @@ class Shape extends AbstractTag
                 }
             }
             elseif ($stroke) {
-                $surface->stroke();
+                $surface->stroke(false);
             }
             else {
                 $surface->endPath();

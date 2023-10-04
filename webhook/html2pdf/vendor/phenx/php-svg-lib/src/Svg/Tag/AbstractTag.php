@@ -2,12 +2,13 @@
 /**
  * @package php-svg-lib
  * @link    http://github.com/PhenX/php-svg-lib
- * @author  Fabien Ménager <fabien.menager@gmail.com>
- * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
+ * @author  Fabien MÃ©nager <fabien.menager@gmail.com>
+ * @license GNU LGPLv3+ http://www.gnu.org/copyleft/lesser.html
  */
 
 namespace Svg\Tag;
 
+use Svg\CssLength;
 use Svg\Document;
 use Svg\Style;
 
@@ -21,7 +22,7 @@ abstract class AbstractTag
     /** @var Style */
     protected $style;
 
-    protected $attributes;
+    protected $attributes = array();
 
     protected $hasShape = true;
 
@@ -134,21 +135,19 @@ abstract class AbstractTag
 
             $transform = $attributes["transform"];
 
-            $match = array();
+            $matches = array();
             preg_match_all(
-                '/(matrix|translate|scale|rotate|skewX|skewY)\((.*?)\)/is',
+                '/(matrix|translate|scale|rotate|skew|skewX|skewY)\((.*?)\)/is',
                 $transform,
-                $match,
+                $matches,
                 PREG_SET_ORDER
             );
 
             $transformations = array();
-            if (count($match[0])) {
-                foreach ($match as $_match) {
-                    $arguments = preg_split('/[ ,]+/', $_match[2]);
-                    array_unshift($arguments, $_match[1]);
-                    $transformations[] = $arguments;
-                }
+            foreach ($matches as $match) {
+                $arguments = preg_split('/[ ,]+/', $match[2]);
+                array_unshift($arguments, $match[1]);
+                $transformations[] = $arguments;
             }
 
             foreach ($transformations as $t) {
@@ -166,18 +165,72 @@ abstract class AbstractTag
                         break;
 
                     case "rotate":
-                        $surface->rotate($t[1]);
+                        if (isset($t[2])) {
+                            $t[3] = isset($t[3]) ? $t[3] : 0;
+                            $surface->translate($t[2], $t[3]);
+                            $surface->rotate($t[1]);
+                            $surface->translate(-$t[2], -$t[3]);
+                        } else {
+                            $surface->rotate($t[1]);
+                        }
                         break;
 
                     case "skewX":
-                        $surface->skewX($t[1]);
+                        $tan_x = tan(deg2rad($t[1]));
+                        $surface->transform(1, 0, $tan_x, 1, 0, 0);
                         break;
 
                     case "skewY":
-                        $surface->skewY($t[1]);
+                        $tan_y = tan(deg2rad($t[1]));
+                        $surface->transform(1, $tan_y, 0, 1, 0, 0);
                         break;
                 }
             }
         }
+    }
+
+    /**
+     * Convert the given size for the context of this current tag.
+     * Takes a pixel-based reference, which is usually specific to the context of the size,
+     * but the actual reference size will be decided based upon the unit used.
+     *
+     * @param string $size
+     * @param float $pxReference
+     *
+     * @return float
+     */
+    protected function convertSize(string $size, float $pxReference): float
+    {
+        $length = new CssLength($size);
+        $reference = $pxReference;
+        $defaultFontSize = 12;
+
+        switch ($length->getUnit()) {
+            case "em":
+                $reference = $this->style->fontSize ?? $defaultFontSize;
+                break;
+            case "rem":
+                $reference = $this->document->style->fontSize ?? $defaultFontSize;
+                break;
+            case "ex":
+            case "ch":
+                $emRef = $this->style->fontSize ?? $defaultFontSize;
+                $reference = $emRef * 0.5;
+                break;
+            case "vw":
+                $reference = $this->getDocument()->getWidth();
+                break;
+            case "vh":
+                $reference = $this->getDocument()->getHeight();
+                break;
+            case "vmin":
+                $reference = min($this->getDocument()->getHeight(), $this->getDocument()->getWidth());
+                break;
+            case "vmax":
+                $reference = max($this->getDocument()->getHeight(), $this->getDocument()->getWidth());
+                break;
+        }
+
+        return (new CssLength($size))->toPixels($reference);
     }
 } 

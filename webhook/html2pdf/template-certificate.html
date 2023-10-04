@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en"><head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
@@ -13,9 +12,8 @@
 html, body {
     margin: 0;
     padding: 0;
-    font-family: 'DejaVu Sans', 'Arial', sans-serif;
-    font-weight: 500;
-    font-size: 26pt;
+    font-family: sans-serif;
+    font-size: 28pt;
     background: rgb(255,255,255);
     -webkit-print-color-adjust: exact;
     box-sizing: border-box;
@@ -46,50 +44,52 @@ html, body {
     background-repeat: no-repeat;
 }
 .left-overlay {
-    background-position: -90mm 0;
+    background-position: -110mm 0;
 }
 .right-overlay {
-    background-position: 170mm -120mm;
+    background-position: 190mm -120mm;
 }
 .header {
-    margin-top: 12mm;
+    margin-top: 22mm;
     height: 50mm;
     text-align: center;
 }
 .header img {
-    margin-top: 10mm;
+    width: 145mm;
     height: auto;
 }
 .content {
     position: absolute;
-    top: 55mm;
-    padding: 0 2em;
+    font-family: sans-serif;
+    font-size: 31pt;
+    top: 60mm;
+    width: 277.0mm;
+    padding: 0;
     text-align: center;
-    line-height: 1.2;
+    line-height: 1.6;
 }
 .content .big {
-    display: block;
-    margin: 0;
-    font-size: 34pt;
+    font-size: 38pt;
     font-weight: bold;
     white-space: nowrap;
 }
     </style>
-</head>
-<body>
+</head><body>
     <img src="/html2pdf/images/generic-background.jpg" class="background" />
 
     <div class="page">
         <div class="header">
-            <img src="/html2pdf/images/title.png" style="width: 145mm" />
+            <img src="/html2pdf/images/title.png" />
         </div>
 
         <div class="content">
-            The %NUMBER% members of team
-            <div class="big">%TEAM_NAME%</div>
-            have completed the
-            <div class="big">“%GAME_NAME%”</div>
-            treasure hunt on %DATE%<br />in a <i>Code Hunting Games</i> event.
+            The members of team<br />
+            <span class="big">%TEAM_NAME%</span><br />
+            have completed the<br />
+            <span class="big">“%GAME_NAME%”</span><br />
+            treasure hunt on %DATE%<br />
+            in a <i>Code&nbsp;Hunting&nbsp;Games</i> event<br />
+            in %ELAPSED_MINS%&nbsp;minutes.
         </div>
     </div>
 
@@ -103,8 +103,7 @@ html, body {
     <div class="overlay right-overlay">
     </div>
 
-    <img src="/data/avatars/%AVATAR_NAME%" style="position: absolute; width: 50mm; height: auto; max-height: 80mm; top: 12mm; left: 10mm" />
+    <img src="/data/avatars/%AVATAR_NAME%" style="position: absolute; width: 60mm; height: auto; top: 15mm; left: 10mm" />
 
-    <img src="/html2pdf/images/codyroby.png" style="position: absolute; width: 50mm; height: auto; top: 21mm; right: 10mm" />
-</body>
-</html>
+    <img src="/html2pdf/images/codyroby.png" style="position: absolute; width: 50mm; height: 40mm; top: 20mm; right: 10mm" />
+</body></html>

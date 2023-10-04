@@ -3,10 +3,12 @@
  * @package php-svg-lib
  * @link    http://github.com/PhenX/php-svg-lib
  * @author  Fabien Ménager <fabien.menager@gmail.com>
- * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
+ * @license GNU LGPLv3+ http://www.gnu.org/copyleft/lesser.html
  */
 
 namespace Svg\Tag;
+
+use Svg\Style;
 
 class Text extends Shape
 {
@@ -16,18 +18,18 @@ class Text extends Shape
 
     public function start($attributes)
     {
-        $document = $this->document;
         $height = $this->document->getHeight();
         $this->y = $height;
 
         if (isset($attributes['x'])) {
-            $this->x = $attributes['x'];
+            $width = $this->document->getWidth();
+            $this->x = $this->convertSize($attributes['x'], $width);
         }
         if (isset($attributes['y'])) {
-            $this->y = $height - $attributes['y'];
+            $this->y = $height - $this->convertSize($attributes['y'], $height);
         }
 
-        $document->getSurface()->transform(1, 0, 0, -1, 0, $height);
+        $this->document->getSurface()->transform(1, 0, 0, -1, 0, $height);
     }
 
     public function end()
