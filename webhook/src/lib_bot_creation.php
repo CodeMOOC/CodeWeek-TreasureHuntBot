@@ -438,7 +438,7 @@ function bot_creation_generate_code_pdf($context, $template_name, $location_id, 
     $pdf_command = sprintf(
         'php %s "%s" "%s" "%s" "%F" "%F" "%s" "%d" "%s"',
         '/html2pdf/pdf-gen.php',
-        '/html2pdf/' . $template_name,
+        $template_name,
         '/data/qrcodes/tmp/game-' . $context->game->game_id . "-{$filename_part}.pdf",
         '/data/qrcodes/tmp/game-' . $context->game->game_id . "-{$filename_part}.png",
         $lat,

@@ -6,15 +6,14 @@ $root_path = realpath(dirname(__FILE__) . '/../');
 use Dompdf\Dompdf;
 use Dompdf\Options;
 
-$output_file = $argv[2]; //output PDF path
+$input_file = dirname(__FILE__) . '/' . $argv[1];
+$output_file = $argv[2];
 $data_participants = $argv[3];
 $data_team_name = $argv[4];
 $data_avatar_filename = $argv[5];
 $data_game_name = $argv[6];
 $data_identifier = $argv[7];
 $data_elapsed_mins = ($argv[8]) ? $argv[8] : 0;
-
-$input_file = dirname(__FILE__) . '/' . $argv[1];
 
 echo 'Rendering ' . $input_file . ' into ' . $output_file . PHP_EOL;
 

@@ -1,10 +1,12 @@
 <?php
 require_once(dirname(__FILE__) . '/vendor/autoload.php');
 
-// reference the Dompdf namespace
-use Dompdf\Dompdf;
+$root_path = realpath(dirname(__FILE__) . '/../');
 
-$input_file = $argv[1];
+use Dompdf\Dompdf;
+use Dompdf\Options;
+
+$input_file = dirname(__FILE__) . '/' . $argv[1];
 $output_file = $argv[2];
 $data_image = $argv[3];      //qr-code image path
 $data_lat = $argv[4];        //latitude
@@ -15,14 +17,7 @@ $data_qr_content = $argv[8]; //qr-content
 
 echo 'Rendering ' . $input_file . ' into ' . $output_file . PHP_EOL;
 
-// instantiate and use the dompdf class
-$dompdf = new Dompdf();
 $content = file_get_contents($input_file);
-
-echo 'Loaded ' . mb_strlen($content) . ' characters of HTML' . PHP_EOL;
-
-//populate html template
-$content = str_replace("%root%", dirname(__FILE__), $content);
 $content = str_replace("%image%", $data_image, $content);
 $content = str_replace("%loc-latitude%", $data_lat, $content);
 $content = str_replace("%loc-longitude%", $data_long, $content);
@@ -30,12 +25,21 @@ $content = str_replace("%loc-name%", $data_name, $content);
 $content = str_replace("%loc-id%", $data_id, $content);
 $content = str_replace("%qr-content%", $data_qr_content, $content);
 
-$dompdf->loadHtml($content);
+echo 'Loaded ' . mb_strlen($content) . ' characters of HTML' . PHP_EOL;
 
-// (Optional) Setup the paper size and orientation
+$dompdf = new Dompdf();
+
+$options = new Options();
+$options->setDefaultFont('sans-serif');
+$options->setChroot([$root_path]);
+$options->set('isRemoteEnabled', TRUE);
+$dompdf->setOptions($options);
+
+$dompdf->setProtocol('file://');
 $dompdf->setPaper('A4', 'landscape');
 
-// Render the HTML as PDF
+$dompdf->loadHtml($content, 'UTF-8');
+
 $dompdf->render();
 
 $pdf_gen = $dompdf->output();
