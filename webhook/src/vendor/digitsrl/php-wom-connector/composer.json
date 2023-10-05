@@ -1,0 +1,30 @@
+{
+  "name": "digitsrl/php-wom-connector",
+  "description": "A PHP implementation of WOM connector which can be used to develop Instruments and/or Merchant entities",
+  "minimum-stability": "stable",
+  "keywords": ["WOM","Credits","DIGIT", "Instrument", "Merchant"],
+  "homepage": "https://wom.social",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "DIGIT SRL",
+      "email": "info@digit.srl",
+      "homepage": "https://digit.srl"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "WOM\\": "src/"
+    }
+  },
+  "require": {
+    "php": "^7.0",
+    "monolog/monolog": "^2.1",
+    "guzzlehttp/guzzle": "~6.0",
+    "ext-json": "*",
+    "ramsey/uuid": "^4.0",
+    "ext-openssl": "*",
+    "phpseclib/phpseclib": "^2.0",
+    "endroid/qr-code": "^3.8"
+  }
+}
