@@ -217,7 +217,7 @@ msgstr "Alles ok! Folgen Sie den Anweisungen der Veranstalter."
 
 # Game state: reach assigned location and look for QR Code
 msgid "game_location_state"
-msgstr "Gehen Sie zur Code Week Online-Karte und suchen Sie nach dem richtigen QR-Code!"
+msgstr "Folgen Sie der Spur und finden Sie den nächsten QR-Code! 👀"
 
 # Location sent, wrong response given, do you want hint?
 msgid "game_location_hint_nudge"
