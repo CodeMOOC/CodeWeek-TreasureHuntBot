@@ -51,7 +51,7 @@ Come per le tappe intermedie (vedi sotto), se alla tappa viene associata un’im
 
 ### Tappe intermedie
 
-Successivamente il processo di creazione richiede la generazione di una sequenza di tappe intermedie (almeno&nbsp;8 o più).
+Successivamente il processo di creazione richiede la generazione di una sequenza di tappe intermedie (almeno&nbsp;5 o più).
 Le tappe intermedie verranno selezionate casualmente a tutte le squadre che partecipano al gioco, durante lo svolgimento della partita.
 
 Ogni tappa va creata specificando:

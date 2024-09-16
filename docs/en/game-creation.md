@@ -57,7 +57,7 @@ The same behavior also applied to intermediate locations.
 
 ### Intermediate locations
 
-The creation process now requires a sequence of intermediate locations (at least&nbsp;8 or more).
+The creation process now requires a sequence of intermediate locations (at least&nbsp;5 or more).
 Intermediate locations are assigned randomly to each team, during the game.
 
 Each intermediate location has the following properties:
