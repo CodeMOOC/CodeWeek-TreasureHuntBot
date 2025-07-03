@@ -80,7 +80,7 @@ function msg_processing_handle_group_state($context) {
 
         case STATE_REG_READY:
             if($context->game->quickstart) {
-                // Quickstart enable, start right away with first riddle
+                // Quickstart enabled, instead of waiting for first location, start right away with first riddle
                 $context->comm->reply(__('start_right_away'));
 
                 $riddle_id = bot_assign_random_riddle($context);

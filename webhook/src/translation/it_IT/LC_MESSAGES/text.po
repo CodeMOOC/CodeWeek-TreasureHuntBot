@@ -202,7 +202,7 @@ msgstr "Mi potresti mandare una foto o un’immagine da usare come icona della s
 
 # Registration: avatar confirmation
 msgid "registration_number_response_ok"
-msgstr "Bella foto! Il gruppo “%GROUP_NAME%” è registrato. 👍"
+msgstr "Ottimo! Il gruppo “%GROUP_NAME%” è registrato. 👍"
 
 # Registration: avatar not valid
 msgid "registration_number_response_invalid"

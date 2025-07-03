@@ -201,7 +201,7 @@ msgstr "Bitte senden Sie einen Avatar oder ein Bild Ihres Teams."
 
 # Registration: avatar confirmation
 msgid "registration_number_response_ok"
-msgstr "Sieht sehr schick aus! Das Team „%GROUP_NAME%“ ist registriert. 👍"
+msgstr "Sehr gut! Das Team „%GROUP_NAME%“ ist registriert. 👍"
 
 # Registration: avatar not valid
 msgid "registration_number_response_invalid"
