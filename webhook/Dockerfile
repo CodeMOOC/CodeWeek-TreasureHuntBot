@@ -15,8 +15,8 @@ COPY locale.gen /etc/locale.gen
 RUN locale-gen && \
         dpkg-reconfigure --frontend=noninteractive locales && \
         update-locale LANG=en_US.utf8
-ENV LANG en_US.UTF-8
-ENV LC_ALL en_US.UTF-8
+ENV LANG=en_US.UTF-8
+ENV LC_ALL=en_US.UTF-8
 
 # Copy all the stuff
 COPY ./src/ /var/www/html/
