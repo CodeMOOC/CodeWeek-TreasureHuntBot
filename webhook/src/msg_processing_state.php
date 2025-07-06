@@ -483,7 +483,7 @@ function msg_processing_handle_group_response($context) {
             if($context->is_message() && $context->message->is_text()) {
                 if($location_info->expected_response) {
                     // Location expects a textual response
-                    if($context->message == $location_info->expected_response) {
+                    if($context->message->text == $location_info->expected_response) {
                         // User has sent the expected response
                         Logger::info("User provided correct response to reach location #{$target_location_id}", __FILE__, $context);
 

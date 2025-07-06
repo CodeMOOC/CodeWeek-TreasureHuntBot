@@ -10,7 +10,6 @@
 require_once(dirname(__FILE__) . '/icontent.php');
 
 class Message implements iContent {
-
     private $payload;
 
     public $message_id;
