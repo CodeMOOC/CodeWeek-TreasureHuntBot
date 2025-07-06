@@ -443,7 +443,7 @@ msgid "play_again_button"
 msgstr "Nochmal spielen!"
 
 msgid "welcome_language_help"
-msgstr "🌐 Du sprichst kein Deutsch? Wechseln Sie die Sprache mit dem Befehl /setlanguage."
+msgstr "🌐 Sprechen Sie kein Deutsch? Wechseln Sie die Sprache mit dem Befehl /setlanguage."
 
 msgid "cmd_language_ask"
 msgstr "Welche Sprache soll ich sprechen?"

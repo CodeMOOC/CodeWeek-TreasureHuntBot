@@ -16,7 +16,6 @@ require_once(dirname(__FILE__) . '/callback.php');
 require_once(dirname(__FILE__) . '/game.php');
 
 class Context {
-
     // Raw update payload
     private $update;
 

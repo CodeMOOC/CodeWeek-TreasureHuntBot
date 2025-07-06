@@ -8,7 +8,6 @@
  */
 
 class Game {
-
     private $owning_context;
 
     public  $is_admin = false;

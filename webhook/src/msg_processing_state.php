@@ -478,7 +478,7 @@ function msg_processing_handle_group_response($context) {
                 return true;
             }
 
-            Logger::debug("Processing input for group moving to location #{$target_location_id}, game #{$game_id}", __FILE__, $context);
+            Logger::debug("Processing input for group moving to location #{$target_location_id}, game #{$context->game->game_id}", __FILE__, $context);
 
             if($context->is_message() && $context->message->is_text()) {
                 if($location_info->expected_response) {
@@ -520,7 +520,7 @@ function msg_processing_handle_group_response($context) {
                         }
                     } else {
                         // User has sent an unexpected response
-                        Logger::info("User provided wrong response to reach location #{$target_location_id}", __FILE__, $context);
+                        Logger::info("User provided wrong response to reach location #{$target_location_id} (expected '{$location_info->expected_response}')", __FILE__, $context);
 
                         $context->comm->reply(__('game_location_response_wrong'), null, array("reply_markup" => array(
                             "inline_keyboard" => array(
