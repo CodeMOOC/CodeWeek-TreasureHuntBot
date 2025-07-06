@@ -64,7 +64,7 @@ class Game {
                 '`pick_random_final_location`, ' . // 10
                 '`location_hints_enabled`, ' . // 11
                 '`location_map_url`, ' . // 12
-                '`fixed_step_by_step_hint` ' // 13
+                '`fixed_step_by_step_hint` ' . // 13
             'FROM `games` WHERE `game_id` = %d',
             $game_id
         ));
