@@ -199,33 +199,6 @@ function bot_assign_random_riddle($context, $user_id = null) {
 
     Logger::info("Riddle #{$riddle_id} assigned to group #{$user_id}", __FILE__, $context);
 
-    // Send out riddle information
-    $riddle_info = bot_get_riddle_info($context, $riddle_id);
-
-    $riddle_text = '';
-    $riddle_hydration = array();
-
-    if(!$riddle_info[0] || intval($riddle_info[0]) <= 0) {
-        // Unknown/custom riddle type, get text from parameter
-        $riddle_text = $riddle_info[1];
-    }
-    else {
-        // Standard riddle, get translated riddle text and hydrate with parameter
-        $riddle_text = __('riddle_type_' . $riddle_info[0], 'riddles');
-        $riddle_hydration = array(
-            '%RIDDLE_PARAM%' => $riddle_info[1]
-        );
-    }
-
-    if($riddle_info[2]) {
-        // Has picture
-        $context->comm->picture("riddles/{$riddle_info[2]}", $riddle_text, $riddle_hydration);
-    }
-    else {
-        // Text-only riddle
-        $context->comm->reply($riddle_text, $riddle_hydration);
-    }
-
     return $riddle_id;
 }
 
@@ -712,7 +685,14 @@ function bot_get_current_assigned_riddle($context, $group_id = null) {
     }
 
     return db_row_query(sprintf(
-        "SELECT TIMESTAMPDIFF(SECOND, ass.`last_answer_on`, NOW()), r.`solution`, r.`riddle_id` FROM `assigned_riddles` AS ass LEFT JOIN `riddles` AS r ON ass.`riddle_id` = r.`riddle_id` AND `ass`.`event_id` = r.`event_id` WHERE ass.`event_id` = %d AND ass.`game_id` = %d AND ass.`group_id` = %d AND ass.`solved_on` IS NULL ORDER BY `assigned_on` DESC LIMIT 1",
+        'SELECT ' .
+            'TIMESTAMPDIFF(SECOND, ass.`last_answer_on`, NOW()), ' .
+            'r.`solution`, ' .
+            'r.`riddle_id` ' .
+        'FROM `assigned_riddles` AS ass ' .
+        'LEFT JOIN `riddles` AS r ON ass.`riddle_id` = r.`riddle_id` AND `ass`.`event_id` = r.`event_id` ' .
+        'WHERE ass.`event_id` = %d AND ass.`game_id` = %d AND ass.`group_id` = %d AND ass.`solved_on` IS NULL ' .
+        'ORDER BY `assigned_on` DESC LIMIT 1',
         $context->game->event_id,
         $context->game->game_id,
         $group_id
