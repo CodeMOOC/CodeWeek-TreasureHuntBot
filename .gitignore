@@ -17,7 +17,7 @@ data/qrcodes/*
 data/selfies/*
 !data/selfies/placeholder
 
-src/translation/**/*.mo
+webhook/src/translation/**/*.mo
 
 html2pdf/vendor/
 html2pdf/images/signature_ab\.png
