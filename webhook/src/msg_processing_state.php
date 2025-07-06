@@ -538,8 +538,6 @@ function msg_processing_handle_group_response($context) {
                             msg_process_victory($context);
                         }
                         else {
-                            $context->comm->reply(__('cmd_start_location_reached'));
-
                             bot_reach_location_after($context, $location_info);
 
                             msg_processing_handle_group_state($context);

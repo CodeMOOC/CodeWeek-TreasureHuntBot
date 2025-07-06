@@ -222,7 +222,7 @@ msgstr "Follow this clue and go looking for the next QR Code! 👀"
 
 # Location sent, correct textual response given
 msgid "game_location_response_ok"
-msgstr "Correct answer!"
+msgstr "Correct answer! You have found the right spot."
 
 # Location sent, wrong textual response given
 msgid "game_location_response_wrong"

@@ -427,7 +427,7 @@ function bot_reach_location_after(Context $context, BotLocationInfo $location_in
     if($location_info->reached_image_url) {
         $context->comm->picture(
             $location_info->reached_image_url,
-            mb_trim(($location_info->reached_description ?? '') . $addendum),
+            trim(($location_info->reached_description ?? '') . $addendum),
             array(
                 '%LOCATION_NAME%' => $location_info->name,
                 '%LOCATION_DESCRIPTION%' => $location_info->description ?? '',
@@ -437,7 +437,7 @@ function bot_reach_location_after(Context $context, BotLocationInfo $location_in
     }
     else if($location_info->reached_description) {
         $context->comm->reply(
-            mb_trim(($location_info->reached_description ?? '') . $addendum),
+            trim(($location_info->reached_description ?? '') . $addendum),
             array(
                 '%LOCATION_NAME%' => $location_info->name,
                 '%LOCATION_DESCRIPTION%' => $location_info->description ?? '',
