@@ -652,8 +652,7 @@ function msg_processing_handle_group_response($context) {
                 }
             }
 
-            // We expect a deeplink that will come through the /start command
-
+            // Otherwise, we expect a deeplink that will come through the /start command
             msg_processing_handle_group_state($context);
             return true;
 
@@ -734,30 +733,93 @@ function msg_processing_handle_group_response($context) {
             return true;
 
         case STATE_GAME_LAST_LOC:
-            // We expect a deeplink that will come through the /start command
-            if($context->is_callback() && $context->callback->data === 'hint') {
-                $context->comm->reply(
-                    __('geohash_hint'),
-                    null,
-                    array("reply_markup" => array(
-                        "inline_keyboard" => array(
-                            array(
-                                array(
-                                    "text" => __('geohash_conversion_link'),
-                                    "url" => "https://www.movable-type.co.uk/scripts/geohash.html"
-                                ),
-                                array(
-                                    "text" => __('open_location_map'),
-                                    "url" => $context->game->get_location_map_url()
-                                )
-                            )
-                        )
-                    ))
-                );
-
+            $target_location_id = bot_get_expected_location_id($context);
+            if($target_location_id === false) {
+                Logger::fatal('Unable to load expected location', __FILE__, $context);
+                $context->comm->reply(__('failure_general'));
                 return true;
             }
 
+            $location_info = bot_get_location_info($context, bot_get_expected_location_id($context));
+            if($location_info === null) {
+                Logger::fatal("Unable to load location info for location #{$target_location_id}", __FILE__, $context);
+                $context->comm->reply(__('failure_general'));
+                return true;
+            }
+
+            Logger::debug("Processing input for group moving to final location #{$target_location_id}, game #{$context->game->game_id}", __FILE__, $context);
+
+            if($context->is_message() && $context->message->is_text()) {
+                if($location_info->expected_response) {
+                    // Location expects a textual response
+                    if($context->message->matches_text($location_info->expected_response)) {
+                        // User has sent the expected response
+                        Logger::info("User provided correct response to reach final location #{$target_location_id}", __FILE__, $context);
+
+                        $context->comm->reply(__('cmd_start_location_reached_last'));
+
+                        bot_reach_location_after($context, $location_info);
+
+                        msg_process_victory($context);
+                    } else {
+                        // User has sent an unexpected response
+                        Logger::info("User provided wrong response to reach location #{$target_location_id} (expected '{$location_info->expected_response}')", __FILE__, $context);
+
+                        $context->comm->reply(__('game_location_response_wrong'), null, array("reply_markup" => array(
+                            "inline_keyboard" => array(
+                                array(
+                                    array("text" => __('game_location_hint_button'), "callback_data" => 'hint')
+                                )
+                            )
+                        )));
+                    }
+                } else {
+                    Logger::info("User provided unforeseen text while reaching location #{$target_location_id}", __FILE__, $context);
+
+                    $context->comm->reply(__('game_location_hint_nudge'), null, array("reply_markup" => array(
+                        "inline_keyboard" => array(
+                            array(
+                                array("text" => __('game_location_hint_button'), "callback_data" => 'hint')
+                            )
+                        )
+                    )));
+                }
+
+                return true;
+            } else if($context->is_callback()) {
+                if($context->callback->data === 'hint') {
+                    if($location_info->hint) {
+                        // Send location-specific text hint
+                        $context->comm->reply($location_info->hint);
+                    }
+                    else {
+                        // Do not send precise location for final location (?)
+
+                        // Send GeoHash hint instead (verify this)
+                        $context->comm->reply(
+                            __('geohash_hint'),
+                            null,
+                            array("reply_markup" => array(
+                                "inline_keyboard" => array(
+                                    array(
+                                        array(
+                                            "text" => __('geohash_conversion_link'),
+                                            "url" => "https://www.movable-type.co.uk/scripts/geohash.html"
+                                        ),
+                                        array(
+                                            "text" => __('open_location_map'),
+                                            "url" => $context->game->get_location_map_url()
+                                        )
+                                    )
+                                )
+                            ))
+                        );
+                    }
+                    return true;
+                }
+            }
+
+            // Otherwise, we expect a deeplink that will come through the /start command
             msg_processing_handle_group_state($context);
             return true;
 
