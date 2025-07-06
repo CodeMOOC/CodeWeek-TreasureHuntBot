@@ -84,7 +84,7 @@ function bot_register($context, $game_id, $restart = false) {
         $game_timeout = "DATE_ADD(NOW(), INTERVAL {$game_info[1]} MINUTE)";
     }
 
-    // Pre-generate final destination, if random location is needed
+    // Pre-generate final destination, if random location is needed (pick_random_final_location)
     if($game_info[6]) {
         $final_location_id = db_scalar_query(sprintf(
             'SELECT `location_id` FROM `locations` WHERE `game_id` = %d ORDER BY RAND() LIMIT 1',

@@ -26,6 +26,7 @@ class Game {
     public  $location_hints_enabled = false;
     private $location_map_url = null;
     public  $badge_overlay_image = null;
+    public  $fixed_step_by_step_hint = null;
 
     public  $event_id = null;
     public  $event_name = null;
@@ -62,7 +63,8 @@ class Game {
                 '`skip_selfies`, ' . // 9
                 '`pick_random_final_location`, ' . // 10
                 '`location_hints_enabled`, ' . // 11
-                '`location_map_url` ' . // 12
+                '`location_map_url`, ' . // 12
+                '`fixed_step_by_step_hint` ' // 13
             'FROM `games` WHERE `game_id` = %d',
             $game_id
         ));
@@ -87,6 +89,7 @@ class Game {
         $this->location_hints_enabled = boolval($game_data[11]);
         $this->location_map_url = $game_data[12];
         $this->badge_overlay_image = $game_data[7];
+        $this->fixed_step_by_step_hint = $game_data[13];
 
         $event_data = db_row_query(sprintf(
             "SELECT `name`, `state`, `telegram_channel` FROM `events` WHERE `event_id` = %d",

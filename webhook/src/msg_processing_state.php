@@ -111,7 +111,7 @@ function msg_processing_handle_group_state($context) {
                 if($context->game->location_hints_enabled && $location_info->hint) {
                     // If location is not sent out and hints are supported, add hint suggestion to keyboard
 
-                    Logger::debug("Precise location not sent, adding hint button to keyboard", __FILE__, $context);
+                    Logger::debug("Hints enabled, adding hint button to keyboard", __FILE__, $context);
                     $keyboard[] = array(
                         "text" => __('game_location_hint_button'),
                         "callback_data" => 'hint'
@@ -202,7 +202,7 @@ function msg_processing_handle_group_state($context) {
             $context->comm->reply(__('game_last_location_state'));
 
             if($context->game->pick_random_final_location) {
-                // Send out last location hint when playing with random final locations (GeoHash)
+                // Send out last location hint when playing with random final locations (GeoHash-mode)
                 $context->comm->reply(
                     __('almost_there_geohash'),
                     null,
@@ -226,8 +226,57 @@ function msg_processing_handle_group_state($context) {
                 $target_location_id = bot_get_expected_location_id($context);
                 if(!$target_location_id) {
                     Logger::fatal('Unable to load final location', __FILE__);
-                } else {
-                    $location_info = bot_get_location_info($context, $target_location_id);
+                    return true;
+                }
+
+                $location_info = bot_get_location_info($context, $target_location_id);
+                $keyboard = array();
+
+                if($context->game->location_hints_enabled && $location_info->hint) {
+                    // If location is not sent out and hints are supported, add hint suggestion to keyboard
+
+                    Logger::debug("Hints enabled, adding hint button to keyboard", __FILE__, $context);
+                    $keyboard[] = array(
+                        "text" => __('game_location_hint_button'),
+                        "callback_data" => 'hint'
+                    );
+                }
+
+                if($context->game->get_location_map_url()) {
+                    // If location map is enabled and this is not the end, add map URL link to the keyboard
+
+                    Logger::debug("Location map enabled, adding link to keyboard", __FILE__, $context);
+                    $keyboard[] = array(
+                        "text" => __('open_location_map'),
+                        "url" => $context->game->get_location_map_url()
+                    );
+                }
+
+                if($location_info->image_path) {
+                    // Image with optional caption
+
+                    $caption_text = $location_info->description ?: __('game_location_state');
+                    Logger::debug("Sending location picture from " . $location_info->image_path . " with caption {$caption_text}", __FILE__, $context);
+                    $context->comm->picture(
+                        '/data/locations/' . $location_info->image_path, $caption_text, null,
+                        array("reply_markup" => array(
+                            "inline_keyboard" => array($keyboard)
+                        ))
+                    );
+                }
+                else if($location_info->description) {
+                    // Textual riddle
+
+                    Logger::debug("Sending location textual riddle", __FILE__, $context);
+                    $context->comm->reply($location_info->description, null,
+                        array("reply_markup" => array(
+                            "inline_keyboard" => array($keyboard)
+                        ))
+                    );
+                }
+                else {
+                    // Geographical position
+
                     telegram_send_location(
                         $context->get_telegram_chat_id(),
                         $location_info->lat,
