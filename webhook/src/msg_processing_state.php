@@ -489,7 +489,7 @@ function msg_processing_handle_group_response($context) {
 
                         $context->comm->reply(__('game_location_response_ok'));
 
-                        $reach_result = bot_reach_location($context, $target_location_id, $game_id);
+                        $reach_result = bot_reach_location($context, $target_location_id, $context->game->game_id);
                         if(!$reach_result->reached) {
                             Logger::error("User provided correct response, but unable to reach new location with bot_reach_location", __FILE__, $context);
                             $context->comm->reply(__('failure_general'));
