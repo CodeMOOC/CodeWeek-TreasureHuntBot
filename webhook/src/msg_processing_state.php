@@ -108,7 +108,7 @@ function msg_processing_handle_group_state($context) {
                 $location_info = bot_get_location_info($context, $target_location_id);
                 $keyboard = array();
 
-                if($context->game->location_hints_enabled && $location_info[5]) {
+                if($context->game->location_hints_enabled && $location_info->hint) {
                     // If location is not sent out and hints are supported, add hint suggestion to keyboard
 
                     Logger::debug("Precise location not sent, adding hint button to keyboard", __FILE__, $context);
