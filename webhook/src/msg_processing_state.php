@@ -87,6 +87,9 @@ function msg_processing_handle_group_state($context) {
                 if($riddle_id === false || $riddle_id === null) {
                     $context->comm->reply(__('failure_general'));
                 }
+
+                // This sends out the riddle
+                msg_processing_handle_group_state($context);
             }
             else {
                 // Traditional start, give information and wait for first QR Code scan
@@ -689,9 +692,10 @@ function msg_processing_handle_group_response($context) {
                     return true;
                 }
             }
-            else {
-                msg_processing_handle_group_state($context);
-            }
+
+            // This sends out the riddle, if needed
+            msg_processing_handle_group_state($context);
+
             return true;
 
         case STATE_GAME_PUZZLE:
