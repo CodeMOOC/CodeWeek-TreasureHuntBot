@@ -115,7 +115,7 @@ msgstr "Ok! Ma ora non mi serve sapere dove siete! Seguite le istruzioni per pia
 
 # Response to wrong location reached (different location than intended)
 msgid "cmd_start_location_wrong"
-msgstr "Sembra che tu abbia scansionato il QR Code sbagliato! Forse sei finito nel posto sbagliato? 😒"
+msgstr "Sembra che tu abbia scansionato il QR Code sbagliato! Forse sei finito nel posto sbagliato? 😒"
 
 # Unknown payload (invalid QR Code, other game, etc.)
 msgid "cmd_start_wrong_payload"
@@ -123,11 +123,11 @@ msgstr "Non ho capito il comando: hai scansionato il codice corretto?"
 
 # First response after registration code, welcome to game
 msgid "cmd_register_confirm"
-msgstr "Ciao, %FIRST_NAME%, ti diamo il benvenuto a <b>%GAME_NAME%</b>! 🎉"
+msgstr "Ciao %FIRST_NAME%, ti diamo il benvenuto alla caccia al tesoro “<b>%GAME_NAME%</b>”! 🎉"
 
 # Successive responses to registration of same game
 msgid "cmd_register_registered"
-msgstr "La tua domanda di registrazione è stata ricevuta. 👍"
+msgstr "La tua domanda di registrazione è stata ricevuta. 👍"
 
 # Error response for registration to a terminated game
 msgid "cmd_register_game_unallowed"

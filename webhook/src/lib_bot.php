@@ -434,6 +434,8 @@ function bot_reach_location_after(Context $context, BotLocationInfo $location_in
                 '%REACHED_URL%' => $location_info->reached_url ?? ''
             )
         );
+
+        sleep(3);
     }
     else if($location_info->reached_description) {
         $context->comm->reply(
@@ -444,6 +446,8 @@ function bot_reach_location_after(Context $context, BotLocationInfo $location_in
                 '%REACHED_URL%' => $location_info->reached_url ?? ''
             )
         );
+
+        sleep(3);
     }
 }
 
