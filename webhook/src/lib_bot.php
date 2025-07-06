@@ -50,38 +50,85 @@ function bot_get_riddle_info($context, $riddle_id) {
 }
 
 /**
- * Get lat, long, description, image path, and internal note of a location, by ID.
+ * Encapsulates information about a location.
  */
-function bot_get_location_info($context, $location_id) {
+class BotLocationInfo {
+    public float $lat;
+    public float $lng;
+    public string $name;
+    public ?string $image_path;
+    public ?string $description;
+    public ?string $hint;
+    public ?string $expected_response;
+    public ?string $reached_description;
+    public ?string $reached_url;
+    public ?string $reached_image_url;
+
+    public function __construct(float $lat, float $lng, string $name) {
+        $this->lat = $lat;
+        $this->lng = $lng;
+        $this->name = $name;
+    }
+}
+
+/**
+ * Get information about a location, by ID.
+ */
+function bot_get_location_info($context, $location_id) : ?BotLocationInfo {
     $info = db_row_query(sprintf(
-        "SELECT `lat`, `lng`, `description`, `image_path`, `internal_note`, `hint` FROM `locations` WHERE `game_id` = %d AND `location_id` = %d",
+        'SELECT ' .
+            '`lat`, ' . // 0
+            '`lng`, ' . // 1
+            '`internal_note`, ' . // 2
+            '`image_path`, ' . // 3
+            '`description`, ' . // 4
+            '`hint`, ' . // 5
+            '`response` ' . // 6
+        'FROM `locations` WHERE `game_id` = %d AND `location_id` = %d',
         $context->game->game_id,
         $location_id
     ));
+    if($info == null) {
+        return null;
+    }
+
+    $location = new BotLocationInfo(
+        floatval($info[0]),
+        floatval($info[1]),
+        $info[2] ?? ''
+    );
+    $location->image_path = $info[3];
+    $location->description = $info[4];
+    $location->hint = $info[5];
+    $location->expected_response = $info[6];
 
     // Replace base info with localized info, if available
     $localized_info = db_row_query(sprintf(
-        "SELECT `name`, `image_path`, `description`, `hint`, IF(LOCATE('%s', `locale`) > 0, 10, IF(LOCATE('en', `locale`) > 0, 5, 0)) AS `weight` FROM `locations_descriptions` WHERE `game_id` = %d AND `location_id` = %d ORDER BY `weight` DESC LIMIT 1",
+        'SELECT ' .
+            'IF(LOCATE(\'%s\', `locale`) > 0, 10, IF(LOCATE(\'en\', `locale`) > 0, 5, 0)) AS `weight`, ' . // 0
+            '`name`, ' . // 1
+            '`image_path`, ' . // 2
+            '`description`, ' . // 3
+            '`hint`, ' . // 4
+            '`reached_description`, ' . // 5
+            '`reached_url`, ' . // 6
+            '`reached_image_url` ' . // 7
+        'FROM `locations_descriptions` WHERE `game_id` = %d AND `location_id` = %d ORDER BY `weight` DESC LIMIT 1',
         $context->preferred_language,
         $context->game->game_id,
         $location_id
     ));
     if($localized_info != null) {
-        if($localized_info[0]) {
-            $info[4] = $localized_info[0];
-        }
-        if($localized_info[1]) {
-            $info[3] = $localized_info[1];
-        }
-        if($localized_info[2]) {
-            $info[2] = $localized_info[2];
-        }
-        if($localized_info[3]) {
-            $info[5] = $localized_info[3];
-        }
+        $location->name = $localized_info[1];
+        $location->image_path = $localized_info[2] ?? $location->image_path;
+        $location->description = $localized_info[3] ?? $location->description;
+        $location->hint = $localized_info[4] ?? $location->hint;
+        $location->reached_description = $localized_info[5];
+        $location->reached_url = $localized_info[6];
+        $location->reached_image_url = $localized_info[7];
     }
 
-    return $info;
+    return $location;
 }
 
 /**
@@ -302,38 +349,48 @@ function bot_get_time_since_location_assignment($context) {
     }
 }
 
+class BotReachLocationInfo {
+    public int $expected_location_id;
+    public bool $reached;
+    public $response;
+
+    public function __construct(int $expected_location_id, $response) {
+        $this->expected_location_id = $expected_location_id;
+        $this->reached = ($response === true || $response === 'first' || $response === 'last');
+        $this->response = $response;
+    }
+}
+
 /**
  * Group reaches location through a code.
  */
-function bot_reach_location($context, $location_id, $game_id) {
+function bot_reach_location($context, $location_id, $game_id) : BotReachLocationInfo {
     if(!$context->game || $game_id != $context->game->game_id) {
         Logger::info("Location code does not match currently played game", __FILE__, $context);
-        return 'wrong';
+        return new BotReachLocationInfo(0, 'wrong');
     }
 
     $game_check_result = game_check_can_play($context->game->event_state, $context->game->game_state);
     if($game_check_result !== true) {
-        return $game_check_result;
+        return new BotReachLocationInfo(0, $game_check_result);
     }
 
     $expected_id = bot_get_expected_location_id($context);
     Logger::debug("Expecting location ID {$expected_id}", __FILE__, $context);
 
     if($expected_id === false) {
-        return false;
+        return new BotReachLocationInfo($expected_id, false);
     }
     else if($expected_id === null) {
-        return 'unexpected';
+        return new BotReachLocationInfo($expected_id, 'unexpected');
     }
     else if($location_id !== $expected_id) {
-        return 'wrong';
+        return new BotReachLocationInfo($expected_id, 'wrong');
     }
 
     $state = $context->game->group_state;
     if($state === STATE_GAME_LOCATION) {
         Logger::info("Group reached its next location", __FILE__, $context);
-
-        $context->comm->reply(__('cmd_start_location_reached'));
 
         $reached_rows = db_perform_action(sprintf(
             "UPDATE `assigned_locations` SET `reached_on` = NOW() WHERE `game_id` = %d AND `group_id` = %d AND `reached_on` IS NULL",
@@ -342,24 +399,24 @@ function bot_reach_location($context, $location_id, $game_id) {
         ));
         if($reached_rows !== 1) {
             Logger::error("Marking location as reached updated {$reached_rows} rows", __FILE__, $context);
-            return false;
+            return new BotReachLocationInfo($expected_id, false);
         }
 
         if($context->game->skip_selfies) {
             // Skipping selfies, go directly to riddle
             $riddle_id = bot_assign_random_riddle($context);
             if($riddle_id === false || $riddle_id === null) {
-                return false;
+                return new BotReachLocationInfo($expected_id, false);
             }
         }
         else {
             // Go to selfie as usual
             if(!bot_set_group_state($context, STATE_GAME_SELFIE)) {
-                return false;
+                return new BotReachLocationInfo($expected_id, false);
             }
         }
 
-        return true;
+        return new BotReachLocationInfo($expected_id, true);
     }
     else if($state === STATE_REG_READY) {
         Logger::info("Group reached first location", __FILE__, $context);
@@ -368,22 +425,52 @@ function bot_reach_location($context, $location_id, $game_id) {
             // Skipping selfies, go directly to riddle
             $riddle_id = bot_assign_random_riddle($context);
             if($riddle_id === false || $riddle_id === null) {
-                return false;
+                return new BotReachLocationInfo($expected_id, false);
             }
         }
         else {
             // Go to selfie as usual
             if(!bot_set_group_state($context, STATE_GAME_SELFIE)) {
-                return false;
+                return new BotReachLocationInfo($expected_id, false);
             }
         }
 
-        return 'first';
+        return new BotReachLocationInfo($expected_id, 'first');
     }
     else if($state === STATE_GAME_LAST_LOC) {
         Logger::info("Group reached the final location", __FILE__, $context);
 
-        return 'last';
+        return new BotReachLocationInfo($expected_id, 'last');
+    }
+}
+
+/**
+ * Process after the user reaches a location, sends out information and text
+ * if needed. Is called after change of state, but before msg_processing_handle_group_state.
+ */
+function bot_reach_location_after(Context $context, BotLocationInfo $location_info) {
+    // Send special location information message, if available
+    $addendum = $location_info->reached_url ? '' : '';
+    if($location_info->reached_image_url) {
+        $context->comm->picture(
+            $location_info->reached_image_url,
+            mb_trim(($location_info->reached_description ?? '') . $addendum),
+            array(
+                '%LOCATION_NAME%' => $location_info->name,
+                '%LOCATION_DESCRIPTION%' => $location_info->description ?? '',
+                '%REACHED_URL%' => $location_info->reached_url ?? ''
+            )
+        );
+    }
+    else if($location_info->reached_description) {
+        $context->comm->reply(
+            mb_trim(($location_info->reached_description ?? '') . $addendum),
+            array(
+                '%LOCATION_NAME%' => $location_info->name,
+                '%LOCATION_DESCRIPTION%' => $location_info->description ?? '',
+                '%REACHED_URL%' => $location_info->reached_url ?? ''
+            )
+        );
     }
 }
 

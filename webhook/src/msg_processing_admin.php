@@ -148,13 +148,12 @@ function msg_processing_admin($context) {
         if($is_disabled) $outbound .= "\n<i>Code disabled.</i>";
 
         if($game_id === $context->game->game_id && $location_id !== 0) {
-            // Location info
             $location_info = bot_get_location_info($context, $location_id);
             if($location_info == null || $location_info === false) {
                 $outbound .= " (Linked location does not exist in game! ⚠️)";
             }
             else {
-                $outbound .= " ({$location_info[4]})";
+                $outbound .= ' ({' . $location_info->name . '})';
             }
         }
 
@@ -162,7 +161,7 @@ function msg_processing_admin($context) {
 
         // Location position, if set
         if(isset($location_info)) {
-            telegram_send_location($context->comm->get_telegram_id(), $location_info[0], $location_info[1]);
+            telegram_send_location($context->comm->get_telegram_id(), $location_info->lat, $location_info->lng);
         }
 
         return true;

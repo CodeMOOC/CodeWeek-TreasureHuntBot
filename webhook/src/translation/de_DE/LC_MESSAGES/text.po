@@ -235,6 +235,10 @@ msgstr "Sie müssen mindestens %SECONDS% Sekunden warten, bevor Sie einen Hinwei
 msgid "game_location_hint_confirm"
 msgstr "Benötigen Sie Hilfe? Hier ist der genaue Ort, den Sie erreichen müssen!"
 
+# Location reached, more information link message
+msgid "game_location_reached_more_information"
+msgstr "<a href=\"%REACHED_URL%\">Mehr Informationen</a>."
+
 # Game state: snap selfie
 msgid "game_selfie_state"
 msgstr ""

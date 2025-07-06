@@ -220,9 +220,17 @@ msgstr "Tutto ok! Seguite le istruzioni che vi verranno date dagli organizzatori
 msgid "game_location_state"
 msgstr "Seguite l’indizio e scovate il prossimo QR Code! 👀"
 
+# Location sent, correct textual response given
+msgid "game_location_response_ok"
+msgstr "Risposta corretta!"
+
+# Location sent, wrong textual response given
+msgid "game_location_response_wrong"
+msgstr "No, temo che la risposta sia sbagliata. 😞"
+
 # Location sent, wrong response given, do you want hint?
 msgid "game_location_hint_nudge"
-msgstr "Come? 🤔 Non trovi la strada giusta?"
+msgstr "Come dici? 🤔 Non trovi la strada giusta?"
 
 # Location sent, button text to ask for hint
 msgid "game_location_hint_button"
@@ -235,6 +243,10 @@ msgstr "Dovrai aspettare almeno altri %SECONDS% secondi prima di poter ricevere 
 # Here's the hint
 msgid "game_location_hint_confirm"
 msgstr "Serve una mano? Ecco il posto esatto da raggiungere!"
+
+# Location reached, more information link message
+msgid "game_location_reached_more_information"
+msgstr "<a href=\"%REACHED_URL%\">Più informazioni</a>."
 
 # Game state: snap selfie
 msgid "game_selfie_state"

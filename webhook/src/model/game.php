@@ -50,7 +50,21 @@ class Game {
         }
 
         $game_data = db_row_query(sprintf(
-            "SELECT `name`, `event_id`, `state`, `telegram_channel`, `telegram_channel_censor_photo`, (`timeout_absolute` IS NOT NULL OR `timeout_interval` IS NOT NULL) AS `has_timeout`, `language`, `badge_overlay_image`, `quick_start`, `skip_selfies`, `pick_random_final_location`, `location_hints_enabled`, `location_map_url` FROM `games` WHERE `game_id` = %d",
+            'SELECT ' .
+                '`name`, ' . // 0
+                '`event_id`, ' . // 1
+                '`state`, ' . // 2
+                '`telegram_channel`, ' . // 3
+                '`telegram_channel_censor_photo`, ' . // 4
+                '(`timeout_absolute` IS NOT NULL OR `timeout_interval` IS NOT NULL) AS `has_timeout`, ' . // 5
+                '`language`, ' . // 6
+                '`badge_overlay_image`, ' . // 7
+                '`quick_start`, ' . // 8
+                '`skip_selfies`, ' . // 9
+                '`pick_random_final_location`, ' . // 10
+                '`location_hints_enabled`, ' . // 11
+                '`location_map_url` ' . // 12
+            'FROM `games` WHERE `game_id` = %d',
             $game_id
         ));
         if(!$game_data) {
@@ -65,13 +79,13 @@ class Game {
         $this->game_state = (int)$game_data[2];
         $this->event_id = (int)$game_data[1];
         $this->game_channel_name = $game_data[3];
-        $this->game_channel_censor = (boolean)$game_data[4];
-        $this->game_has_timeout = (boolean)$game_data[5];
+        $this->game_channel_censor = boolval($game_data[4]);
+        $this->game_has_timeout = boolval($game_data[5]);
         $this->game_language = $game_data[6];
-        $this->quickstart = (boolean)$game_data[8];
-        $this->skip_selfies = (boolean)$game_data[9];
-        $this->pick_random_final_location = (boolean)$game_data[10];
-        $this->location_hints_enabled = (boolean)$game_data[11];
+        $this->quickstart = boolval($game_data[8]);
+        $this->skip_selfies = boolval($game_data[9]);
+        $this->pick_random_final_location = boolval($game_data[10]);
+        $this->location_hints_enabled = boolval($game_data[11]);
         $this->location_map_url = $game_data[12];
         $this->badge_overlay_image = $game_data[7];
 

@@ -220,9 +220,17 @@ msgstr "Everything OK! Follow the instructions you will be given by the organize
 msgid "game_location_state"
 msgstr "Follow this clue and go looking for the next QR Code! 👀"
 
+# Location sent, correct textual response given
+msgid "game_location_response_ok"
+msgstr "Correct answer!"
+
+# Location sent, wrong textual response given
+msgid "game_location_response_wrong"
+msgstr "No, I’m afraid that is not correct. 😞"
+
 # Location sent, wrong response given, do you want hint?
 msgid "game_location_hint_nudge"
-msgstr "Come again? 🤔 Are you lost?"
+msgstr "Huh? 🤔 Are you lost?"
 
 # Location sent, button text to ask for hint
 msgid "game_location_hint_button"
@@ -235,6 +243,10 @@ msgstr "You must wait for at least %SECONDS% seconds before requesting a hint. �
 # Here's the hint
 msgid "game_location_hint_confirm"
 msgstr "Need some help? Here’s the exact place you must reach!"
+
+# Location reached, more information link message
+msgid "game_location_reached_more_information"
+msgstr "<a href=\"%REACHED_URL%\">More information</a>."
 
 # Game state: snap selfie
 msgid "game_selfie_state"

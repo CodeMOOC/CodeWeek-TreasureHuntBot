@@ -104,59 +104,61 @@ function msg_processing_handle_group_state($context) {
 
         case STATE_GAME_LOCATION:
             $target_location_id = bot_get_expected_location_id($context);
-            $location_info = bot_get_location_info($context, $target_location_id);
-            $keyboard = array();
+            if($target_location_id !== false) {
+                $location_info = bot_get_location_info($context, $target_location_id);
+                $keyboard = array();
 
-            if($context->game->location_hints_enabled && $location_info[5]) {
-                // If location is not sent out and hints are supported, add hint suggestion to keyboard
+                if($context->game->location_hints_enabled && $location_info[5]) {
+                    // If location is not sent out and hints are supported, add hint suggestion to keyboard
 
-                Logger::debug("Precise location not sent, adding hint button to keyboard", __FILE__, $context);
-                $keyboard[] = array(
-                    "text" => __('game_location_hint_button'),
-                    "callback_data" => 'hint'
-                );
-            }
+                    Logger::debug("Precise location not sent, adding hint button to keyboard", __FILE__, $context);
+                    $keyboard[] = array(
+                        "text" => __('game_location_hint_button'),
+                        "callback_data" => 'hint'
+                    );
+                }
 
-            if($context->game->get_location_map_url()) {
-                // If location map is enabled and this is not the end, add map URL link to the keyboard
+                if($context->game->get_location_map_url()) {
+                    // If location map is enabled and this is not the end, add map URL link to the keyboard
 
-                Logger::debug("Location map enabled, adding link to keyboard", __FILE__, $context);
-                $keyboard[] = array(
-                    "text" => __('open_location_map'),
-                    "url" => $context->game->get_location_map_url()
-                );
-            }
+                    Logger::debug("Location map enabled, adding link to keyboard", __FILE__, $context);
+                    $keyboard[] = array(
+                        "text" => __('open_location_map'),
+                        "url" => $context->game->get_location_map_url()
+                    );
+                }
 
-            if($location_info[3]) {
-                // Image with optional caption
+                if($location_info->image_path) {
+                    // Image with optional caption
 
-                $caption_text = $location_info[2] ?: __('game_location_state');
-                Logger::debug("Sending location picture from " . $location_info[3] . " with caption {$caption_text}", __FILE__, $context);
-                $context->comm->picture(
-                    '/data/locations/' . $location_info[3], $caption_text, null,
-                    array("reply_markup" => array(
-                        "inline_keyboard" => array($keyboard)
-                    ))
-                );
-            }
-            else if($location_info[2]) {
-                // Textual riddle
+                    $caption_text = $location_info->description ?: __('game_location_state');
+                    Logger::debug("Sending location picture from " . $location_info->image_path . " with caption {$caption_text}", __FILE__, $context);
+                    $context->comm->picture(
+                        '/data/locations/' . $location_info->image_path, $caption_text, null,
+                        array("reply_markup" => array(
+                            "inline_keyboard" => array($keyboard)
+                        ))
+                    );
+                }
+                else if($location_info->description) {
+                    // Textual riddle
 
-                Logger::debug("Sending location textual riddle", __FILE__, $context);
-                $context->comm->reply($location_info[2], null,
-                    array("reply_markup" => array(
-                        "inline_keyboard" => array($keyboard)
-                    ))
-                );
-            }
-            else {
-                // Geographical position
+                    Logger::debug("Sending location textual riddle", __FILE__, $context);
+                    $context->comm->reply($location_info->description, null,
+                        array("reply_markup" => array(
+                            "inline_keyboard" => array($keyboard)
+                        ))
+                    );
+                }
+                else {
+                    // Geographical position
 
-                telegram_send_location(
-                    $context->get_telegram_chat_id(),
-                    $location_info[0],
-                    $location_info[1]
-                );
+                    telegram_send_location(
+                        $context->get_telegram_chat_id(),
+                        $location_info->lat,
+                        $location_info->lng
+                    );
+                }
             }
             return true;
 
@@ -196,14 +198,14 @@ function msg_processing_handle_group_state($context) {
                 $target_location_id = bot_get_expected_location_id($context);
                 if(!$target_location_id) {
                     Logger::fatal('Unable to load final location', __FILE__);
+                } else {
+                    $location_info = bot_get_location_info($context, $target_location_id);
+                    telegram_send_location(
+                        $context->get_telegram_chat_id(),
+                        $location_info->lat,
+                        $location_info->lng
+                    );
                 }
-
-                $location_info = bot_get_location_info($context, $target_location_id);
-                telegram_send_location(
-                    $context->get_telegram_chat_id(),
-                    $location_info[0],
-                    $location_info[1]
-                );
             }
             return true;
 
@@ -462,52 +464,122 @@ function msg_processing_handle_group_response($context) {
         /* GAME */
 
         case STATE_GAME_LOCATION:
-            // We expect a deeplink that will come through the /start command
-            if($context->is_callback() && $context->callback->data === 'hint') {
-                $elapsed_seconds = bot_get_time_since_location_assignment($context);
-                $seconds_to_wait = 60 - $elapsed_seconds;
-                Logger::debug("{$elapsed_seconds} seconds elapsed since location " . bot_get_expected_location_id($context) . " assigned", __FILE__, $context);
+            $target_location_id = bot_get_expected_location_id($context);
+            if($target_location_id === false) {
+                Logger::fatal('Unable to load expected location', __FILE__, $context);
+                $context->comm->reply(__('failure_general'));
+                return true;
+            }
 
-                if($elapsed_seconds >= 60) {
-                    $location_info = bot_get_location_info($context, bot_get_expected_location_id($context));
-                    if($location_info[5]) {
-                        // Send location-specific text hint
-                        $context->comm->reply($location_info[5]);
+            $location_info = bot_get_location_info($context, bot_get_expected_location_id($context));
+            if($location_info === null) {
+                Logger::fatal("Unable to load location info for location #{$target_location_id}", __FILE__, $context);
+                $context->comm->reply(__('failure_general'));
+                return true;
+            }
+
+            Logger::debug("Processing input for group moving to location #{$target_location_id}, game #{$game_id}", __FILE__, $context);
+
+            if($context->is_message() && $context->message->is_text()) {
+                if($location_info->expected_response) {
+                    // Location expects a textual response
+                    if($context->message == $location_info->expected_response) {
+                        // User has sent the expected response
+                        Logger::info("User provided correct response to reach location #{$target_location_id}", __FILE__, $context);
+
+                        $context->comm->reply(__('game_location_response_ok'));
+
+                        $reach_result = bot_reach_location($context, $target_location_id, $game_id);
+                        if(!$reach_result->reached) {
+                            Logger::error("User provided correct response, but unable to reach new location with bot_reach_location", __FILE__, $context);
+                            $context->comm->reply(__('failure_general'));
+
+                            return true;
+                        }
+
+                        if($reach_result->response === 'first') {
+                            $context->comm->reply(__('cmd_start_location_reached_first'));
+
+                            bot_reach_location_after($context, $location_info);
+
+                            msg_processing_handle_group_state($context);
+                        }
+                        else if($reach_result->response === 'last') {
+                            $context->comm->reply(__('cmd_start_location_reached_last'));
+
+                            bot_reach_location_after($context, $location_info);
+
+                            msg_process_victory($context);
+                        }
+                        else {
+                            $context->comm->reply(__('cmd_start_location_reached'));
+
+                            bot_reach_location_after($context, $location_info);
+
+                            msg_processing_handle_group_state($context);
+                        }
+                    } else {
+                        // User has sent an unexpected response
+                        Logger::info("User provided wrong response to reach location #{$target_location_id}", __FILE__, $context);
+
+                        $context->comm->reply(__('game_location_response_wrong'), null, array("reply_markup" => array(
+                            "inline_keyboard" => array(
+                                array(
+                                    array("text" => __('game_location_hint_button'), "callback_data" => 'hint')
+                                )
+                            )
+                        )));
                     }
-                    else {
-                        // Send precise location
-                        $context->comm->reply(__('game_location_hint_confirm'));
-                        telegram_send_location(
-                            $context->get_telegram_chat_id(),
-                            $location_info[0],
-                            $location_info[1]
-                        );
-                    }
-                    return true;
-                }
-                else {
-                    $context->comm->reply(__('game_location_hint_wait'), array(
-                        '%SECONDS%' => $seconds_to_wait
-                    ), array("reply_markup" => array(
+                } else {
+                    Logger::info("User provided unforeseen text while reaching location #{$target_location_id}", __FILE__, $context);
+
+                    $context->comm->reply(__('game_location_hint_nudge'), null, array("reply_markup" => array(
                         "inline_keyboard" => array(
                             array(
                                 array("text" => __('game_location_hint_button'), "callback_data" => 'hint')
                             )
                         )
                     )));
-                    return true;
+                }
+
+                return true;
+            } else if($context->is_callback()) {
+                if($context->callback->data === 'hint') {
+                    $elapsed_seconds = bot_get_time_since_location_assignment($context);
+                    $seconds_to_wait = 60 - $elapsed_seconds;
+                    Logger::debug("{$elapsed_seconds} seconds elapsed since location " . bot_get_expected_location_id($context) . " assigned", __FILE__, $context);
+
+                    if($elapsed_seconds >= 60) {
+                        if($location_info->hint) {
+                            // Send location-specific text hint
+                            $context->comm->reply($location_info->hint);
+                        }
+                        else {
+                            // Send precise location
+                            $context->comm->reply(__('game_location_hint_confirm'));
+                            telegram_send_location(
+                                $context->get_telegram_chat_id(),
+                                $location_info->lat,
+                                $location_info->lng
+                            );
+                        }
+                        return true;
+                    } else {
+                        $context->comm->reply(__('game_location_hint_wait'), array(
+                            '%SECONDS%' => $seconds_to_wait
+                        ), array("reply_markup" => array(
+                            "inline_keyboard" => array(
+                                array(
+                                    array("text" => __('game_location_hint_button'), "callback_data" => 'hint')
+                                )
+                            )
+                        )));
+                        return true;
+                    }
                 }
             }
-            else if($context->is_message() && $context->message->is_text()) {
-                $context->comm->reply(__('game_location_hint_nudge'), null, array("reply_markup" => array(
-                    "inline_keyboard" => array(
-                        array(
-                            array("text" => __('game_location_hint_button'), "callback_data" => 'hint')
-                        )
-                    )
-                )));
-                return true;
-            }
+
+            // We expect a deeplink that will come through the /start command
 
             msg_processing_handle_group_state($context);
             return true;

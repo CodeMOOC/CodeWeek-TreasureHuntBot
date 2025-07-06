@@ -208,6 +208,14 @@ msgstr ""
 msgid "game_location_state"
 msgstr ""
 
+# Location sent, correct textual response given
+msgid "game_location_response_ok"
+msgstr ""
+
+# Location sent, wrong textual response given
+msgid "game_location_response_wrong"
+msgstr ""
+
 # Location sent, wrong response given, do you want hint?
 msgid "game_location_hint_nudge"
 msgstr ""
@@ -222,6 +230,10 @@ msgstr ""
 
 # Here's the hint
 msgid "game_location_hint_confirm"
+msgstr ""
+
+# Location reached, more information link message
+msgid "game_location_reached_more_information"
 msgstr ""
 
 # Game state: snap selfie

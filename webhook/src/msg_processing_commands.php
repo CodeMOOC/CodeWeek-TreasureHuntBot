@@ -149,36 +149,52 @@ function msg_processing_commands($context) {
                         Logger::debug("Location code scanned for location #{$location_id}, game #{$game_id}", __FILE__, $context);
 
                         $result = bot_reach_location($context, $location_id, $game_id);
-                        if($result === false) {
-                            $context->comm->reply(__('failure_general'));
-                        }
-                        else if($result === 'unexpected') {
-                            $context->comm->reply(__('cmd_start_location_unexpected'));
-                        }
-                        else if($result === 'wrong') {
-                            $context->comm->reply(__('cmd_start_location_wrong'));
-                        }
-                        else if($result === 'unallowed_event_not_ready') {
-                            $context->comm->reply(__('failure_event_not_ready'));
-                        }
-                        else if($result === 'unallowed_event_over') {
-                            $context->comm->reply(__('failure_event_over'));
-                        }
-                        else if($result === 'unallowed_game_not_ready') {
-                            $context->comm->reply(__('failure_game_not_ready'));
-                        }
-                        else if($result === 'unallowed_game_over') {
-                            $context->comm->reply(__('failure_game_dead'));
-                        }
-                        else if($result === 'first') {
-                            $context->comm->reply(__('cmd_start_location_reached_first'));
-                            msg_processing_handle_group_state($context);
-                        }
-                        else if($result === 'last') {
-                            msg_process_victory($context);
-                        }
-                        else {
-                            msg_processing_handle_group_state($context);
+                        if(!$result->reached) {
+                            if($result->response === 'unexpected') {
+                                $context->comm->reply(__('cmd_start_location_unexpected'));
+                            }
+                            else if($result->response === 'wrong') {
+                                $context->comm->reply(__('cmd_start_location_wrong'));
+                            }
+                            else if($result->response === 'unallowed_event_not_ready') {
+                                $context->comm->reply(__('failure_event_not_ready'));
+                            }
+                            else if($result->response === 'unallowed_event_over') {
+                                $context->comm->reply(__('failure_event_over'));
+                            }
+                            else if($result->response === 'unallowed_game_not_ready') {
+                                $context->comm->reply(__('failure_game_not_ready'));
+                            }
+                            else if($result->response === 'unallowed_game_over') {
+                                $context->comm->reply(__('failure_game_dead'));
+                            }
+                            else {
+                                $context->comm->reply(__('failure_general'));
+                            }
+                        } else {
+                            $location_info = bot_get_location_info($context, $result->expected_location_id);
+
+                            if($result->response === 'first') {
+                                $context->comm->reply(__('cmd_start_location_reached_first'));
+
+                                bot_reach_location_after($context, $location_info);
+
+                                msg_processing_handle_group_state($context);
+                            }
+                            else if($result->response === 'last') {
+                                $context->comm->reply(__('cmd_start_location_reached_last'));
+
+                                bot_reach_location_after($context, $location_info);
+
+                                msg_process_victory($context);
+                            }
+                            else {
+                                $context->comm->reply(__('cmd_start_location_reached'));
+
+                                bot_reach_location_after($context, $location_info);
+
+                                msg_processing_handle_group_state($context);
+                            }
                         }
                         break;
 
