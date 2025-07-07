@@ -710,7 +710,7 @@ function msg_processing_handle_group_response($context) {
                 }
                 else if($result === true) {
                     $confirm_text = __('game_puzzle_response_correct');
-                    $current_hint = bot_get_current_hint($context);
+                    $current_hint = bot_get_final_location_hint_part($context);
                     if($current_hint !== null) {
                         $confirm_text .= ' <b>' . $current_hint . '</b>';
                     }
@@ -722,7 +722,7 @@ function msg_processing_handle_group_response($context) {
                         return true;
                     }
 
-                    // This sends out hint to last location, if required
+                    // This sends out info for the next location, as required
                     msg_processing_handle_group_state($context);
                 }
                 else {

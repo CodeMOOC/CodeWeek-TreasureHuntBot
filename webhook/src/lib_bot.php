@@ -453,10 +453,9 @@ function bot_reach_location_after(Context $context, BotLocationInfo $location_in
 
 /**
  * Attempts to give solution to current riddle.
- * @return True if solution given correctly,
- *         positive int of seconds to wait,
- *         'wrong' if solution is not correct,
- *         false otherwise.
+ *
+ * @return mixed TRUE if solution given correctly, positive int of seconds to wait,
+ *         'wrong' if solution is not correct, FALSE otherwise.
  */
 function bot_give_solution($context, $solution) {
     $riddle_info = bot_get_current_assigned_riddle($context);
@@ -502,12 +501,38 @@ function bot_give_solution($context, $solution) {
 }
 
 /**
- * Gets the current hint for the last solved riddle, if any.
+ * Get the hint for reaching the final location, if any.
+ *
+ * @return string|null The hint for the final location or null if no hint is set.
  */
-function bot_get_current_hint($context) {
-    if(!$context->game->group_final_destination_id) {
-        // No hint if no final destination is given
-        Logger::info('No final destination given', __FILE__, $context);
+function bot_get_final_location_hint($context) {
+    if($context->game->fixed_step_by_step_hint) {
+        // Fixed step-by-step hint, applies to all groups
+        return $context->game->fixed_step_by_step_hint;
+    }
+
+    if($context->game->group_final_destination_id) {
+        $geohash = db_scalar_query(sprintf(
+            'SELECT `geohash` FROM `locations` WHERE `game_id` = %d AND `location_id` = %d',
+            $context->game->game_id,
+            $context->game->group_final_destination_id
+        ));
+        if(!$geohash) {
+            return null;
+        }
+
+        return $geohash;
+    }
+
+    return null;
+}
+
+/**
+ * Gets the current hint part for the last solved riddle, if any.
+ */
+function bot_get_final_location_hint_part($context) {
+    $hint = bot_get_final_location_hint($context);
+    if($hint === null) {
         return null;
     }
 
@@ -527,21 +552,12 @@ function bot_get_current_hint($context) {
         // No hint for initial riddle
         return null;
     }
-
-    $geohash = db_scalar_query(sprintf(
-        'SELECT `geohash` FROM `locations` WHERE `game_id` = %d AND `location_id` = %d',
-        $context->game->game_id,
-        $context->game->group_final_destination_id
-    ));
-    if(!$geohash) {
-        return null;
-    }
-    if($solved > mb_strlen($geohash)) {
+    if($solved > mb_strlen($hint)) {
         // Given out all hints
         return null;
     }
 
-    return $geohash[$solved - 1];
+    return $hint[$solved - 1];
 }
 
 /**
