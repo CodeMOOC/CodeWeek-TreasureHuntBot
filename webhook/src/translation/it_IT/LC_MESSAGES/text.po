@@ -404,7 +404,7 @@ msgid "questionnaire_finish_thankyou"
 msgstr "Grazie ancora per aver partecipato! 🙂"
 
 msgid "start_right_away"
-msgstr "Cominciamo subito! Ecco il tuo primo indovinello. 💡"
+msgstr "Cominciamo subito! Ecco la prima tappa da raggiungere. 👀"
 
 msgid "skip"
 msgstr "Salta"

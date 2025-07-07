@@ -217,7 +217,7 @@ msgstr "Alles ok! Folgen Sie den Anweisungen der Veranstalter."
 
 # Game state: reach assigned location and look for QR Code
 msgid "game_location_state"
-msgstr "Folgen Sie der Spur und finden Sie den nächsten QR-Code! 👀"
+msgstr "Folgen Sie der Spur und finden Sie den nächsten Standort! 👀"
 
 # Location sent, wrong response given, do you want hint?
 msgid "game_location_hint_nudge"
@@ -392,7 +392,7 @@ msgid "questionnaire_finish_thankyou"
 msgstr "Nochmals vielen Dank fürs Spielen! 🙂"
 
 msgid "start_right_away"
-msgstr "Fangen wir gleich an! Hier ist Ihr erstes <i>Coding</i>-Quiz. 💡"
+msgstr "Fangen wir gleich an! Hier gehts zum ersten Standort. 👀"
 
 msgid "skip"
 msgstr "Überspringen"

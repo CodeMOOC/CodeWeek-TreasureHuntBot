@@ -402,7 +402,7 @@ msgid "questionnaire_finish_thankyou"
 msgstr "Thank you again for playing! 🙂"
 
 msgid "start_right_away"
-msgstr "Let’s start right away! Here is your first coding quiz. 💡"
+msgstr "Let’s start right away! Here’s the first location to find. 👀"
 
 msgid "skip"
 msgstr "Skip"
