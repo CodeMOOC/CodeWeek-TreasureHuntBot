@@ -83,12 +83,13 @@ function msg_processing_handle_group_state($context) {
                 // Quickstart enabled, instead of waiting for first location, start right away with first riddle
                 $context->comm->reply(__('start_right_away'));
 
-                $riddle_id = bot_assign_random_riddle($context);
-                if($riddle_id === false || $riddle_id === null) {
+                $advance_result = bot_advance_track_location($context);
+                if($advance_result === false) {
                     $context->comm->reply(__('failure_general'));
+                    return true;
                 }
 
-                // This sends out the riddle
+                // This sends out info for the next location, as required
                 msg_processing_handle_group_state($context);
             }
             else {

@@ -211,6 +211,7 @@ function bot_advance_track_location($context, $group_id = null) {
     if($group_id == null) {
         $group_id = $context->get_internal_id();
     }
+
     $target_locations = $context->game->get_game_num_locations();
     $count_locations = bot_get_count_of_reached_locations($context, $group_id);
     $next_cluster_id = $context->game->get_next_location_cluster_id($count_locations);
