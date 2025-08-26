@@ -27,7 +27,7 @@ const STATE_CERT_SENT       = 160; // won, certificate sent
 const STATE_WOM_SENT        = 170; // won, WOMs sent
 const STATE_INVALID         = -1;  // mysterious invalid state
 
-const STATE_ALL             = array(
+const STATE_ALL = array(
     STATE_NEW,
     STATE_REG_VERIFIED,
     STATE_REG_NAME,
@@ -45,7 +45,7 @@ const STATE_ALL             = array(
     STATE_INVALID
 );
 
-const STATE_MAP         = array(
+const STATE_MAP = array(
     0   => 'STATE_NEW',
     1   => 'STATE_REG_VERIFIED',
     2   => 'STATE_REG_NAME',
@@ -62,7 +62,7 @@ const STATE_MAP         = array(
     160 => 'STATE_CERT_SENT'
 );
 
-const STATE_READABLE_MAP         = array(
+const STATE_READABLE_MAP = array(
     -1  => 'Not playing',
     0   => 'Newly registered',
     1   => 'Registering team (set name)',
@@ -85,7 +85,7 @@ const GAME_STATE_REG_EMAIL          = 10;  // channel ok, asked for e-mail
 const GAME_STATE_LOCATIONS_FIRST    = 30;  // asked for first location
 const GAME_STATE_LOCATIONS_LAST     = 40;  // asked for last location
 const GAME_STATE_LOCATIONS          = 50;  // asked for location
-const GAME_STATE_GENERATION         = 120;  // generating QR Codes
+const GAME_STATE_GENERATION         = 120; // generating QR Codes
 const GAME_STATE_READY              = 127; // all set, ready to open
 const GAME_STATE_ACTIVE             = 128; // ready to accept users, play, etc.
 const GAME_STATE_DEAD               = 255; // game is over
@@ -168,7 +168,8 @@ const GAME_LAST_PUZZLE_3_SOLUTION = 'pascal';
 const GAME_CERTIFICATE_TEMPLATES = array(
     1       => 'template-certificate-codeweek.html',
     2       => 'template-certificate-inaf.html',
-    43      => 'template-certificate-inaf.html'
+    43      => 'template-certificate-inaf.html',
+    1274    => 'template-certificate-inaf-nel-cielo.html',
 );
 function game_get_certificate_template($game_id) {
     if(array_key_exists($game_id, GAME_CERTIFICATE_TEMPLATES)) {
