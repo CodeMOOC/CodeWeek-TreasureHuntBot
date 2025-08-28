@@ -14,26 +14,32 @@ html, body {
     margin: 0;
     padding: 0;
     font-family: 'DejaVu Sans', 'Arial', sans-serif;
-    font-weight: 500;
-    font-size: 26pt;
+    font-weight: 300;
+    font-size: 30pt;
     background: rgb(255,255,255);
     -webkit-print-color-adjust: exact;
     box-sizing: border-box;
-    width: 297.0mm;
-    height: 210.0mm;
+    width: 297mm;
+    height: 210mm;
 }
 .background {
     position: absolute;
     top: 0;
     left: 0;
+    right: 0;
+    bottom: 0;
     width: 297mm;
     height: 210mm;
 }
 .page {
     position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     padding: 10mm;
-    width: 277.0mm;
-    height: 200.0mm;
+    width: 277mm;
+    height: 190mm;
 }
 .overlay {
     position: absolute;
@@ -62,16 +68,16 @@ html, body {
 }
 .content {
     position: absolute;
-    top: 65mm;
-    padding: 0 2em;
+    top: 75mm;
+    padding: 0 40mm;
     text-align: center;
-    line-height: 1.2;
+    line-height: 1.15;
 }
 .content .big {
     display: block;
     margin: 0;
-    font-size: 34pt;
-    font-weight: bold;
+    font-size: 38pt;
+    font-weight: 500;
     white-space: nowrap;
 }
     </style>
@@ -85,10 +91,10 @@ html, body {
         </div>
 
         <div class="content">
-            <div class="big">%TEAM_NAME%</div>
-            for completing the
-            <div class="big">Worldwide Astrophysical<br /><i>Code Hunting Game</i></div>
-            in&nbsp;%ELAPSED_MINS% minutes on&nbsp;%DATE%
+            <div class="big"><span class="nowrap">%TEAM_NAME%</span></div>
+            <div>for completing the</div>
+            <div class="big"><span class="nowrap">Worldwide Astrophysical</span><br /><span class="nowrap">Code Hunting Game</span></div>
+            <div>in&nbsp;%ELAPSED_MINS% minutes on&nbsp;%DATE%</div>
         </div>
     </div>
 
