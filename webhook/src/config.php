@@ -33,6 +33,7 @@ define('BOT_DEEPLINK_START_ROOT', 'https://t.me/' . getenv('TELEGRAM_BOT_NAME') 
 // define("DEV", True);
 define('INSTRUMENT_ID', getenv('WOM_SOURCE_ID'));
 define('INSTRUMENT_PRIVATE_KEY', '/keys/wom-source.pem');
+define('INSTRUMENT_PRIVATE_KEY_PASSWORD', '');
 
 // PHP configuration
 date_default_timezone_set('UTC'); // ensure UTC is used for all date functions
