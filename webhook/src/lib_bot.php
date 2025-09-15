@@ -436,7 +436,7 @@ function bot_reach_location_after(Context $context, BotLocationInfo $location_in
             )
         );
 
-        sleep(3);
+        sleep(BOT_BETWEEN_LEVELS_DELAY_IN_SECONDS);
     }
     else if($location_info->reached_description) {
         $context->comm->reply(
@@ -448,7 +448,7 @@ function bot_reach_location_after(Context $context, BotLocationInfo $location_in
             )
         );
 
-        sleep(3);
+        sleep(BOT_BETWEEN_LEVELS_DELAY_IN_SECONDS);
     }
 }
 

@@ -28,6 +28,7 @@ define('DEBUG_TO_DB', true);
 define('DEBUG_TO_BOT', false);
 define('DEACTIVATED', false);
 define('BOT_DEEPLINK_START_ROOT', 'https://t.me/' . getenv('TELEGRAM_BOT_NAME') . '?start=');
+define('BOT_BETWEEN_LEVELS_DELAY_IN_SECONDS', 5);
 
 /* WOM connector setup */
 // define("DEV", True);
