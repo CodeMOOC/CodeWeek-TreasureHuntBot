@@ -56,13 +56,13 @@ class BotLocationInfo {
     public float $lat;
     public float $lng;
     public string $name;
-    public ?string $image_path;
-    public ?string $description;
-    public ?string $hint;
-    public ?string $expected_response;
-    public ?string $reached_description;
-    public ?string $reached_url;
-    public ?string $reached_image_url;
+    public ?string $image_path = null;
+    public ?string $description = null;
+    public ?string $hint = null;
+    public ?string $expected_response = null;
+    public ?string $reached_description = null;
+    public ?string $reached_url = null;
+    public ?string $reached_image_url = null;
 
     public function __construct(float $lat, float $lng, string $name) {
         $this->lat = $lat;
