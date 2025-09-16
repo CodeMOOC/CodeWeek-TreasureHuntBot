@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: db
--- Generation Time: Apr 08, 2022 at 09:43 AM
--- Server version: 5.7.35
--- PHP Version: 7.4.23
+-- Generation Time: Sep 16, 2025 at 10:06 AM
+-- Server version: 5.7.43
+-- PHP Version: 8.2.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -116,10 +116,25 @@ CREATE TABLE `games` (
   `pick_random_final_location` bit(1) NOT NULL DEFAULT b'0',
   `location_hints_enabled` bit(1) NOT NULL DEFAULT b'0',
   `location_map_url` text COLLATE utf8_unicode_ci,
+  `fixed_step_by_step_hint` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'Hint that is provided step-by-step, at each reached location, for each group',
   `timeout_absolute` datetime DEFAULT NULL COMMENT 'Absolute timeout when game ends',
   `timeout_interval` smallint(6) DEFAULT NULL COMMENT 'Relative timeout in minutes from start',
   `registered_on` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `games_additional`
+--
+
+CREATE TABLE `games_additional` (
+  `event_id` int(10) DEFAULT NULL,
+  `game_id` int(10) DEFAULT NULL,
+  `locale` varchar(5) CHARACTER SET ascii NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `contents` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Additional data for games.';
 
 -- --------------------------------------------------------
 
@@ -194,12 +209,13 @@ CREATE TABLE `locations` (
   `game_id` int(10) UNSIGNED NOT NULL,
   `location_id` int(10) UNSIGNED NOT NULL,
   `cluster_id` tinyint(3) UNSIGNED NOT NULL,
-  `internal_note` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `internal_note` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT 'Internal hidden name',
   `lat` float NOT NULL,
   `lng` float NOT NULL,
   `image_path` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `description` text COLLATE utf8_unicode_ci,
-  `hint` text COLLATE utf8_unicode_ci COMMENT 'Optional hint when user fails',
+  `description` text COLLATE utf8_unicode_ci COMMENT 'Textual riddle to find location',
+  `hint` text COLLATE utf8_unicode_ci COMMENT 'Optional hint for the user',
+  `response` varchar(32) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'Textual response to reach location',
   `geohash` varchar(12) CHARACTER SET ascii COLLATE ascii_bin DEFAULT NULL,
   `is_start` bit(1) NOT NULL DEFAULT b'0',
   `is_end` bit(1) NOT NULL DEFAULT b'0'
@@ -218,8 +234,11 @@ CREATE TABLE `locations_descriptions` (
   `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `image_path` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `description` text CHARACTER SET utf8 COLLATE utf8_unicode_ci,
-  `hint` text CHARACTER SET utf8 COLLATE utf8_unicode_ci
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `hint` text CHARACTER SET utf8 COLLATE utf8_unicode_ci,
+  `reached_description` text CHARACTER SET utf8 COLLATE utf8_unicode_ci COMMENT 'Text shown on location reached',
+  `reached_url` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'Link with more information shown on location reached',
+  `reached_image_url` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'URL of image shown on location reached'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -329,6 +348,15 @@ ALTER TABLE `games`
   ADD PRIMARY KEY (`game_id`),
   ADD KEY `game_event_index` (`event_id`),
   ADD KEY `game_organizer_index` (`organizer_id`);
+
+--
+-- Indexes for table `games_additional`
+--
+ALTER TABLE `games_additional`
+  ADD UNIQUE KEY `games_additional_event_game_locale_key_unique` (`event_id`,`game_id`,`locale`,`name`),
+  ADD KEY `event_id` (`event_id`),
+  ADD KEY `game_id` (`game_id`),
+  ADD KEY `name` (`name`);
 
 --
 -- Indexes for table `game_location_clusters`
