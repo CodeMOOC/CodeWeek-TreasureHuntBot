@@ -337,4 +337,48 @@ class Game {
         return $this->location_map_url;
     }
 
+    /**
+     * Gets additional game data, if available.
+     */
+    function get_additional_data(string $key) {
+        /*
+        Sample query:
+
+        SELECT
+            IF(LOCATE('it', `locale`) > 0, 10, IF(LOCATE('en', `locale`) > 0, 5, 0)) AS `weight`,
+            `contents`
+        FROM `games_additional`
+        WHERE event_id = 4 OR game_id = 1274
+        ORDER BY
+            game_id = 1274 DESC,
+            event_id = 4 DESC,
+            weight DESC
+        LIMIT 1;
+        */
+
+        $additional_data_row = db_row_query(sprintf(
+            'SELECT ' .
+                'IF(LOCATE(\'%s\', `locale`) > 0, 10, IF(LOCATE(\'en\', `locale`) > 0, 5, 0)) AS `weight`, ' . // 0
+                '`contents` ' . // 1
+            'FROM `games_additional` WHERE `name` = '%s' `game_id` = %d OR `event_id` = %d ' .
+            'ORDER BY ' .
+                '`game_id` = %d DESC, ' .
+                '`event_id` = %d DESC, ' .
+                '`weight` DESC ' .
+            'LIMIT 1',
+            $this->owning_context->preferred_language,
+            $key,
+            $this->game_id,
+            $this->event_id,
+            $this->game_id,
+            $this->event_id
+        ));
+
+        if($additional_data_row) {
+            return $additional_data_row[1];
+        }
+        else {
+            return null;
+        }
+    }
 }

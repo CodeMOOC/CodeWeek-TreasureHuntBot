@@ -440,6 +440,9 @@ msgstr "If this is the first time you play a <i>Code Hunting Game</i>, please <a
 msgid "game_guide_got_it"
 msgstr "Got it! 👍"
 
+msgid "game_additional_instructions_got_it"
+msgstr "Understood! 👍"
+
 msgid "already_registered_to_game"
 msgstr "You are already registered to this game. 👍"
 

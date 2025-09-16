@@ -7,7 +7,8 @@
  * Game data.
  */
 
-const STATE_NEW             = 0;   // newly registered, provide guide
+const STATE_NEW             = 0;   // newly registered, guide provided
+const STATE_NEW_ADDITIONAL  = 5;   // additional guide provided (out of order)
 const STATE_NEW_INSTRUCTED  = 1;   // guide confirmed, captcha given
 const STATE_REG_VERIFIED    = 2;   // verified as human user, name asked
 const STATE_REG_NAME        = 3;   // name registered, participants asked

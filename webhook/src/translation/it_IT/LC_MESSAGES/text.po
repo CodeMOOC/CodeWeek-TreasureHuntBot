@@ -442,6 +442,9 @@ msgstr "Se questa è la prima volta che giochi ad un <i>Code Hunting Game</i>, t
 msgid "game_guide_got_it"
 msgstr "Ricevuto! 👍"
 
+msgid "game_additional_instructions_got_it"
+msgstr "Tutto chiaro! 👍"
+
 msgid "already_registered_to_game"
 msgstr "Hai già effettuato la registrazione al gioco. 👍"
 

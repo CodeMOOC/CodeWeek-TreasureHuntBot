@@ -41,6 +41,26 @@ function msg_processing_handle_group_state($context) {
             );
             return true;
 
+        case STATE_NEW_ADDITIONAL:
+            // Send out additional instructions
+            $additional_instructions = $context->game->get_additional_data('additional_instructions');
+
+            $context->comm->reply(
+                $additional_instructions,
+                null,
+                array("reply_markup" => array(
+                    "inline_keyboard" => array(
+                        array(
+                            array(
+                                "text" => __('game_additional_instructions_got_it'),
+                                "callback_data" => 'done'
+                            )
+                        )
+                    )
+                ))
+            );
+            return true;
+
         case STATE_NEW_INSTRUCTED:
             // Send out the captcha question
             $context->comm->reply(__('registration_new_state'));
@@ -423,6 +443,25 @@ function msg_processing_handle_group_response($context) {
 
         /* REGISTRATION */
         case STATE_NEW:
+            if(
+                ($context->is_callback() && $context->callback->data === 'done') ||
+                is_affirmative($message_response)
+            ) {
+                $additional_instructions = $context->game->get_additional_data('additional_instructions');
+                if(!empty($additional_instructions)) {
+                    bot_set_group_state($context, STATE_NEW_ADDITIONAL);
+                } else {
+                    bot_set_group_state($context, STATE_NEW_INSTRUCTED);
+                }
+
+                msg_processing_handle_group_state($context);
+            }
+            else {
+                $context->comm->reply(__('say_again_ready'));
+            }
+            return true;
+
+        case STATE_NEW_ADDITIONAL:
             if(
                 ($context->is_callback() && $context->callback->data === 'done') ||
                 is_affirmative($message_response)

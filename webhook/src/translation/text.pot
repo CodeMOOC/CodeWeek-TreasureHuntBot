@@ -427,6 +427,9 @@ msgstr ""
 msgid "game_guide_got_it"
 msgstr ""
 
+msgid "game_additional_instructions_got_it"
+msgstr ""
+
 msgid "already_registered_to_game"
 msgstr ""
 

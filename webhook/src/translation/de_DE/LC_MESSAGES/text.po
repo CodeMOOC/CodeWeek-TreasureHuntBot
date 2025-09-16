@@ -428,7 +428,10 @@ msgid "send_out_game_guide"
 msgstr "Wenn Sie zum ersten Mal ein <i>Code Hunting Game</i> spielen, <a href=\"%HELP_LINK%\">werfen Sie bitte einen Blick in die Online-Anleitung</a> , die Ihnen erklärt, wie das Spiel funktioniert."
 
 msgid "game_guide_got_it"
-msgstr "Verstanden! 👍"
+msgstr "Alles klar! 👍"
+
+msgid "game_additional_instructions_got_it"
+msgstr "OK! 👍"
 
 msgid "already_registered_to_game"
 msgstr "Sie sind bereits für dieses Spiel registriert. 👍"
