@@ -374,7 +374,7 @@ class Game {
             $this->event_id
         );
 
-        Logger::debug('Looking for additional data: ' . $sql), __FILE__, $this->owning_context);
+        Logger::debug('Looking for additional data: ' . $sql, __FILE__, $this->owning_context);
 
         $additional_data_row = db_row_query($sql);
 
