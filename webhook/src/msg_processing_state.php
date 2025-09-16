@@ -448,9 +448,11 @@ function msg_processing_handle_group_response($context) {
                 is_affirmative($message_response)
             ) {
                 $additional_instructions = $context->game->get_additional_data('additional_instructions');
-                if(!empty($additional_instructions)) {
+                if($additional_instructions) {
+                    Logger::info('Additional instructions present, moving to STATE_NEW_ADDITIONAL', __FILE__, $context);
                     bot_set_group_state($context, STATE_NEW_ADDITIONAL);
                 } else {
+                    Logger::info('Additional instructions not present, skipping forward to STATE_NEW_INSTRUCTED', __FILE__, $context);
                     bot_set_group_state($context, STATE_NEW_INSTRUCTED);
                 }
 

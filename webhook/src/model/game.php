@@ -356,7 +356,7 @@ class Game {
         LIMIT 1;
         */
 
-        $additional_data_row = db_row_query(sprintf(
+        $sql = sprintf(
             'SELECT ' .
                 'IF(LOCATE(\'%s\', `locale`) > 0, 10, IF(LOCATE(\'en\', `locale`) > 0, 5, 0)) AS `weight`, ' . // 0
                 '`contents` ' . // 1
@@ -372,9 +372,14 @@ class Game {
             $this->event_id,
             $this->game_id,
             $this->event_id
-        ));
+        );
+
+        Logger::debug('Looking for additional data: ' . $sql), __FILE__, $this->owning_context);
+
+        $additional_data_row = db_row_query($sql);
 
         if($additional_data_row) {
+            Logger::info('Additional data for key ' . $key . ': ‘' . $additional_data_row[1] . '’', __FILE__, $this->owning_context);
             return $additional_data_row[1];
         }
         else {
