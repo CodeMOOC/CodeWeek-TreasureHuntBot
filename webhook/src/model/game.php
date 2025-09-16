@@ -360,7 +360,7 @@ class Game {
             'SELECT ' .
                 'IF(LOCATE(\'%s\', `locale`) > 0, 10, IF(LOCATE(\'en\', `locale`) > 0, 5, 0)) AS `weight`, ' . // 0
                 '`contents` ' . // 1
-            'FROM `games_additional` WHERE `name` = \'%s\' `game_id` = %d OR `event_id` = %d ' .
+            'FROM `games_additional` WHERE `name` = \'%s\' AND (`game_id` = %d OR `event_id` = %d) ' .
             'ORDER BY ' .
                 '`game_id` = %d DESC, ' .
                 '`event_id` = %d DESC, ' .
