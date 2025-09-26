@@ -37,7 +37,17 @@ function prepare_parameters($orig_params, $add_params) {
 
     if($add_params && is_array($add_params)) {
         foreach ($add_params as $key => &$val) {
-            $orig_params[$key] = $val;
+            if(is_float($val)) {
+                // Convert floats to string with dot as decimal separator
+                $orig_params[$key] = number_format($val, 6, '.', '');
+            }
+            else if(is_bool($val)) {
+                // Convert booleans to string
+                $orig_params[$key] = b2s($val);
+            }
+            else {
+                $orig_params[$key] = $val;
+            }
         }
     }
 
