@@ -171,7 +171,7 @@ function msg_processing_commands($context) {
                             else {
                                 $context->comm->reply(__('failure_general'));
                             }
-                        } else {
+                        } else if($result->expected_location_id !== null) {
                             $location_info = bot_get_location_info($context, $result->expected_location_id);
 
                             if($result->response === 'first') {
@@ -195,6 +195,8 @@ function msg_processing_commands($context) {
 
                                 msg_processing_handle_group_state($context);
                             }
+                        } else {
+                            $context->comm->reply(__('cmd_start_location_unexpected'));
                         }
                         break;
 

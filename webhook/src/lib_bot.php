@@ -324,11 +324,11 @@ function bot_get_time_since_location_assignment($context) {
 }
 
 class BotReachLocationInfo {
-    public int $expected_location_id;
+    public ?int $expected_location_id;
     public bool $reached;
     public $response;
 
-    public function __construct(int $expected_location_id, $response) {
+    public function __construct(?int $expected_location_id, $response) {
         $this->expected_location_id = $expected_location_id;
         $this->reached = ($response === true || $response === 'first' || $response === 'last');
         $this->response = $response;
