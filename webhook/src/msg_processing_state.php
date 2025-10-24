@@ -603,7 +603,7 @@ function msg_processing_handle_group_response($context) {
             Logger::debug("Processing input for group moving to location #{$target_location_id}, game #{$context->game->game_id}", __FILE__, $context);
 
             if($context->is_message() && $context->message->is_text()) {
-                if($location_info->expected_response) {
+                if($location_info->expected_response !== null) {
                     // Location expects a textual response
                     if($context->message->matches_text($location_info->expected_response)) {
                         // User has sent the expected response
