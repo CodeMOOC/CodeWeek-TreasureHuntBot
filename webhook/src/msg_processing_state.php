@@ -593,7 +593,7 @@ function msg_processing_handle_group_response($context) {
                 return true;
             }
 
-            $location_info = bot_get_location_info($context, bot_get_expected_location_id($context));
+            $location_info = bot_get_location_info($context, $target_location_id);
             if($location_info === null) {
                 Logger::fatal("Unable to load location info for location #{$target_location_id}", __FILE__, $context);
                 $context->comm->reply(__('failure_general'));
@@ -779,6 +779,10 @@ function msg_processing_handle_group_response($context) {
             return true;
 
         case STATE_GAME_LAST_LOC:
+            // Note: this has been copied in from state STATE_GAME_LOCATION,
+            //       it should be refactored to avoid code duplication and potential
+            //       inconsistencies in the handling of the last location vs regular locations
+
             $target_location_id = bot_get_expected_location_id($context);
             if($target_location_id === false) {
                 Logger::fatal('Unable to load expected location', __FILE__, $context);
@@ -786,7 +790,7 @@ function msg_processing_handle_group_response($context) {
                 return true;
             }
 
-            $location_info = bot_get_location_info($context, bot_get_expected_location_id($context));
+            $location_info = bot_get_location_info($context, $target_location_id);
             if($location_info === null) {
                 Logger::fatal("Unable to load location info for location #{$target_location_id}", __FILE__, $context);
                 $context->comm->reply(__('failure_general'));
@@ -834,14 +838,8 @@ function msg_processing_handle_group_response($context) {
                 return true;
             } else if($context->is_callback()) {
                 if($context->callback->data === 'hint') {
-                    if($location_info->hint) {
-                        // Send location-specific text hint
-                        $context->comm->reply($location_info->hint);
-                    }
-                    else {
-                        // Do not send precise location for final location (?)
-
-                        // Send GeoHash hint instead (verify this)
+                    if($context->game->pick_random_final_location) {
+                        // Send out GeoHash hint when playing with random final locations
                         $context->comm->reply(
                             __('geohash_hint'),
                             null,
@@ -860,6 +858,13 @@ function msg_processing_handle_group_response($context) {
                                 )
                             ))
                         );
+                    }
+                    else if($location_info->hint) {
+                        // Send location-specific text hint
+                        $context->comm->reply($location_info->hint);
+                    }
+                    else {
+                        // Do not send precise location
                     }
                     return true;
                 }
