@@ -1,0 +1,28 @@
+{
+  "name": "TreasureHunt Bot Dev",
+  "dockerComposeFile": [
+    "../docker-compose.yml",
+    "docker-compose.dev.yml"
+  ],
+  "service": "webhook",
+  "workspaceFolder": "/var/www/html",
+  // Do not terminate the dev container when switching to another one
+	"shutdownAction": "none",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "bmewburn.vscode-intelephense-client",
+        "xdebug.php-debug",
+        "ms-azuretools.vscode-docker",
+        "redhat.vscode-yaml"
+      ],
+      "settings": {
+        "php.validate.executablePath": "/usr/local/bin/php"
+      }
+    }
+  },
+  "remoteEnv": {
+    "PMA_HOST": "db"
+  },
+  "postCreateCommand": "chmod +x /var/www/html/translation/compile.sh && /var/www/html/translation/compile.sh"
+}

@@ -1,0 +1,56 @@
+# Custom docker-compose.yml file for deployment
+
+networks:
+  web:
+    external: true
+  treasurehunt-backend:
+
+volumes:
+  treasurehunt-db:
+    external: true
+
+services:
+  proxy:
+    networks:
+    - web
+    - treasurehunt-backend
+    restart: unless-stopped
+
+  webhook:
+    networks:
+    - treasurehunt-backend
+    restart: unless-stopped
+
+  db:
+    networks:
+    - treasurehunt-backend
+    volumes:
+    - treasurehunt-db:/var/lib/mysql:rw
+    restart: unless-stopped
+
+  db-client:
+    build: ./mysql-client
+    depends_on:
+    - db
+    networks:
+    - treasurehunt-backend
+    env_file: config.env
+    logging:
+      driver: "none"
+
+  database-manager:
+    image: phpmyadmin:5.2.1-apache
+    depends_on:
+    - db
+    networks:
+    - web
+    - treasurehunt-backend
+    env_file: config.env
+    environment:
+    - "PMA_HOST=db"
+    expose:
+    - "80"
+    stdin_open: true
+    tty: true
+    logging:
+      driver: "none"

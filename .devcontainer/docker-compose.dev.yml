@@ -1,0 +1,47 @@
+# Custom docker compose file for development
+
+services:
+  proxy:
+    image: nginx:1.25-alpine
+    depends_on:
+      - webhook
+    volumes:
+      - ./proxy/server.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./webhook/src:/var/www/html:ro
+    ports:
+      - 8888:80
+    logging:
+      driver: "none"
+    restart: unless-stopped
+
+  webhook:
+    build:
+      context: ./webhook
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./webhook/src:/var/www/html:rw
+      - ./webhook/html2pdf:/html2pdf:rw
+      - ./data:/data:rw
+      - ./wom-source.pem:/keys/wom-source.pem:ro
+    env_file:
+      - config.env
+    expose:
+      - "9000"
+
+  db:
+    image: mysql:5.7.43
+    env_file: config.env
+    ports:
+      - 3306:3306
+
+  database-manager:
+    image: phpmyadmin:5.2.3-apache
+    depends_on:
+    - db
+    env_file: config.env
+    ports:
+      - 8889:80
+    environment:
+    - "PMA_HOST=db"
+    logging:
+      driver: "none"

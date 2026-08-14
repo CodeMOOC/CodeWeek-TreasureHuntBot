@@ -7,7 +7,7 @@ RUN apt-get update && apt-get install -y \
     zip \
     && rm -rf /var/lib/apt/lists/*
 
-COPY ./php-prod.ini /usr/local/etc/php/php.ini
+COPY ./php-dev.ini /usr/local/etc/php/php.ini
 
 RUN docker-php-ext-install mysqli gd gettext
 
@@ -18,10 +18,9 @@ RUN locale-gen && \
 ENV LANG=en_US.UTF-8
 ENV LC_ALL=en_US.UTF-8
 
-# Copy all the stuff
-COPY ./src/ /var/www/html/
-COPY ./html2pdf/ /html2pdf/
+# Do not copy source; dev volume mount will override at runtime
+# COPY ./src/ /var/www/html/
+# COPY ./html2pdf/ /html2pdf/
 
-# Compile translations
-RUN chmod +x /var/www/html/translation/compile.sh
-RUN /var/www/html/translation/compile.sh
+# Install Xdebug for development
+RUN pecl install xdebug-3.1.6 && docker-php-ext-enable xdebug
