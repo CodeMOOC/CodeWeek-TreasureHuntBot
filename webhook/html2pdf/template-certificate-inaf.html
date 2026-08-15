@@ -35,44 +35,27 @@ html, body {
     width: 277.0mm;
     height: 190.0mm;
 }
-.overlay {
-    position: absolute;
-    top: 0;
-    right: 0;
-    left: 0;
-    width: 297.0mm;
-    height: 210.0mm;
-    background-image: url('/html2pdf/images/bubbles-50.png');
-    background-repeat: no-repeat;
-}
-.left-overlay {
-    background-position: -90mm 0;
-}
-.right-overlay {
-    background-position: 170mm -120mm;
-}
 .header {
-    margin-top: 32mm;
-    height: 50mm;
+    margin-top: 44mm;
+    height: 10mm;
     text-align: center;
 }
 .header img {
-    margin-top: 10mm;
     height: auto;
 }
 .content {
-    position: absolute;
-    top: 65mm;
+    margin-top: 12mm;
     padding: 0 2em;
     text-align: center;
     line-height: 1.2;
 }
 .content .big {
     display: block;
-    margin: 0;
+    margin: 5mm 0;
     font-size: 34pt;
     font-weight: bold;
     white-space: nowrap;
+    line-height: 0.9;
 }
     </style>
 </head>
@@ -81,17 +64,17 @@ html, body {
 
     <div class="page">
         <div class="header">
-            <img src="/html2pdf/images/title.png" style="width: 145mm" />
+            <img src="/html2pdf/images/title.png" style="width: 150mm" />
         </div>
 
         <div class="content">
             <div class="big">%TEAM_NAME%</div>
-            for completing the
+            <div>for completing the</div>
             <div class="big">Worldwide Astrophysical<br /><i>Code Hunting Game</i></div>
-            on %DATE% in %ELAPSED_MINS% minutes
+            <div>on %DATE% in %ELAPSED_MINS% minutes</div>
         </div>
     </div>
 
-    <img src="/data/avatars/%AVATAR_NAME%" style="position: absolute; width: 40mm; height: auto; max-height: 70mm; top: 48mm; left: 22mm" />
+    <img src="/data/avatars/%AVATAR_NAME%" style="position: absolute; width: 34mm; height: auto; max-height: 70mm; top: 47mm; left: 30mm" />
 </body>
 </html>
