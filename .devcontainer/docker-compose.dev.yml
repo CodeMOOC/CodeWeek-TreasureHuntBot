@@ -1,5 +1,8 @@
 # Custom docker compose file for development
 
+volumes:
+  db-data:
+
 services:
   proxy:
     image: nginx:1.25-alpine
@@ -31,6 +34,8 @@ services:
   db:
     image: mysql:5.7.43
     env_file: config.env
+    volumes:
+      - db-data:/var/lib/mysql
     ports:
       - 3306:3306
 
