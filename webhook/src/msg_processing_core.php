@@ -92,11 +92,15 @@ function process_update($context) {
 }
 
 // Process the incoming update
-$context = new Context($update);
-process_update($context);
-if($context->is_callback()) {
-    // If we are handling a callback, set the callback as processed now
-    $callback_id = $context->callback->callback_id;
-    telegram_answer_callback_query($callback_id, TRUE);
+if(isset($update)) {
+    $context = new Context($update);
+    process_update($context);
+    if($context->is_callback()) {
+        // If we are handling a callback, set the callback as processed now
+        $callback_id = $context->callback->callback_id;
+        telegram_answer_callback_query($callback_id);
+    }
+    $context->close();
+} else {
+    Logger::fatal('No update received', __FILE__);
 }
-$context->close();

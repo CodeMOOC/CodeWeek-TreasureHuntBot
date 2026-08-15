@@ -15,25 +15,27 @@ require_once(dirname(__FILE__) . '/lib_http.php');
  * @param object Handle to cURL request.
  * @return object | bool Parsed response object or false on failure.
  */
-function perform_telegram_request($handle) {
-    if($handle === false) {
-        Logger::error('Failed to prepare cURL handle', __FILE__);
-        return false;
-    }
+if (!function_exists('perform_telegram_request')) {
+    function perform_telegram_request($handle) {
+        if($handle === false) {
+            Logger::error('Failed to prepare cURL handle', __FILE__);
+            return false;
+        }
 
-    $response = perform_curl_request($handle);
-    if($response === false) {
-        return false;
-    }
-    else if($response === true) {
-        // Response does not contain response body
-        // Fake a successful API call with an empty response
-        return array();
-    }
+        $response = perform_curl_request($handle);
+        if($response === false) {
+            return false;
+        }
+        else if($response === true) {
+            // Response does not contain response body
+            // Fake a successful API call with an empty response
+            return array();
+        }
 
-    // Everything fine, return the result as object
-    $response = json_decode($response, true);
-    return $response['result'];
+        // Everything fine, return the result as object
+        $response = json_decode($response, true);
+        return $response['result'];
+    }
 }
 
 /**
