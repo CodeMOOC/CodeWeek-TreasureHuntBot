@@ -5,9 +5,6 @@ volumes:
 
 services:
   proxy:
-    image: nginx:1.25-alpine
-    depends_on:
-      - webhook
     volumes:
       - ./proxy/server.conf:/etc/nginx/conf.d/default.conf:ro
       - ./webhook/src:/var/www/html:ro
@@ -26,18 +23,12 @@ services:
       - ./webhook/html2pdf:/html2pdf:rw
       - ./data:/data:rw
       - ./wom-source.pem:/keys/wom-source.pem:ro
-    env_file:
-      - config.env
-    expose:
-      - "9000"
 
   db:
-    image: mysql:5.7.43
-    env_file: config.env
     volumes:
       - db-data:/var/lib/mysql
     ports:
-      - 3306:3306
+      - 3306:3306 # Expose DB locally
 
   database-manager:
     image: phpmyadmin:5.2.3-apache

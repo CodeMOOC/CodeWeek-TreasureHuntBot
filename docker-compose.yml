@@ -2,7 +2,7 @@
 
 services:
   proxy:
-    image: nginx:1.25-alpine
+    image: nginx:1.31-alpine
     depends_on:
     - webhook
     volumes:
@@ -10,8 +10,6 @@ services:
     - ./webhook/src:/var/www/html:ro
     expose:
     - 80
-    logging:
-      driver: "none"
     restart: unless-stopped
 
   webhook:
@@ -32,7 +30,7 @@ services:
     restart: unless-stopped
 
   db:
-    image: mysql:5.7.43
+    image: mysql:5.7.44
     env_file: config.env
     logging:
       driver: "none"

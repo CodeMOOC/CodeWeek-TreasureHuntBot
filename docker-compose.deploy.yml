@@ -6,7 +6,7 @@ networks:
   treasurehunt-backend:
 
 volumes:
-  treasurehunt-db:
+  treasurehuntbot-db:
     external: true
 
 services:
@@ -15,6 +15,12 @@ services:
     - web
     - treasurehunt-backend
     restart: unless-stopped
+    labels:
+    - "traefik.enable=true"
+    - "traefik.docker.network=web"
+    - "traefik.http.routers.treasurehuntbot-proxy.rule=Host(`treasurehuntbot.digit.srl`)"
+    - "traefik.http.routers.treasurehuntbot-proxy.priority=1"
+    - "traefik.http.routers.treasurehuntbot-proxy.entrypoints=websecure"
 
   webhook:
     networks:
@@ -25,7 +31,7 @@ services:
     networks:
     - treasurehunt-backend
     volumes:
-    - treasurehunt-db:/var/lib/mysql:rw
+    - treasurehuntbot-db:/var/lib/mysql:rw
     restart: unless-stopped
 
   db-client:
@@ -39,7 +45,7 @@ services:
       driver: "none"
 
   database-manager:
-    image: phpmyadmin:5.2.1-apache
+    image: phpmyadmin:5.2.3-apache
     depends_on:
     - db
     networks:
@@ -48,9 +54,24 @@ services:
     env_file: config.env
     environment:
     - "PMA_HOST=db"
+    - "PMA_ABSOLUTE_URI=https://treasurehuntbot.digit.srl/phpmyadmin/"
     expose:
     - "80"
     stdin_open: true
     tty: true
     logging:
       driver: "none"
+    labels:
+    - "traefik.enable=true"
+    - "traefik.docker.network=web"
+    - "traefik.http.routers.treasurehuntbot-admin-secure.rule=Host(`treasurehuntbot.digit.srl`) && PathPrefix(`/phpmyadmin`)"
+    - "traefik.http.routers.treasurehuntbot-admin-secure.priority=100"
+    - "traefik.http.routers.treasurehuntbot-admin-secure.entrypoints=websecure"
+    - "traefik.http.routers.treasurehuntbot-admin-secure.middlewares=treasurehuntbot-admin-stripprefix"
+    - "traefik.http.routers.treasurehuntbot-admin-insecure.rule=Host(`treasurehuntbot.digit.srl`) && PathPrefix(`/phpmyadmin`)"
+    - "traefik.http.routers.treasurehuntbot-admin-insecure.priority=100"
+    - "traefik.http.routers.treasurehuntbot-admin-insecure.entrypoints=web"
+    - "traefik.http.routers.treasurehuntbot-admin-insecure.middlewares=treasurehuntbot-admin-redirecthttps,treasurehuntbot-admin-stripprefix"
+    - "traefik.http.middlewares.treasurehuntbot-admin-redirecthttps.redirectscheme.scheme=https"
+    - "traefik.http.middlewares.treasurehuntbot-admin-redirecthttps.redirectscheme.permanent=true"
+    - "traefik.http.middlewares.treasurehuntbot-admin-stripprefix.stripprefix.prefixes=/phpmyadmin"
