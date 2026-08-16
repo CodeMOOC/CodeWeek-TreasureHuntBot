@@ -1,11 +1,11 @@
 # Treasure Hunt Bot (CodeWeek edition)
 
-Source code of the **Code Hunting Games** Telegram bot, refreshed and updated for **Code Week 2020**.
+Source code of the **Code Hunting Games** Telegram bot, refreshed and updated for **Code Week 2020**, the **Worldwide Astrophysical Code Hunting Game** (INAF), and **Code Hunting Game nel cielo** (INAF).
 Visit the [official website](https://codehunting.games) for further information on how to play the game and how to create your own *Code Hunting Game* sessions.
 
-[Archived version of the original bot source code](https://github.com/CodeMOOC/TreasureHuntBot).
+[Archived version of the first bot's source code](https://github.com/CodeMOOC/TreasureHuntBot).
 
-Developed at the University&nbsp;of&nbsp;Urbino&nbsp;(Italy) and DIGIT&nbsp;srl.
+Developed at the University&nbsp;of&nbsp;Urbino&nbsp;(Italy) and at DIGIT&nbsp;srl.
 
 ## Contribute
 
@@ -21,7 +21,8 @@ If you want to deploy the bot on your own, requirements are as follows:
 * A Telegram bot,
 * Server with a public&nbsp;IP,
 * PHP&nbsp;7,
-* MySQL.
+* MySQL 5.7.
+* A Docker Compose-based deploy configuration is included.
 
 In order to install the bot, please proceed as follows:
 

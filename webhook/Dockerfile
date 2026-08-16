@@ -13,8 +13,8 @@ RUN docker-php-ext-install mysqli gd gettext
 
 COPY ./locale.gen /etc/locale.gen
 RUN locale-gen && \
-        dpkg-reconfigure --frontend=noninteractive locales && \
-        update-locale LANG=en_US.utf8
+    dpkg-reconfigure --frontend=noninteractive locales && \
+    update-locale LANG=en_US.utf8
 ENV LANG=en_US.UTF-8
 ENV LC_ALL=en_US.UTF-8
 
