@@ -33,6 +33,21 @@ services:
     volumes:
     - treasurehuntbot-db:/var/lib/mysql:rw
     restart: unless-stopped
+    command:
+    - --innodb-buffer-pool-size=256M
+    - --innodb-log-file-size=64M
+    - --innodb-flush-method=O_DIRECT
+    - --max-connections=50
+    - --performance-schema=OFF
+    - --table-definition-cache=200
+    - --table-open-cache=200
+    - --innodb-buffer-pool-instances=1
+    - --innodb-flush-log-at-trx-commit=2
+    mem_limit: 512m
+    mem_reservation: 256m
+    memswap_limit: 512m
+    mem_swappiness: 0
+    oom_kill_disable: false
 
   db-client:
     build: ./mysql-client
