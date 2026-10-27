@@ -64,9 +64,8 @@ tasks:
   rebuild:
     desc: Rebuild and restart the webhook service
     cmds:
-      - '{{.DC}} rm -sf proxy webhook'
-      - '{{.DC}} build webhook'
-      - '{{.DC}} up -d proxy'
+      - '{{.DC}} build proxy webhook'
+      - '{{.DC}} up -d --force-recreate proxy webhook'
 
   phpmyadmin:
     desc: Run phpMyAdmin (CTRL+C to stop)
