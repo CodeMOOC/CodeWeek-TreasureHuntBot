@@ -19,6 +19,7 @@ define('DATABASE_HOST', 'db');
 define('DATABASE_NAME', getenv('MYSQL_DATABASE'));
 define('DATABASE_USERNAME', getenv('MYSQL_USER'));
 define('DATABASE_PASSWORD', getenv('MYSQL_PASSWORD'));
+define('DATABASE_PORT', (int) (getenv('MYSQL_PORT') ?: 3306));
 
 /* Settings constant */
 define('DEBUG', false);

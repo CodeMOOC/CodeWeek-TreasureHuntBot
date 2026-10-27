@@ -65,7 +65,7 @@ function db_open_connection($quick = false) {
         }
 
         // Open up a new connection
-        $connection = mysqli_connect(DATABASE_HOST, DATABASE_USERNAME, DATABASE_PASSWORD, DATABASE_NAME);
+        $connection = mysqli_connect(DATABASE_HOST, DATABASE_USERNAME, DATABASE_PASSWORD, DATABASE_NAME, DATABASE_PORT);
 
         if(!$connection) {
             $errno = mysqli_connect_errno();

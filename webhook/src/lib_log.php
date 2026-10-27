@@ -51,7 +51,7 @@ class Logger {
     public static function fatal($message, $tag = '', $context = null) {
         self::error($message, $tag, $context);
 
-        die();
+        die($message);
     }
 
     private static function severity_to_char($level) {
